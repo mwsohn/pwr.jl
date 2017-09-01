@@ -109,11 +109,19 @@ function PTest(;
         n = samplesizePTest(h = h, alpha = alpha, power = power, sided = sided)
     end
 
-    println("\nProportion power calculation for binomial distribution (arcsine transformation)\n")
-    @printf("%13s = %.6f\n","h",h)
-    @printf("%13s = %d\n","n",n)
-    @printf("%13s = %.6f\n","alpha",alpha)
-    @printf("%13s = %.6f\n","power",power)
+
+    note = ""
+
+    return htest(
+        string("Proportion power calculation for binomial distribution (arcsine transformation)"),
+        OrderedDict(
+            "h" => h,
+            "n" => n,
+            "alpha" => alpha,
+            "power" => power,
+            "note" => note
+            )
+        )
 end
 
-PTest(h=.0,n=100,power = 0.8)
+#PTest(h=.0,n=100,power = 0.8)

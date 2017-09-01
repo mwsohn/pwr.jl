@@ -1,7 +1,5 @@
 # power analysis functions for chi square test
 
-using Distributions, Roots
-
 function powerChisqTest(;
     w::Real = 0,
     N::Real = 0,
@@ -9,21 +7,7 @@ function powerChisqTest(;
     alpha::Float64 = 0.05
     )
 
-    if w <= 0
-        error("w must be positive")
-    end
-
-    if N < 1
-        error("Number of observations `N` must be at least 1")
-    end
-
-    if alpha == 0.0
-        error("`alpha` must be a number in [0,1]")
-    end
-
-    if df == 0
-        error("`df` must be at least 1")
-    end
+    check_args(w = w, N = N, df = df, alpha = alpha)
 
     λ = N * w^2
     return ccdf(NoncentralChisq(df,λ), cquantile(Chisq(df),alpha))
@@ -35,6 +19,9 @@ function samplesizeChisqTest(;
     alpha::Float64 = 0.05,
     power::Float64 = 0.8
     )
+
+    check_args(w = w, df = df, alpha = alpha, power = power)
+
     return fzero(x->powerChisqTest(w = w, N = x, df = df, alpha = alpha) - power, 2.0, 10.0^7)
 end
 
@@ -44,6 +31,9 @@ function effectsizeChisqTest(;
     alpha::Float64 = 0.05,
     power::Float64 = 0.8
     )
+
+    check_args(N = N, df = df, alpha = alpha, power = power)
+
     return fzero(x->powerChisqTest(w = x, N = N, df = df, alpha = alpha) - power, 1e-10, 1e+9)
 end
 
@@ -53,6 +43,9 @@ function alphaChisqTest(;
     df::Int64 = 0,
     power::Float64 = 0.8
     )
+
+    check_args(w = w, N = N, df = df, power = power)
+
     return fzero(x->powerChisqTest(w = w, N = N, df = df, alpha = x) - power, 1e-10, 1-1e-10)
 end
 
@@ -77,11 +70,17 @@ function ChisqTest(;
         N = samplesizeChisqTest(w = w, df = df, alpha = alpha, power = power)
     end
 
-    println("\nChi-square test power calculation\n")
-    @printf("%13s = %.6f\n","w",w)
-    @printf("%13s = %d\n","N",N)
-    @printf("%13s = %d\n","df",df)
-    @printf("%13s = %.6f\n","alpha",alpha)
-    @printf("%13s = %.6f\n","power",power)
-    println("\nNOTE: N is the number of observations")
+    note = "`N` is the number of observations"
+
+    return htest(
+        string("Chi-square test power calculation"),
+        OrderedDict(
+            "w" => w,
+            "N" => N,
+            "df" => df,
+            "alpha" => alpha,
+            "power" => power,
+            "note" => note)
+        )
+
 end

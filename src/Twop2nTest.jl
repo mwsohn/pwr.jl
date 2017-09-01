@@ -1,7 +1,5 @@
 # power analysis functions for difference in two proportions in two different sample sizes
 
-using Distributions, Roots
-
 function power2p2nTest(;
     h::Real = 0,
     n1::Real = 0,
@@ -36,7 +34,7 @@ function power2p2nTest(;
     if tside == 1
         return cdf(Normal(),quantile(Normal(),alpha) - h*sqrt(n1*n2/(n1 + n2)))
     elseif tside == 2
-        return ccdf(Normal(),cquantile(Normal(),alpha/2) - h*sqrt(n1*n2/(n1 + n2)) + cdf(Normal(),quantile(Normal(),alpha) - h*sqrt(n1*n2/(n1 + n2)))
+        return ccdf(Normal(),cquantile(Normal(),alpha/2) - h*sqrt(n1*n2/(n1 + n2))) + cdf(Normal(),quantile(Normal(),alpha) - h*sqrt(n1*n2/(n1 + n2)))
     elseif tside == 3
         return ccdf(Normal(),cquantile(Normal(),alpha/2) - h*sqrt(n1*n2/(n1 + n2)))
     end
@@ -58,11 +56,10 @@ function samplesize2p2nTest(;
         error("`n1` must be specified and cannot be zero")
     end
 
-    if n2 == 0
-        error("`n2` must be specified and cannot be zero")
-    end
-    return ceil(Int64,fzero(x->powerTwopTownTest(h = h, n1 = n1, n2 = x, alpha = alpha, sided = sided) - power, 2 + 1e-10, 1e+09))
+    return ceil(Int64,fzero(x->power2p2nTest(h = h, n1 = n1, n2 = x, alpha = alpha, sided = sided) - power, 2 + 1e-10, 1e+09))
 end
+
+#samplesize2p2nTest(h=.3,n1=100)
 
 function effectsize2p2nTest(;
     n1::Real = 0,
@@ -71,7 +68,7 @@ function effectsize2p2nTest(;
     power::Float64 = 0.8,
     sided::String = "two"
     )
-    return fzero(x->powerTwopTwonTest(h = x, n1 = n1, n2 = n2, alpha = alpha, sided = sided) - power, 1e-10, 1 - 1e-10)
+    return fzero(x->power2p2nTest(h = x, n1 = n1, n2 = n2, alpha = alpha, sided = sided) - power, 1e-10, 1 - 1e-10)
 end
 
 # effectsizeTwopTest(n=175) # .3
@@ -83,7 +80,7 @@ function alpha2p2nTest(;
     power::Float64 = 0.8,
     sided::String = "two"
     )
-    return fzero(x->powerTwopTwonTest(h = h, n1 = n1, n2 = n2, alpha = x, sided = sided) - power, 1e-10, 1 - 1e-10)
+    return fzero(x->power2p2nTest(h = h, n1 = n1, n2 = n2, alpha = x, sided = sided) - power, 1e-10, 1 - 1e-10)
 end
 
 # alphaTwopTest(h=.3,n=175) # 0.0495
@@ -115,12 +112,18 @@ function Twop2nTest(;
         n = samplesize2p2nTest(h = h, n1 = n1, alpha = alpha, power = power, sided = sided)
     end
 
-    println("\nDifference of proportion power calculation for binomial distribution (arcsine transformation)\n")
-    @printf("%13s = %.6f\n","h",h)
-    @printf("%13s = %d\n","n1",n1)
-    @printf("%13s = %d\n","n2",n2)
-    @printf("%13s = %.6f\n","alpha",alpha)
-    @printf("%13s = %.6f\n","power",power)
+    note = "different sample sizes"
+
+    return htest(
+        "Difference of proportion power calculation for binomial distribution (arcsine transformation)",
+        OrderedDict(
+            "h" => h,
+            "n1" => n1,
+            "n2" => n2,
+            "alpha" => alpha,
+            "power" => power,
+            "note" => note)
+        )
 end
 
-#TwopTest(h=.3,n=100,power = 0.0)
+#Twop2nTest(h=.3,n1=100,n2=100,power = 0.0)

@@ -1,7 +1,5 @@
 # power analysis functions for difference in two proportions
 
-using Distributions, Roots
-
 function powerTwopTest(;
     h::Real = 0,
     n::Real = 0,
@@ -107,11 +105,14 @@ function TwopTest(;
         n = samplesizeTwopTest(h = h, alpha = alpha, power = power, sided = sided)
     end
 
-    println("\nDifference of proportion power calculation for binomial distribution (arcsine transformation)\n")
-    @printf("%13s = %.6f\n","h",h)
-    @printf("%13s = %d\n","n",n)
-    @printf("%13s = %.6f\n","alpha",alpha)
-    @printf("%13s = %.6f\n","power",power)
+    return htest(
+        "Difference of proportion power calculation for binomial distribution (arcsine transformation)",
+        OrderedDict(
+            "h" => h,
+            "n" => n,
+            "alpha" => alpha,
+            "power" => power)
+        )
 end
 
 #TwopTest(h=.3,n=100,power = 0.0)

@@ -44,7 +44,7 @@ function samplesizeTTest(;
     sampletype::String = "onesample",
     sided::String = "two")
 
-    return fzero(x->powerTTest(n = x, d = d, alpha = alpha, sampletype = sampletype, sided = sided) - power, 2.0, 10.0^7)
+    return ceil(Int64,fzero(x->powerTTest(n = x, d = d, alpha = alpha, sampletype = sampletype, sided = sided) - power, 2.0, 10.0^7))
 end
 
 function effectsizeTTest(;
@@ -105,10 +105,23 @@ function TTest(;
     stype = Dict("onesample" => "One-sample", "twosample" => "Two-sample", "paired" => "Paired")
     alt = Dict("two" => "two-sided", "less" => "less", "greater" => "greater")
 
-    println("\n", stype[sampletype], " t-test power calculation\n")
-    @printf("%13s = %d\n","n",n)
-    @printf("%13s = %.7f\n","d",d)
-    @printf("%13s = %f\n","alpha",alpha)
-    @printf("%13s = %f\n","power",power)
-    @printf("%13s = %s\n","alternative",alt[sided])
+    note = ""
+    if sided == "paired"
+        note = "`n` is number of pairs"
+    elseif sided == "two"
+        note = "`n` is number in each group"
+    end
+
+    return htest(
+        string(stype[sampletype]," t-test power calculation"),
+        OrderedDict(
+            "n" => n,
+            "d" => d,
+            "alpha" => alpha,
+            "power" => power,
+            "alternative" => alt[sided],
+            "note" => note)
+        )
 end
+
+#print(TTest(n=0,d=.2))
