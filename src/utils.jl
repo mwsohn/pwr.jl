@@ -24,10 +24,10 @@ end
 
 function check_args(; kwargs...)
     for (key,val) in kwargs
-        if key in (:k, :n, :n1, :n2, :u, :v, :w, :df, :f, :f2, :r) && val == 0
+        if key in (:k, :n, :n1, :n2, :w, :f, :f2, :r) && val == 0
             error("`",string(key),"` must be specified and greater than zero")
         elseif key in (:u, :v, :df)
-            error("Degrees of freedom `",key,"` must be at least 1")
+            error("Degree of freedom `",key,"` must be at least 1")
         elseif key == :w && val <= 0
             error("`w` must be positive")
         elseif key in (:alpha,:power) && (val <= 0.0 || val >= 1.0)
