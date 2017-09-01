@@ -27,7 +27,7 @@ end
 function check_args(; kwargs...)
 
     for (key,val) in kwargs
-        if key in (:k, :n, :n1, :n2, :u, :v, :df, :f, :r) && val == 0
+        if key in (:k, :n, :n1, :n2, :u, :v, :w, :df, :f, :f2, :r) && val == 0
             error("`",string(key),"` must be specified and greater than zero")
         elseif key == :w && val <= 0
             error("w must be positive")

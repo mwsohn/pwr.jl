@@ -7,17 +7,7 @@ function powerT2Test(;
     alpha = 0.05,
     sided::String = "two")
 
-    if d == 0.0
-        error("`d` must be specified and non-zero")
-    end
-
-    if n1== 0
-        error("`n1` must be specified")
-    end
-
-    if n2== 0
-        error("`n2` must be specified")
-    end
+    check_args(d = d, n1 = n1, n2 = n2, alpha = alpha)
 
     if sided == "less"
         tside = ttside = 1
@@ -48,9 +38,7 @@ function samplesizeT2Test(;
     power = 0.8,
     sided::String = "two")
 
-    if n1 == 0
-        error("`n1` must be specified and greater than 1")
-    end
+    check_args(d = d, n1 = n1, alpha = alpha, power = power)
 
     if n1 == 0 && n2 != 0
         n1 = n2
@@ -68,9 +56,7 @@ function effectsizeT2Test(;
     sided::String = "two"
     )
 
-    if n1 <= 1 || n2 <= 1
-        error("`n1` and `n2` must be greater than 1")
-    end
+    check_args(n1 = n1, n2 = n2, alpha = alpha, power = power)
 
     return fzero(x -> powerT2Test(n1 = n1, n2 = n2, d = x, alpha = alpha, sided = sided) - power,.001,100)
 end
@@ -85,13 +71,7 @@ function alphaT2Test(;
     sided::String = "two"
     )
 
-    if n1 <= 1 || n2 <= 1
-        error("Sample size `n1` and `n2` must be greater than 1")
-    end
-
-    if d == 0.0
-        error("Effect size `d` greater than 0.0 must be specified")
-    end
+    check_args(d = d, n1 = n1, n2 = n2, power = power)
 
     return fzero(x->powerT2Test(n1 = n1, n2 = n2, d = d, alpha = x, sided = sided) - power, 1e-10, 1 - 1e-10)
 end
@@ -118,16 +98,19 @@ function T2Test(;
         n2 = samplesizeT2Test(n1 = n1, d = d, alpha = alpha, power = power, sided = sided)
     end
 
-    stype = Dict("onesample" => "One-sample", "twosample" => "Two-sample", "paired" => "Paired")
     alt = Dict("two" => "two-sided", "less" => "less", "greater" => "greater")
 
-    println("\nTwo-sample t-test power calculation\n")
-    @printf("%13s = %d\n","n1",n1)
-    @printf("%13s = %d\n","n2",n2)
-    @printf("%13s = %.7f\n","d",d)
-    @printf("%13s = %f\n","alpha",alpha)
-    @printf("%13s = %f\n","power",power)
-    @printf("%13s = %s\n","alternative",alt[sided])
+    return htest(
+        string("Two-sample t-test power calculation"),
+        OrderedDict(
+            "d" => d,
+            "n1" => n1,
+            "n2" => n2,
+            "alpha" => alpha,
+            "power" => power,
+            "sided" => alt[sided],
+            "note" => note)
+        )
 end
 
 #T2Test(n1=200,n2=0,d=.2)
