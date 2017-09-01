@@ -9,6 +9,8 @@ function powerTTest(;
     sampletype::String = "onesample",
     sided::String = "two")
 
+    check_args(d=d,n=n,alpha=alpha)
+
     if sampletype in ("onesample","paired")
         tsample = 1
     elseif sampletype == "twosample"
@@ -44,6 +46,8 @@ function samplesizeTTest(;
     sampletype::String = "onesample",
     sided::String = "two")
 
+    check_args(d=d,alpha=alpha,power=power)
+
     return ceil(Int64,fzero(x->powerTTest(n = x, d = d, alpha = alpha, sampletype = sampletype, sided = sided) - power, 2.0, 10.0^7))
 end
 
@@ -55,9 +59,7 @@ function effectsizeTTest(;
     sided::String = "two"
     )
 
-    if n <= 1
-        error("Sample size `n` must be greater than 1")
-    end
+    check_args(n=n,alpha=alpha,power=power)
 
     return fzero(x -> powerTTest(n = n, d = x, alpha = alpha, sampletype = sampletype, sided = sided) - power,.001,100)
 end
@@ -70,13 +72,8 @@ function alphaTTest(;
     sided::String = "two"
     )
 
-    if n <= 1
-        error("Sample size `n` must be greater than 1")
-    end
+    check_args(d=d,n=n,power=power)
 
-    if d == 0.0
-        error("Effect size `d` greater than 0.0 must be specified")
-    end
     return fzero(x->powerTTest(n = n, d = d, alpha = x, sampletype = sampletype, sided = sided) - power, 1e-10, 1 - 1e-10)
 end
 

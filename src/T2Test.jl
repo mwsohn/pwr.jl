@@ -40,11 +40,6 @@ function samplesizeT2Test(;
 
     check_args(d = d, n1 = n1, alpha = alpha, power = power)
 
-    if n1 == 0 && n2 != 0
-        n1 = n2
-        n2 = 0
-    end
-
     return fzero(x->powerT2Test(n1 = n1, n2 = x, d = d, alpha = alpha, sided = sided) - power, 2+1e-09, 1e+10)
 end
 
@@ -101,16 +96,15 @@ function T2Test(;
     alt = Dict("two" => "two-sided", "less" => "less", "greater" => "greater")
 
     return htest(
-        string("Two-sample t-test power calculation"),
+        "Two-sample t-test power calculation",
         OrderedDict(
-            "d" => d,
             "n1" => n1,
             "n2" => n2,
+            "d" => d,
             "alpha" => alpha,
             "power" => power,
-            "sided" => alt[sided],
-            "note" => note)
-        )
+            "alternative" => alt[sided])
+            )
 end
 
 #T2Test(n1=200,n2=0,d=.2)

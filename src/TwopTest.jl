@@ -7,13 +7,7 @@ function powerTwopTest(;
     sided::String = "two"
     )
 
-    if h == 0
-        error("`h` must be specified and cannot be zero")
-    end
-
-    if n == 0
-        error("`n` must be specified and cannot be zero")
-    end
+    check_args(h=h,n=n,alpha=alpha)
 
     if sided == "less"
         tside = 1
@@ -42,9 +36,8 @@ function samplesizeTwopTest(;
     power::Float64 = 0.8,
     sided::String = "two"
     )
-    if h == 0
-        error("`h` must be specified and cannot be zero")
-    end
+
+    check_args(h=h,alpha=alpha,power=power)
 
     return ceil(Int64,fzero(x->powerTwopTest(h = h, n = x, alpha = alpha, sided = sided) - power, 2 + 1e-10, 1e+09))
 end
@@ -57,9 +50,9 @@ function effectsizeTwopTest(;
     power::Float64 = 0.8,
     sided::String = "two"
     )
-    if n == 0
-        error("`n` must be specified and cannot be zero")
-    end
+
+    check_args(n=n,alpha=alpha,power=power)
+
     return fzero(x->powerTwopTest(h = x, n = n, alpha = alpha, sided = sided) - power, 1e-10, 1 - 1e-10)
 end
 
@@ -71,13 +64,8 @@ function alphaTwopTest(;
     power::Float64 = 0.8,
     sided::String = "two"
     )
-    if h == 0
-        error("`h` must be specified and cannot be zero")
-    end
 
-    if n == 0
-        error("`n` must be specified and cannot be zero")
-    end
+    check_args(h=h,n=n,power=power)
 
     return fzero(x->powerTwopTest(h = h, n = n, alpha = x, sided = sided) - power, 1e-10, 1 - 1e-10)
 end

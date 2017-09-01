@@ -46,7 +46,7 @@ function effectsizeF2Test(;
     alpha = 0.05,
     power = 0.8)
 
-    check_args(u=u, v=v, f2=f2, alpha=alpha, power=power)
+    check_args(u=u,v=v,alpha=alpha,power=power)
 
     return fzero(x->powerF2Test(u = u, v = v, f2 = x, alpha = alpha) - power, 1e-07, 1e+07)
 end

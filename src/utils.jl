@@ -1,5 +1,3 @@
-using DataStructures
-
 struct htest
     title::String
     d::OrderedDict
@@ -25,14 +23,15 @@ function show(io::IO, h::htest)
 end
 
 function check_args(; kwargs...)
-
     for (key,val) in kwargs
         if key in (:k, :n, :n1, :n2, :u, :v, :w, :df, :f, :f2, :r) && val == 0
             error("`",string(key),"` must be specified and greater than zero")
+        elseif key in (:u, :v, :df)
+            error("Degrees of freedom `",key,"` must be at least 1")
         elseif key == :w && val <= 0
-            error("w must be positive")
-        elseif key == :alpha && alpha == 0.0
-            error("`alpha` must be a number in [0,1]")
+            error("`w` must be positive")
+        elseif key in (:alpha,:power) && (val <= 0.0 || val >= 1.0)
+            error("`",key,"` must be a number in [0,1]")
         elseif key == :N && val < 1
             error("Number of observations `N` must be at least 1")
         end

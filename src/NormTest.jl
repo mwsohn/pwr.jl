@@ -20,11 +20,10 @@ function powerNormTest(;
     if tside == 1
         return cdf(Normal(),quantile(Normal(),alpha) - d*sqrt(n))
     elseif tside == 2
-        qu = cquantile(TDist(ν),alpha/tside)
-        return ccdf(Normal(),cquantile(Normal,alpha/2) - d*sqrt(n))
+        return ccdf(Normal(),cquantile(Normal(),alpha/2) - d*sqrt(n))
             + cdf(Normal(),quantile(Normal(),alpha/2) - d*sqrt(n))
     elseif tside == 3
-        return ccdf(Normal(),cquantile(Normal,alpha) - d*sqrt(n))
+        return ccdf(Normal(),cquantile(Normal(),alpha) - d*sqrt(n))
     end
 end
 
@@ -97,4 +96,4 @@ function NormTest(;
         )
 end
 
-#print(NormTest(n=0,d=.2))
+#@time print(NormTest(n=0,d=.2))

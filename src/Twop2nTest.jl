@@ -8,17 +8,7 @@ function power2p2nTest(;
     sided::String = "two"
     )
 
-    if h == 0
-        error("`h` must be specified and cannot be zero")
-    end
-
-    if n1 == 0
-        error("`n1` must be specified and cannot be zero")
-    end
-
-    if n2 == 0
-        error("`n2` must be specified and cannot be zero")
-    end
+    check_args(h=h,n1=n1,n2=n2,alpha=alpha)
 
     if sided == "less"
         tside = 1
@@ -48,13 +38,8 @@ function samplesize2p2nTest(;
     power::Float64 = 0.8,
     sided::String = "two"
     )
-    if h == 0
-        error("`h` must be specified and cannot be zero")
-    end
 
-    if n1 == 0
-        error("`n1` must be specified and cannot be zero")
-    end
+    check_args(h=h,n1=n1,alpha=alpha,power=power)
 
     return ceil(Int64,fzero(x->power2p2nTest(h = h, n1 = n1, n2 = x, alpha = alpha, sided = sided) - power, 2 + 1e-10, 1e+09))
 end
@@ -68,6 +53,9 @@ function effectsize2p2nTest(;
     power::Float64 = 0.8,
     sided::String = "two"
     )
+
+    check_args(n1=n1,n2=n2,alpha=alpha,power=power)
+
     return fzero(x->power2p2nTest(h = x, n1 = n1, n2 = n2, alpha = alpha, sided = sided) - power, 1e-10, 1 - 1e-10)
 end
 
@@ -80,6 +68,9 @@ function alpha2p2nTest(;
     power::Float64 = 0.8,
     sided::String = "two"
     )
+
+    check_args(h=h,n1=n1,n2=n2,power=power)
+
     return fzero(x->power2p2nTest(h = h, n1 = n1, n2 = n2, alpha = x, sided = sided) - power, 1e-10, 1 - 1e-10)
 end
 
