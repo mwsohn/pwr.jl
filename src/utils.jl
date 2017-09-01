@@ -26,7 +26,7 @@ function check_args(; kwargs...)
     for (key,val) in kwargs
         if key in (:k, :n, :n1, :n2, :w, :f, :f2, :r) && val == 0
             error("`",string(key),"` must be specified and greater than zero")
-        elseif key in (:u, :v, :df)
+        elseif key in (:u, :v, :df) && val < 1
             error("Degree of freedom `",key,"` must be at least 1")
         elseif key == :w && val <= 0
             error("`w` must be positive")
