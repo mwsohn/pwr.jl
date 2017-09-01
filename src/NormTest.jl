@@ -6,6 +6,8 @@ function powerNormTest(;
     alpha = 0.05,
     sided::String = "two")
 
+    check_args(d=d,n=n,alpha=alpha)
+
     if sided == "less"
         tside = 1
     elseif sided == "two"
@@ -18,11 +20,10 @@ function powerNormTest(;
     if tside == 1
         return cdf(Normal(),quantile(Normal(),alpha) - d*sqrt(n))
     elseif tside == 2
-        qu = cquantile(TDist(ν),alpha/tside)
-        return ccdf(Normal(),cquantile(Normal,alpha/2) - d*sqrt(n))
+        return ccdf(Normal(),cquantile(Normal(),alpha/2) - d*sqrt(n))
             + cdf(Normal(),quantile(Normal(),alpha/2) - d*sqrt(n))
     elseif tside == 3
-        return ccdf(Normal(),cquantile(Normal,alpha) - d*sqrt(n))
+        return ccdf(Normal(),cquantile(Normal(),alpha) - d*sqrt(n))
     end
 end
 
@@ -31,6 +32,8 @@ function samplesizeNormTest(;
     alpha = 0.05,
     power = 0.8,
     sided::String = "two")
+
+    check_args(d=d,alpha=alpha,power=power)
 
     return ceil(Int64,fzero(x->powerNormTest(n = x, d = d, alpha = alpha, sided = sided) - power, 2.0, 10.0^7))
 end
@@ -42,9 +45,7 @@ function effectsizeNormTest(;
     sided::String = "two"
     )
 
-    if n <= 1
-        error("Sample size `n` must be greater than 1")
-    end
+    check_args(n=n,alpha=alpha,power=power)
 
     return fzero(x -> powerNormTest(n = n, d = x, alpha = alpha, sided = sided) - power,.001,100)
 end
@@ -56,13 +57,8 @@ function alphaNormTest(;
     sided::String = "two"
     )
 
-    if n <= 1
-        error("Sample size `n` must be greater than 1")
-    end
+    check_args(d=d,n=n,power=power)
 
-    if d == 0.0
-        error("Effect size `d` greater than 0.0 must be specified")
-    end
     return fzero(x->powerNormTest(n = n, d = d, alpha = x, sided = sided) - power, 1e-10, 1 - 1e-10)
 end
 
@@ -100,4 +96,4 @@ function NormTest(;
         )
 end
 
-#print(NormTest(n=0,d=.2))
+#@time print(NormTest(n=0,d=.2))

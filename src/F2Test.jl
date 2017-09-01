@@ -11,17 +11,7 @@ function powerF2Test(;
     f2::Float64 = 0.0,
     alpha = 0.05)
 
-    if u == 0
-        error("`u` must be specified and be greater than 1")
-    end
-
-    if v == 0
-        error("`v` must be specified and be greater than 1")
-    end
-
-    if f2 == 0.0
-        error("`f2` must be specified and be positive")
-    end
+    check_args(u=u,v=v,f2=f2,alpha=alpha)
 
     λ = f2*(u + v +1)
     return ccdf(NoncentralF(u,v,λ),cquantile(FDist(u,v),alpha))
@@ -36,9 +26,7 @@ function samplesizeF2Test(;
     alpha = 0.05,
     power = 0.8)
 
-    if alpha == 0.0 || power == 0.0
-        error("`alpha` or `power` cannot be zero")
-    end
+    check_args(f2=f2,alpha=alpha,power=power)
 
     if u > 0 && v > 0
         error("Either `u` or `v` must be zero")
@@ -58,6 +46,8 @@ function effectsizeF2Test(;
     alpha = 0.05,
     power = 0.8)
 
+    check_args(u=u,v=v,alpha=alpha,power=power)
+
     return fzero(x->powerF2Test(u = u, v = v, f2 = x, alpha = alpha) - power, 1e-07, 1e+07)
 end
 
@@ -67,9 +57,7 @@ function alphaF2Test(;
     f2 = 0.0,
     power = 0.8)
 
-    if u < 1 || v < 1
-        error("Degress of freedom `u` and `v` must be greater than 1")
-    end
+    check_args(u=u,v=v,f2=f2,power=power)
 
     return fzero(x->powerTTest(u = u, v = v, f2 = f2, alpha = x) - power, 1e-10, 1 - 1e-10)
 end

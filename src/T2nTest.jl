@@ -7,17 +7,7 @@ function powerT2nTest(;
     alpha = 0.05,
     sided::String = "two")
 
-    if d == 0.0
-        error("`d` must be specified and non-zero")
-    end
-
-    if n1== 0
-        error("`n1` must be specified")
-    end
-
-    if n2== 0
-        error("`n2` must be specified")
-    end
+    check_args(d=d,n1=n1,n2=n2,alpha=alpha)
 
     if sided == "less"
         tside = ttside = 1
@@ -48,14 +38,7 @@ function samplesizeT2nTest(;
     power = 0.8,
     sided::String = "two")
 
-    if n1 == 0
-        error("`n1` must be specified and greater than 1")
-    end
-
-    if n1 == 0 && n2 != 0
-        n1 = n2
-        n2 = 0
-    end
+    check_args(d=d,n1=n1,alpha=alpha,power=power)
 
     return ceil(Int64,fzero(x->powerT2nTest(n1 = n1, n2 = x, d = d, alpha = alpha, sided = sided) - power, 2+1e-09, 1e+10))
 end
@@ -68,9 +51,7 @@ function effectsizeT2nTest(;
     sided::String = "two"
     )
 
-    if n1 <= 1 || n2 <= 1
-        error("`n1` and `n2` must be greater than 1")
-    end
+    check_args(n1=n1,alpha=alpha,power=power)
 
     return fzero(x -> powerT2nTest(n1 = n1, n2 = n2, d = x, alpha = alpha, sided = sided) - power,.001,100)
 end
@@ -85,13 +66,7 @@ function alphaT2nTest(;
     sided::String = "two"
     )
 
-    if n1 <= 1 || n2 <= 1
-        error("Sample size `n1` and `n2` must be greater than 1")
-    end
-
-    if d == 0.0
-        error("Effect size `d` greater than 0.0 must be specified")
-    end
+    check_args(d=d,n1=n1,n2=n2,power=power)
 
     return fzero(x->powerT2nTest(n1 = n1, n2 = n2, d = d, alpha = x, sided = sided) - power, 1e-10, 1 - 1e-10)
 end
