@@ -235,7 +235,8 @@ function plot(ht::pwr.htest)
 #  }
 
     # select the backend
-    gr()
+    # gr()
+    plotly()
 
     # plot with title and x-axis and y-axis labels
     plot(sample_sizes,power,title = title_string, xlabel = xlab_string,ylabel = ylab_string)
