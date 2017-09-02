@@ -1,15 +1,15 @@
 using pwr, Plots
 
 #f2 = pwr.F2Test(u=12,v=99,f2=.3,power=0.0)
-#import RecipesBase.plot
+import RecipesBase.plot
 
 function plot(ht::pwr.htest)
 
     methods = (
-        "One-sample t-test power calculation",
-        "Two-sample t-test power calculation",
-        "Paired t-test power calculation",
-        "T-test power calculation",
+        "One-sample t test power calculation",
+        "Two-sample t test power calculation",
+        "Paired t test power calculation",
+        "T test power calculation",
         "Difference of proportion power calculation for binomial distribution (arcsine transformation)",
         "Difference of proportion power calculation for binomial distribution (arcsine transformation)",
         "Balanced one-way analysis of variance power calculation",
