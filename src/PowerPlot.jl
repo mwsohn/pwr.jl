@@ -235,8 +235,8 @@ function plot(ht::pwr.htest)
 #  }
 
     # use DataFrame
-    df = DataFrame(x = sample_sizes,y=power)
-    df = completecases(df)
+    df = DataFrame(x=sample_sizes, y=power)
+    df = df[completecases(df),:]
 
     # select the backend
     # gr()
