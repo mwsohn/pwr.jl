@@ -1,4 +1,4 @@
-using pwr, Plots
+using pwr, Plots, DataFrames
 
 #f2 = pwr.F2Test(u=12,v=99,f2=.3,power=0.0)
 import RecipesBase.plot
@@ -234,12 +234,16 @@ function plot(ht::pwr.htest)
 #    legend_vjust <- 0
 #  }
 
+    # use DataFrame
+    df = DataFrame(x = sample_sizes,y=power)
+    df = completecases(df)
+
     # select the backend
     # gr()
     plotly()
 
     # plot with title and x-axis and y-axis labels
-    plot(sample_sizes,power,title = title_string, xlabel = xlab_string,ylabel = ylab_string)
+    plot(df[:x],df[:y],title = title_string, xlabel = xlab_string,ylabel = ylab_string)
 
     # add options
 
