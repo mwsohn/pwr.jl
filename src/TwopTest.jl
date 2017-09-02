@@ -94,6 +94,7 @@ function TwopTest(;
     end
 
     alt = Dict("two" => "two-sided", "less" => "less", "greater" => "greater")
+    note = ""
 
     return htest(
         "Difference of proportion power calculation for binomial distribution (arcsine transformation)",
@@ -102,7 +103,8 @@ function TwopTest(;
             "n" => n,
             "alpha" => alpha,
             "power" => power,
-            "alternative" => alt[sided])
+            "alternative" => alt[sided],
+            "note" => note)
         )
 end
 

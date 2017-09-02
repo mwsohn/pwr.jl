@@ -90,7 +90,8 @@ function RTest(;
     end
 
     alt = Dict("two" => "two-sided", "less" => "less", "greater" => "greater")
-
+    note = ""
+    
     return htest(
         string("Approximate correlation power calculation (arctangh transformation)"),
         OrderedDict(
@@ -98,10 +99,11 @@ function RTest(;
             "r" => r,
             "alpha" => alpha,
             "power" => power,
-            "alternative" => alt[sided])
+            "alternative" => alt[sided],
+            "note" => note)
         )
 end
-# 
+#
 # @time print(RTest(n=193,r=.2,power=0.0))
 # @time print(RTest(n=193,r=.2,power=0.0,sided="less"))
 # @time print(RTest(n=193,r=.2,power=0.0,sided="greater"))

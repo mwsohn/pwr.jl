@@ -94,6 +94,7 @@ function T2Test(;
     end
 
     alt = Dict("two" => "two-sided", "less" => "less", "greater" => "greater")
+    note = ""
 
     return htest(
         "T-test power calculation",
@@ -103,7 +104,8 @@ function T2Test(;
             "d" => d,
             "alpha" => alpha,
             "power" => power,
-            "alternative" => alt[sided])
+            "alternative" => alt[sided],
+            "note" => note)
             )
 end
 

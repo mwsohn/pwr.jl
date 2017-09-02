@@ -92,7 +92,8 @@ function F2Test(;
             "v" => v,
             "f2" => f2,
             "alpha" => alpha,
-            "power" => power)
+            "power" => power,
+            "note" => "")
         )
 end
 

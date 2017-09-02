@@ -95,7 +95,7 @@ function T2nTest(;
 
     stype = Dict("onesample" => "One-sample", "twosample" => "Two-sample", "paired" => "Paired")
     alt = Dict("two" => "two-sided", "less" => "less", "greater" => "greater")
-
+    note = ""
 
     return htest(
         string("Two-sample t-test power calculation"),
@@ -105,7 +105,8 @@ function T2nTest(;
             "d" => d,
             "alpha" => alpha,
             "power" => power,
-            "alternative" => alt[sided])
+            "alternative" => alt[sided],
+            "note" => note)
         )
 end
 

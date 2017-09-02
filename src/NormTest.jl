@@ -92,7 +92,8 @@ function NormTest(;
             "d" => d,
             "alpha" => alpha,
             "power" => power,
-            "alternative" => alt[sided])
+            "alternative" => alt[sided],
+            "note" => "")
         )
 end
 
