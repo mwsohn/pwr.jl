@@ -96,7 +96,7 @@ function T2Test(;
     alt = Dict("two" => "two-sided", "less" => "less", "greater" => "greater")
 
     return htest(
-        "Two-sample t-test power calculation",
+        "T-test power calculation",
         OrderedDict(
             "n1" => n1,
             "n2" => n2,

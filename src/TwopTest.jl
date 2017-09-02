@@ -99,7 +99,8 @@ function TwopTest(;
             "h" => h,
             "n" => n,
             "alpha" => alpha,
-            "power" => power)
+            "power" => power,
+            "alternative" => sided)
         )
 end
 

@@ -116,6 +116,7 @@ function TTest(;
             "d" => d,
             "alpha" => alpha,
             "power" => power,
+            "sampletype" => stype[sampletype],
             "alternative" => alt[sided],
             "note" => note)
         )

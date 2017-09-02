@@ -113,6 +113,7 @@ function Twop2nTest(;
             "n2" => n2,
             "alpha" => alpha,
             "power" => power,
+            "alternative" => two,
             "note" => note)
         )
 end
