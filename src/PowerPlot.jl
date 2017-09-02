@@ -239,8 +239,8 @@ function plot(ht::pwr.htest)
     df = df[completecases(df),:]
 
     # select the backend
-    # gr()
-    plotly()
+    gr()
+    #plotly()
 
     # plot with title and x-axis and y-axis labels
     plot(df[:x],df[:y],title = title_string, xlabel = xlab_string,ylabel = ylab_string)
