@@ -11,7 +11,7 @@ function powerTwopTest(;
 
     if sided == "less"
         tside = 1
-    elseif sided == "two"
+    elseif sided in ("two","two-sided")
         tside = 2
         h = abs(h)
     elseif sided == "greater"

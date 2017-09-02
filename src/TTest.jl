@@ -19,7 +19,7 @@ function powerTTest(;
 
     if sided == "less"
         tside = ttside = 1
-    elseif sided == "two"
+    elseif sided in ("two","two-sided")
         tside = ttside = 2
         d = abs(d)
     elseif sided == "greater"

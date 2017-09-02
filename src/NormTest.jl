@@ -10,7 +10,7 @@ function powerNormTest(;
 
     if sided == "less"
         tside = 1
-    elseif sided == "two"
+    elseif sided in ("two","two-sided")
         tside = 2
         d = abs(d)
     elseif sided == "greater"

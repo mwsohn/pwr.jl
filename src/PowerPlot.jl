@@ -3,7 +3,7 @@ using pwr, Plots
 #f2 = pwr.F2Test(u=12,v=99,f2=.3,power=0.0)
 #import RecipesBase.plot
 
-function pwrplot(ht::pwr.htest)
+function plot(ht::pwr.htest)
 
     methods = (
         "One-sample t-test power calculation",

@@ -11,7 +11,7 @@ function powerRTest(;
     if sided == "less"
         tside = 1
         r = -abs(r)
-    elseif sided == "two"
+    elseif sided in ("two","two-sided")
         tside = 2
         r = abs(r)
     elseif sided == "greater"
@@ -91,7 +91,7 @@ function RTest(;
 
     alt = Dict("two" => "two-sided", "less" => "less", "greater" => "greater")
     note = ""
-    
+
     return htest(
         string("Approximate correlation power calculation (arctangh transformation)"),
         OrderedDict(
