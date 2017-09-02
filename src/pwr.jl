@@ -14,6 +14,7 @@ export powerT2Test, samplesizeT2Test, effectsizeT2Test, alphaT2Test
 export powerTTest, samplesizeTTest, effectsizeTTest, alphaTTest
 export power2p2nTest, samplesize2p2nTest, effectsize2p2nTest, alpha2p2nTest
 export power2pTest, samplesize2pTest, effectsize2pTest, alpha2pTest
+export plot
 
 include("utils.jl")
 include("ESh.jl")
@@ -30,5 +31,6 @@ include("T2Test.jl")
 include("TTest.jl")
 include("Twop2nTest.jl")
 include("TwopTest.jl")
+include("PowerPlot.jl")
 
 end

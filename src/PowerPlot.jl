@@ -88,7 +88,7 @@ function plot(ht::pwr.htest)
 
         # create labels
         title_string = "Difference of proportion power calculation\nfor binomial distribution (arcsine transformation)"
-        legend_string = string("tails =", d["alternatie"], "\neffect size h =", d["h"], "\nalpha =", d["alpha"])
+        legend_string = string("tails =", d["alternative"], "\neffect size h =", d["h"], "\nalpha =", d["alpha"])
         xlab_string = "sample size"
         ylab_string = :(string("test power = 1 - ", beta))
         optimal_string = string("optimal sample size \nn = ", ceil(Int64,n), "\n", d["note"])

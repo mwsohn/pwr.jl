@@ -93,6 +93,8 @@ function TwopTest(;
         n = samplesizeTwopTest(h = h, alpha = alpha, power = power, sided = sided)
     end
 
+    alt = Dict("two" => "two-sided", "less" => "less", "greater" => "greater")
+
     return htest(
         "Difference of proportion power calculation for binomial distribution (arcsine transformation)",
         OrderedDict(
@@ -100,7 +102,7 @@ function TwopTest(;
             "n" => n,
             "alpha" => alpha,
             "power" => power,
-            "alternative" => sided)
+            "alternative" => alt[sided])
         )
 end
 

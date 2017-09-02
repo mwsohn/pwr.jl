@@ -103,6 +103,8 @@ function Twop2nTest(;
         n = samplesize2p2nTest(h = h, n1 = n1, alpha = alpha, power = power, sided = sided)
     end
 
+    alt = Dict("two" => "two-sided", "less" => "less", "greater" => "greater")
+
     note = "different sample sizes"
 
     return htest(
@@ -113,7 +115,7 @@ function Twop2nTest(;
             "n2" => n2,
             "alpha" => alpha,
             "power" => power,
-            "alternative" => two,
+            "alternative" => alt[sided],
             "note" => note)
         )
 end
