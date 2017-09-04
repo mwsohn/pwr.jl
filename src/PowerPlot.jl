@@ -3,7 +3,7 @@ using pwr, Plots, DataFrames
 #f2 = pwr.F2Test(u=12,v=99,f2=.3,power=0.0)
 import RecipesBase.plot
 
-function plot(ht::pwr.htest; backend::function = plotly)
+function plot(ht::pwr.htest)
 
     methods = (
         "One-sample t test power calculation",
@@ -217,7 +217,7 @@ function plot(ht::pwr.htest; backend::function = plotly)
     df = df[completecases(df),:]
 
     # select the backend
-    backend()
+    plotly()
 
     # plot with title and x-axis and y-axis labels
     plot(df[:x],df[:y],title = title_string, xlabel = xlab_string,ylabel = ylab_string,
