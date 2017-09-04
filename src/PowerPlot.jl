@@ -195,12 +195,11 @@ function plot(ht::pwr.htest)
     # select the backend
     plotly()
 
-    xticks = sample_sizes[collect(4:4:14)]
-
     # plot with title and x-axis and y-axis labels
     plot(df[:x],df[:y],title = title_string, xlabel = xlab_string,ylabel = ylab_string,
-        yticks=[0.0 0.2 0.4 0.6 0.8 1.0],xticks = xticks,
-        label=false,legend = false)
+        yticks=[0.0 0.2 0.4 0.6 0.8 1.0],ylim=(0,1),xlim=(sample_sizes[1],sample_sizes[20]),
+        label=false,legend = false,
+        annotations=(2,.1,text(legend_string)))
 
     # add options
 
