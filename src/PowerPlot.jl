@@ -3,7 +3,7 @@ using pwr, Plots, DataFrames
 #f2 = pwr.F2Test(u=12,v=99,f2=.3,power=0.0)
 import RecipesBase.plot
 
-function plot(ht::pwr.htest)
+function plot(ht::pwr.htest; backend::function = plotly)
 
     methods = (
         "One-sample t test power calculation",
@@ -23,6 +23,11 @@ function plot(ht::pwr.htest)
 
     if !(ht.title in methods)
         warn("The method `",ht.title,"` is not supported. Supported methods include: \n\t",join(methods,"\n\t"))
+        exit(0)
+    end
+
+    if !(backend in ("gr","plotly"))
+        warn("`backend` allows allows `gr` or `plotly`")
         exit(0)
     end
 
@@ -190,7 +195,7 @@ function plot(ht::pwr.htest)
         optimal_string = string("optimal sample size \nn = ", ceil(Int64,n), "\n", d["note"])
 
     # case: correlation
-    elseif ht.title == "approximate correlation power calculation (arctangh transformation)"
+    elseif ht.title == "Approximate correlation power calculation (arctangh transformation)"
         n = d["N"]
         n_upper = ceil(Int64, max(n*1.5, n+30)) # upper at least 30 above n
         n_increment = ceil(Int64,(n_upper - 10)/breaks)
@@ -200,50 +205,23 @@ function plot(ht::pwr.htest)
         power = [ss->powerRTest(n=ss, r=d["r"], alpha = d["alpha"], sided = d["alternative"]) for ss in sample_sizes]
 
         # create labels
-        title_string = "approximate correlation power calculation\n(arctangh transformation)"
+        title_string = "Approximate correlation power calculation\n(arctangh transformation)"
         legend_string = string("tails =", d["alternative"], "\nr =", d["r"], "\nalpha =", d["alpha"])
         xlab_string = "sample size"
         ylab_string = :(string("test power = 1 - ", beta))
         optimal_string = string("optimal sample size \nn = ", ceil(Int64,n))
     end
 
-#  # pass arguments if required
-#  if(length(dots <- list(...)) && !is.null(dots$xlab)){
-#    xlab_string <- dots$xlab
-#  }
-#  if(length(dots <- list(...)) && !is.null(dots$ylab)){
-#    ylab_string <- dots$ylab
-#  }
-#  if(length(dots <- list(...)) && !is.null(dots$main)){
-#    title_string <- dots$main
-# }
-#
-#  # position of text in plot
-#  if(x$power < 0.5){
-#    text_anchor <- 1
-#    text_vjust <- 1
-#  }else{
-#    text_anchor <- 0
-#    text_vjust <- 0
-#  }
-#  if(min(data$power, na.rm = TRUE) < 0.6){
-#    legend_anchor <- 1
-#    legend_vjust <- 1
-#  }else{
-#    legend_anchor <- 0
-#    legend_vjust <- 0
-#  }
-
     # use DataFrame
     df = DataFrame(x=sample_sizes, y=power)
     df = df[completecases(df),:]
 
     # select the backend
-    gr()
-    #plotly()
+    backend()
 
     # plot with title and x-axis and y-axis labels
-    plot(df[:x],df[:y],title = title_string, xlabel = xlab_string,ylabel = ylab_string)
+    plot(df[:x],df[:y],title = title_string, xlabel = xlab_string,ylabel = ylab_string,
+        label=false,legend = (legend_string,:top_left))
 
     # add options
 
