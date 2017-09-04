@@ -98,7 +98,7 @@ function T2nTest(;
     note = ""
 
     return htest(
-        string("Two-sample t-test power calculation"),
+        string("T-test power calculation"),
         OrderedDict(
             "n1" => n1,
             "n2" => n2,
