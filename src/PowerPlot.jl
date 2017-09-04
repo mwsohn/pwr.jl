@@ -197,9 +197,9 @@ function plot(ht::pwr.htest)
 
     # plot with title and x-axis and y-axis labels
     plot(df[:x],df[:y],title = title_string, xlabel = xlab_string,ylabel = ylab_string,
-        yticks=[0.0 0.2 0.4 0.6 0.8 1.0],ylim=(0.0,1.0),xlim=(10,n_upper),
+        yticks=[0.0 0.2 0.4 0.6 0.8 1.0],xlim=(10,n_upper),
         label=false,legend = false,
-        annotations=(.1,.1,text(legend_string)))
+        annotations=(3,3,text(legend_string),leg=false))
 
     # add options
 
