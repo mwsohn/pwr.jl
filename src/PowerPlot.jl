@@ -196,11 +196,17 @@ function plot(ht::pwr.htest)
     plotly()
 
     # plot with title and x-axis and y-axis labels
-    return plot(df[:x],df[:y],title = title_string, xlabel = xlab_string,ylabel = ylab_string,
-        yticks=[0.0 0.2 0.4 0.6 0.8 1.0],xlim=(10,n_upper),
-        label=false,legend = false,
+    return plot(df[:x],df[:y],
+        title = title_string,
+        xlabel = xlab_string,
+        ylabel = ylab_string,
+        yticks=[0.0 0.2 0.4 0.6 0.8 1.0],
+        ylim=(0.0,1.0),
+        xlim=(10,n_upper),
+        label=false,
+        legend = false,
         annotations=([(20,0.99,text(legend_string,9,:blue,:left,:top)),
-            (.05,sample_sizes[15],text(optimal_string,9,:red,:left,:bottom))]))
+            (sample_sizes[15],0.05,text(optimal_string,9,:red,:left,:bottom))]))
 
     # add options
 
