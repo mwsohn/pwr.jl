@@ -28,6 +28,11 @@ function plot(ht::pwr.htest)
 
     breaks = 20
 
+    title_string = ht.title
+    xlab_string = "sample size"
+    ylab_string = string("test power = 1 - β")
+
+
     # case: One-sample, Two-sample or Paired t test
     if ht.title in ("One-sample t-test power calculation",
         "Two-sample t-test power calculation",
@@ -42,10 +47,7 @@ function plot(ht::pwr.htest)
         power = [ss->powerTTest(n=ss,d=d["d"],alpha = d["alpha"],sampletype=d["sampletype"],sided=d["alternative"]) for ss in sample_sizes]
 
         # create labels
-        title_string = ht.title
         legend_string = string("tails =", d["alternative"], "\neffect size d =", d["d"], "\nalpha =", d["alpha"])
-        xlab_string = "sample size"
-        ylab_string = :(string("test power = 1 - ", beta))
         optimal_string = string("optimal sample size \nn = ", ceil(Int64,n), "\n", d["note"])
 
     # case: Two-sample t test with n1 and n2
@@ -70,10 +72,7 @@ function plot(ht::pwr.htest)
         power = [ss->pwrt2test(ss) for ss in sample_sizes]
 
         # create labels
-        title_string = ht.title
         legend_string = string("tails =", d["alternative"], "\neffect size d =", d["d"], "\nalpha =", d["alpha"], "\nn1/n2 = ", round(n_rel, 2))
-        xlab_string = "sample size"
-        ylab_string = :(string("test power = 1 - ", beta))
         optimal_string = string("optimal sample size \nn = ", d["n1"], " + ", d["n2"], " = ", n)
 
     # case: Difference of proportion (same sample size)
@@ -90,7 +89,7 @@ function plot(ht::pwr.htest)
         title_string = "Difference of proportion power calculation\nfor binomial distribution (arcsine transformation)"
         legend_string = string("tails =", d["alternative"], "\neffect size h =", d["h"], "\nalpha =", d["alpha"])
         xlab_string = "sample size"
-        ylab_string = :(string("test power = 1 - ", beta))
+        ylab_string = string("test power = 1 - β")
         optimal_string = string("optimal sample size \nn = ", ceil(Int64,n), "\n", d["note"])
 
     # case: difference of proportion (different sample size)
@@ -115,10 +114,7 @@ function plot(ht::pwr.htest)
         power = [ss->pwr2p2ntest(ss) for ss in sample_sizes]
 
         # create labels
-        title_string = "Difference of proportion power calculation\nfor binomial distribution (arcsine transformation)"
         legend_string = string("tails =", d["alternative"], "\neffect size h =", d["h"], "\nalpha =", d["alpha"], "\nn1/n2 = ", round(n_rel, 2))
-        xlab_string = "sample size"
-        ylab_string = :(string("test power = 1 - ", beta))
         optimal_string = string("optimal sample size \nn = ", d["n1"], " + ", d["n2"], " = ", n)
 
     # case: ANOVA
@@ -132,11 +128,8 @@ function plot(ht::pwr.htest)
         power = [ss->powerAnovaTest(n=ss, k=d["k"], f=d["f"], alpha = d["alpha"]) for ss in sample_sizes]
 
         # create labels
-        title_string = "Balanced one-way analysis of variance \npower calculation"
         legend_string = string("groups k =", d["k"], "\neffect size f =", d["f"], "\nalpha =", d["alpha"])
-        xlab_string = "sample size"
-        ylab_string <- expression(paste("test power = 1 - ", beta))
-        optimal_string <- paste("optimal sample size \nn = ", ceiling(n), "\n", x$note, sep = "")
+        optimal_string = string("optimal sample size \nn = ", ceil(Int64,n), "\n", d["note"])
 
     # case: Chi Squared
     elseif ht.title == "Chi squared power calculation"
@@ -149,10 +142,7 @@ function plot(ht::pwr.htest)
         power = [ss->powerChisqTest(N=ss, w=d["w"], alpha = d["alpha"], df=d["df"]) for ss in sample_sizes]
 
         # create labels
-        title_string = ht.title
         legend_string = string("effect size w =", d["w"], "\ndf =", d["df"], "\nalpha =", d["alpha"])
-        xlab_string = "sample size"
-        ylab_string = :(string("test power = 1 - ", beta))
         optimal_string = string("optimal sample size \nN = ", ceil(Int64,n), "\n", d["note"])
 
     # case: Normal distribution
@@ -166,10 +156,7 @@ function plot(ht::pwr.htest)
         power = [ss->powerNormTest(n=ss, d=d["d"], alpha = d["alpha"], sided = d["alternative"]) for ss in sample_sizes]
 
         # create labels
-        title_string = "Mean power calculation for normal distribution\nwith known variance"
         legend_string = string("tails =", d["alternative"], "\neffect size d =", d["d"], "\nalpha =", d["alpha"])
-        xlab_string = "sample size"
-        ylab_string = :(string("test power = 1 - ", beta))
         optimal_string = string("optimal sample size \nn = ", ceil(Int64,n), "\n", d["note"])
 
     # case: proportion
@@ -183,10 +170,7 @@ function plot(ht::pwr.htest)
         power = [ss->powerPTest(n=ss, h=d["h"], alpha = d["alpha"], sided = d["alternative"]) for ss in sample_sizes]
 
         # create labels
-        title_string = "Proportion power calculation\nfor binomial distribution (arcsine transformation)"
         legend_string = string("tails =", d["alternative"], "\neffect size h =", d["h"], "\nalpha =", d["alpha"])
-        xlab_string = "sample size"
-        ylab_string = :(string("test power = 1 - ", beta))
         optimal_string = string("optimal sample size \nn = ", ceil(Int64,n), "\n", d["note"])
 
     # case: correlation
@@ -200,10 +184,7 @@ function plot(ht::pwr.htest)
         power = [ss->powerRTest(n=ss, r=d["r"], alpha = d["alpha"], sided = d["alternative"]) for ss in sample_sizes]
 
         # create labels
-        title_string = "Approximate correlation power calculation\n(arctangh transformation)"
         legend_string = string("tails =", d["alternative"], "\nr =", d["r"], "\nalpha =", d["alpha"])
-        xlab_string = "sample size"
-        ylab_string = :(string("test power = 1 - ", beta))
         optimal_string = string("optimal sample size \nn = ", ceil(Int64,n))
     end
 
@@ -216,7 +197,7 @@ function plot(ht::pwr.htest)
 
     # plot with title and x-axis and y-axis labels
     plot(df[:x],df[:y],title = title_string, xlabel = xlab_string,ylabel = ylab_string,
-        label=false)
+        label=[])
 
     # add options
 
