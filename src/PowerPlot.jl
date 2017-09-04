@@ -216,7 +216,7 @@ function plot(ht::pwr.htest)
 
     # plot with title and x-axis and y-axis labels
     plot(df[:x],df[:y],title = title_string, xlabel = xlab_string,ylabel = ylab_string,
-        label=false,legend = (legend_string,:top_left))
+        label=false)
 
     # add options
 
