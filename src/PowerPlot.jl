@@ -193,13 +193,13 @@ function plot(ht::pwr.htest)
     df = df[completecases(df),:]
 
     # select the backend
-    plotlyjs()
+    plotly()
 
     # plot with title and x-axis and y-axis labels
     plot(df[:x],df[:y],title = title_string, xlabel = xlab_string,ylabel = ylab_string,
         yticks=[0.0 0.2 0.4 0.6 0.8 1.0],xlim=(10,n_upper),
         label=false,legend = false,
-        annotations=(20,0.99,text(legend_string),7,:black,:left))
+        annotations=(20,0.99,text(legend_string,7,:black,:left)))
 
     # add options
 
