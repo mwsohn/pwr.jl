@@ -197,7 +197,8 @@ function plot(ht::pwr.htest)
 
     # plot with title and x-axis and y-axis labels
     plot(df[:x],df[:y],title = title_string, xlabel = xlab_string,ylabel = ylab_string,
-        label=[])
+        yticks=[0.0 0.2 0.4 0.6 0.8 1.0],
+        label=false,legend = false)
 
     # add options
 
