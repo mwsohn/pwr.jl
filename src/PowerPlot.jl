@@ -26,11 +26,6 @@ function plot(ht::pwr.htest)
         exit(0)
     end
 
-    if !(backend in ("gr","plotly"))
-        warn("`backend` allows allows `gr` or `plotly`")
-        exit(0)
-    end
-
     breaks = 20
 
     # case: One-sample, Two-sample or Paired t test
