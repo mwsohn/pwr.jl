@@ -1,4 +1,4 @@
-using pwr, Plots, DataFrames
+using pwr, DataFrames
 
 #f2 = pwr.F2Test(u=12,v=99,f2=.3,power=0.0)
 import RecipesBase.plot
@@ -58,15 +58,16 @@ function plot(ht::pwr.htest)
 
         # generate data
         n_increment = ceil(Int64,(n_upper - 10)/breaks)
-        sample_sizes = collect(10:n_increment:n_upper)
+        n_lower = ceil(Int64,fzero(x->(x*n_rel) - 2.1,2,d["n2"]))
+        sample_sizes = collect(n_lower:n_increment:n_upper)
 
         function pwrt2test(ss)
-            n1 = ceil(Int64,ss*n_rel)
-            n2 = ss - n1
-            if (n1 < 2 || n2 < 2)
+            na = ceil(Int64,ss*n_rel)
+            nb = ss - nb
+            if (na < 2 || nb < 2)
                 return(NA)
             end
-            return powerT2nTest(n1=n1, n2=n2, d=d["d"], alpha = d["alpha"], sided = d["alternative"])
+            return powerT2nTest(n1=na, n2=nb, d=d["d"], alpha = d["alpha"], sided = d["alternative"])
         end
 
         power = [ss->pwrt2test(ss) for ss in sample_sizes]
@@ -98,17 +99,18 @@ function plot(ht::pwr.htest)
         n_upper = ceil(Int64, max(n*1.5, n+30)) # upper at least 30 above n
         n_rel = d["n1"] / n # relative sample size; will be kept constant in claculations
         n_increment = ceil(Int64,(n_upper - 10)/breaks)
+        n_lower = ceil(Int64,fzero(x->(x*n_rel) - 2.1,2,d["n2"]))
 
         # generate data
-        sample_sizes = collect(10:n_increment:n_upper)
+        sample_sizes = collect(n_lower:n_increment:n_upper)
 
         function pwr2p2ntest(ss)
-            n1 = ceil(Int64,ss*n_rel)
-            n2 = ss - n1
-            if (n1 < 2 || n2 < 2)
+            na = ceil(Int64,ss*n_rel)
+            nb = ss - na
+            if (na < 2 || nb < 2)
                 return(NA)
             end
-            return power2p2nTest(n1=n1, n2=n2, h=d["h"], alpha = d["alpha"], sided = d["alternative"])
+            return power2p2nTest(n1=na, n2=nb, h=d["h"], alpha = d["alpha"], sided = d["alternative"])
         end
 
         power = [ss->pwr2p2ntest(ss) for ss in sample_sizes]
@@ -184,7 +186,7 @@ function plot(ht::pwr.htest)
         power = [ss->powerRTest(n=ss, r=d["r"], alpha = d["alpha"], sided = d["alternative"]) for ss in sample_sizes]
 
         # create labels
-        legend_string = string("tails =", d["alternative"], "\nr =", d["r"], "\nalpha =", d["alpha"])
+        legend_string = string("tails = ", d["alternative"], "\nr = ", d["r"], "\nalpha = ", d["alpha"])
         optimal_string = string("optimal sample size \nn = ", ceil(Int64,n))
     end
 
@@ -192,24 +194,24 @@ function plot(ht::pwr.htest)
     df = DataFrame(x=sample_sizes, y=power)
     df = df[completecases(df),:]
 
-    # select the backend
-    plotly()
-
-    # plot with title and x-axis and y-axis labels
-    return plot(df[:x],df[:y],
-        title = title_string,
-        xlabel = xlab_string,
-        ylabel = ylab_string,
-        yticks=[0.0 0.2 0.4 0.6 0.8 1.0],
-        ylim=(0.0,1.0),
-        xlim=(10,n_upper),
-        label=false,
-        legend = false,
-        annotations=([(20,0.99,text(legend_string,9,:blue,:left,:top)),
-            (sample_sizes[15],0.05,text(optimal_string,9,:red,:left,:bottom))]))
-
-    # add options
-
-
+    # # select the backend
+    # plotly()
+    #
+    # # plot with title and x-axis and y-axis labels
+    # return plot(df[:x],df[:y],
+    #     title = title_string,
+    #     xlabel = xlab_string,
+    #     ylabel = ylab_string,
+    #     yticks=[0.0 0.2 0.4 0.6 0.8 1.0],
+    #     ylim=(0.0,1.0),
+    #     xlim=(10,n_upper),
+    #     label=false,
+    #     legend = false,
+    #     annotations=([(20,0.99,text(legend_string,9,:blue,:left,:top)),
+    #         (sample_sizes[15],0.05,text(optimal_string,9,:red,:left,:bottom))]))
+    #
+    # # add options
+    #
+    #
 
 end
