@@ -48,9 +48,9 @@ function plot(ht::pwr.htest)
         power = [ss->powerTTest(n=ss,d=d["d"],alpha = d["alpha"],sampletype=d["sampletype"],sided=d["alternative"]) for ss in sample_sizes]
 
         # create labels
-        legend_string1 = string("tails =", d["alternative"])
-        legend_string2 = string("neffect size d =", d["d"])
-        legend_string3 = string("alpha =", d["alpha"])
+        legend_string1 = string("tails = ", d["alternative"])
+        legend_string2 = string("neffect size d = ", d["d"])
+        legend_string3 = string("alpha = ", d["alpha"])
         optimal_string1 = "optimal sample size"
         optimal_string2 = string("n = ", ceil(Int64,n))
         optimal_string3 = d["note"]
@@ -78,9 +78,9 @@ function plot(ht::pwr.htest)
         power = [pwrt2test(ss) for ss in sample_sizes]
 
         # create labels
-        legend_string1 = string("tails =", d["alternative"])
-        legend_string2 = string("neffect size d =", d["d"])
-        legend_string3 = string("alpha =", d["alpha"])
+        legend_string1 = string("tails = ", d["alternative"])
+        legend_string2 = string("neffect size d = ", d["d"])
+        legend_string3 = string("alpha = ", d["alpha"])
         legend_string4 = string("n1/n2 = ",round(n_rel,2))
         optimal_string1 = "optimal sample size"
         optimal_string2 = string("n = ",  d["n1"], " + ", d["n2"], " = ", n)
@@ -96,9 +96,9 @@ function plot(ht::pwr.htest)
         power = [ ss-> powerTwopTest(n=ss, h=d["h"], alpha = d["alpha"], sided = d["alternative"]) for ss in sample_sizes]
 
         # create labels
-        legend_string1 = string("tails =", d["alternative"])
-        legend_string2 = string("neffect size h =", d["h"])
-        legend_string3 = string("alpha =", d["alpha"])
+        legend_string1 = string("tails = ", d["alternative"])
+        legend_string2 = string("neffect size h = ", d["h"])
+        legend_string3 = string("alpha = ", d["alpha"])
         optimal_string1 = "optimal sample size"
         optimal_string2 = string("n = ", ceil(Int64,n))
         optimal_string3 = d["note"]
@@ -126,9 +126,9 @@ function plot(ht::pwr.htest)
         power = [ss->pwr2p2ntest(ss) for ss in sample_sizes]
 
         # create labels
-        legend_string1 = string("tails =", d["alternative"])
-        legend_string2 = string("neffect size h =", d["h"])
-        legend_string3 = string("alpha =", d["alpha"])
+        legend_string1 = string("tails = ", d["alternative"])
+        legend_string2 = string("neffect size h = ", d["h"])
+        legend_string3 = string("alpha = ", d["alpha"])
         legend_string4 = string("n1/n2 = ",round(n_rel,2))
         optimal_string1 = "optimal sample size"
         optimal_string2 = string("n = ",  d["n1"], " + ", d["n2"], " = ", n)
@@ -144,9 +144,9 @@ function plot(ht::pwr.htest)
         power = [ss->powerAnovaTest(n=ss, k=d["k"], f=d["f"], alpha = d["alpha"]) for ss in sample_sizes]
 
         # create labels
-        legend_string1 = string("groups k =", d["k"])
-        legend_string2 = string("effect size f =", d["f"])
-        legend_string3 = string("alpha =", d["alpha"])
+        legend_string1 = string("groups k = ", d["k"])
+        legend_string2 = string("effect size f = ", d["f"])
+        legend_string3 = string("alpha = ", d["alpha"])
         optimal_string1 = "optimal sample size"
         optimal_string2 = string("n = ", ceil(Int64,n))
         optimal_string3 = d["note"]
@@ -162,9 +162,9 @@ function plot(ht::pwr.htest)
         power = [ss->powerChisqTest(N=ss, w=d["w"], alpha = d["alpha"], df=d["df"]) for ss in sample_sizes]
 
         # create labels
-        legend_string2 = string("effect size w =", d["w"])
-        legend_string1 = string("df =", d["df"])
-        legend_string3 = string("alpha =", d["alpha"])
+        legend_string2 = string("effect size w = ", d["w"])
+        legend_string1 = string("df = ", d["df"])
+        legend_string3 = string("alpha = ", d["alpha"])
         optimal_string1 = "optimal sample size"
         optimal_string2 = string("N = ", ceil(Int64,n))
         optimal_string3 = d["note"]
@@ -180,9 +180,9 @@ function plot(ht::pwr.htest)
         power = [ss->powerNormTest(n=ss, d=d["d"], alpha = d["alpha"], sided = d["alternative"]) for ss in sample_sizes]
 
         # create labels
-        legend_string1 = string("tails =", d["alternative"])
-        legend_string2 = string("effect size d =", d["d"])
-        legend_string3 = string("alpha =", d["alpha"])
+        legend_string1 = string("tails = ", d["alternative"])
+        legend_string2 = string("effect size d = ", d["d"])
+        legend_string3 = string("alpha = ", d["alpha"])
         optimal_string1 = "optimal sample size"
         optimal_string2 = string("n = ", ceil(Int64,n))
         optimal_string3 = d["note"]
@@ -198,9 +198,9 @@ function plot(ht::pwr.htest)
         power = [ss->powerPTest(n=ss, h=d["h"], alpha = d["alpha"], sided = d["alternative"]) for ss in sample_sizes]
 
         # create labels
-        legend_string1 = string("tails =", d["alternative"])
-        legend_string2 = string("effect size h =", d["h"])
-        legend_string3 = string("alpha =", d["alpha"])
+        legend_string1 = string("tails = ", d["alternative"])
+        legend_string2 = string("effect size h = ", d["h"])
+        legend_string3 = string("alpha = ", d["alpha"])
         optimal_string1 = "optimal sample size"
         optimal_string2 = string("n = ", ceil(Int64,n))
         optimal_string3 = d["note"]
@@ -216,9 +216,9 @@ function plot(ht::pwr.htest)
         power = [ss->powerRTest(n=ss, r=d["r"], alpha = d["alpha"], sided = d["alternative"]) for ss in sample_sizes]
 
         # create labels
-        legend_string1 = string("tails =", d["alternative"])
-        legend_string2 = string("effect size r =", d["r"])
-        legend_string3 = string("alpha =", d["alpha"])
+        legend_string1 = string("tails = ", d["alternative"])
+        legend_string2 = string("effect size r = ", d["r"])
+        legend_string3 = string("alpha = ", d["alpha"])
         optimal_string1 = "optimal sample size"
         optimal_string2 = string("n = ", ceil(Int64,n))
     end
@@ -241,13 +241,13 @@ function plot(ht::pwr.htest)
         ylims=(-0.03,1.0),
         xlims=(-(n_lower+30),n_upper),
         label=false,
-        legend = false,
+        legend=false,
         annotations=([((n_lower+20),0.99,text(legend_string1,9,:blue,:left,:top)),
                 ((n_lower+20),0.94,text(legend_string2,9,:blue,:left,:top)),
                 ((n_lower+20),0.89,text(legend_string3,9,:blue,:left,:top)),
                 ((n_lower+20),0.84,text(legend_string4,9,:blue,:left,:top)),
             (sample_sizes[15],0.06,text(optimal_string1,9,:red,:left,:bottom)),
             (sample_sizes[15],0.01,text(string(optimal_string2,"  ", optimal_string3),9,:red,:left,:bottom))]))
-    vline!([n],line=(1,:dot,.8,:orange))
+    #vline!([n],line=(1,:dot,.8,:orange))
 
 end
