@@ -49,7 +49,7 @@ function plot(ht::pwr.htest)
 
         # create labels
         legend_string1 = string("tails = ", d["alternative"])
-        legend_string2 = string("neffect size d = ", d["d"])
+        legend_string2 = string("effect size d = ", d["d"])
         legend_string3 = string("alpha = ", d["alpha"])
         optimal_string1 = "optimal sample size"
         optimal_string2 = string("n = ", ceil(Int64,n))
@@ -79,7 +79,7 @@ function plot(ht::pwr.htest)
 
         # create labels
         legend_string1 = string("tails = ", d["alternative"])
-        legend_string2 = string("neffect size d = ", d["d"])
+        legend_string2 = string("effect size d = ", d["d"])
         legend_string3 = string("alpha = ", d["alpha"])
         legend_string4 = string("n1/n2 = ",round(n_rel,2))
         optimal_string1 = "optimal sample size"
@@ -97,7 +97,7 @@ function plot(ht::pwr.htest)
 
         # create labels
         legend_string1 = string("tails = ", d["alternative"])
-        legend_string2 = string("neffect size h = ", d["h"])
+        legend_string2 = string("effect size h = ", d["h"])
         legend_string3 = string("alpha = ", d["alpha"])
         optimal_string1 = "optimal sample size"
         optimal_string2 = string("n = ", ceil(Int64,n))
@@ -127,7 +127,7 @@ function plot(ht::pwr.htest)
 
         # create labels
         legend_string1 = string("tails = ", d["alternative"])
-        legend_string2 = string("neffect size h = ", d["h"])
+        legend_string2 = string("effect size h = ", d["h"])
         legend_string3 = string("alpha = ", d["alpha"])
         legend_string4 = string("n1/n2 = ",round(n_rel,2))
         optimal_string1 = "optimal sample size"
