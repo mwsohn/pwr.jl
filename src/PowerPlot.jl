@@ -230,6 +230,9 @@ function plot(ht::pwr.htest)
     # select the backend
     plotly()
 
+    # n_lower
+    n_lower = sample_sizes[1]
+
     # plot with title and x-axis and y-axis labels
     plot(df[:x],df[:y],
         marker=(2,.5,:circle),
@@ -248,6 +251,6 @@ function plot(ht::pwr.htest)
                 ((n_lower+20),0.84,text(legend_string4,9,:blue,:left,:top)),
             (sample_sizes[15],0.06,text(optimal_string1,9,:red,:left,:bottom)),
             (sample_sizes[15],0.01,text(string(optimal_string2,"  ", optimal_string3),9,:red,:left,:bottom))]))
-    #vline!([n],line=(1,:dot,.8,:orange))
+    vline!([n],line=(1,:dot,.8,:orange))
 
 end
