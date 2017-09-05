@@ -230,25 +230,24 @@ function plot(ht::pwr.htest)
     # select the backend
     plotly()
 
-    # n_lower
-    n_lower = sample_sizes[1]
+    xlim_lower = sample_sizes[20] / 100
 
     # plot with title and x-axis and y-axis labels
     plot(df[:x],df[:y],
-        marker=(2,.5,:circle),
+        marker=(2,.5,:circle,:blue),
         left_margin = 8mm,
         title = title_string,
         ylabel = ylab_string,
         xlabel = xlab_string,
         yticks=[0.0 0.2 0.4 0.6 0.8 1.0],
         ylims=(-0.03,1.0),
-        xlims=(-(n_lower+30),n_upper),
+        xlims=(-(n_lower+xlim_lower),n_upper),
         label=false,
         legend=false,
-        annotations=([((n_lower+20),0.99,text(legend_string1,9,:blue,:left,:top)),
-                ((n_lower+20),0.94,text(legend_string2,9,:blue,:left,:top)),
-                ((n_lower+20),0.89,text(legend_string3,9,:blue,:left,:top)),
-                ((n_lower+20),0.84,text(legend_string4,9,:blue,:left,:top)),
+        annotations=([((n_lower+xlim_lower),0.99,text(legend_string1,9,:blue,:left,:top)),
+                ((n_lower+xlim_lower),0.94,text(legend_string2,9,:blue,:left,:top)),
+                ((n_lower+xlim_lower),0.89,text(legend_string3,9,:blue,:left,:top)),
+                ((n_lower+xlim_lower),0.84,text(legend_string4,9,:blue,:left,:top)),
             (sample_sizes[15],0.06,text(optimal_string1,9,:red,:left,:bottom)),
             (sample_sizes[15],0.01,text(string(optimal_string2,"  ", optimal_string3),9,:red,:left,:bottom))]))
     vline!([n],line=(1,:dot,.8,:orange))
