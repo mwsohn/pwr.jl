@@ -230,7 +230,7 @@ function plot(ht::pwr.htest)
     # select the backend
     plotly()
 
-    xlim_lower = sample_sizes[20] / 800
+    xlim_lower = sample_sizes[20] / 500
 
     # plot with title and x-axis and y-axis labels
     plot(df[:x],df[:y],
