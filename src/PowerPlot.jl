@@ -53,7 +53,7 @@ function plot(ht::pwr.htest)
         legend_string3 = string("alpha =", d["alpha"])
         optimal_string1 = "optimal sample size"
         optimal_string2 = string("n = ", ceil(Int64,n))
-        optimal_string3 = d["note"])
+        optimal_string3 = d["note"]
 
     # case: Two-sample t test with n1 and n2
     elseif(ht.title == "T-test power calculation")
@@ -101,7 +101,7 @@ function plot(ht::pwr.htest)
         legend_string3 = string("alpha =", d["alpha"])
         optimal_string1 = "optimal sample size"
         optimal_string2 = string("n = ", ceil(Int64,n))
-        optimal_string3 = d["note"])
+        optimal_string3 = d["note"]
 
     # case: difference of proportion (different sample size)
     elseif ht.title == "Difference of proportion power calculation for binomial distribution (arcsine transformation)"
@@ -149,7 +149,7 @@ function plot(ht::pwr.htest)
         legend_string3 = string("alpha =", d["alpha"])
         optimal_string1 = "optimal sample size"
         optimal_string2 = string("n = ", ceil(Int64,n))
-        optimal_string3 = d["note"])
+        optimal_string3 = d["note"]
 
     # case: Chi Squared
     elseif ht.title == "Chi squared power calculation"
@@ -167,7 +167,7 @@ function plot(ht::pwr.htest)
         legend_string3 = string("alpha =", d["alpha"])
         optimal_string1 = "optimal sample size"
         optimal_string2 = string("N = ", ceil(Int64,n))
-        optimal_string3 = d["note"])
+        optimal_string3 = d["note"]
 
     # case: Normal distribution
     elseif ht.title == "Mean power calculation for normal distribution with known variance"
@@ -185,7 +185,7 @@ function plot(ht::pwr.htest)
         legend_string3 = string("alpha =", d["alpha"])
         optimal_string1 = "optimal sample size"
         optimal_string2 = string("n = ", ceil(Int64,n))
-        optimal_string3 = d["note"])
+        optimal_string3 = d["note"]
 
     # case: proportion
     elseif ht.title == "Proportion power calculation for binomial distribution (arcsine transformation)"
@@ -203,7 +203,7 @@ function plot(ht::pwr.htest)
         legend_string3 = string("alpha =", d["alpha"])
         optimal_string1 = "optimal sample size"
         optimal_string2 = string("n = ", ceil(Int64,n))
-        optimal_string3 = d["note"])
+        optimal_string3 = d["note"]
 
     # case: correlation
     elseif ht.title == "Approximate correlation power calculation (arctangh transformation)"
