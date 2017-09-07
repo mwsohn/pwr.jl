@@ -226,11 +226,12 @@ function plot(ht::pwr.htest)
     # use DataFrame
     df = DataFrame(x=sample_sizes, y=power)
     df = df[completecases(df),:]
+    len = size(df,1)
 
     # select the backend
     plotly()
 
-    xlim_lower = sample_sizes[20] / 100
+    xlim_lower = df[len,:x] / 100
 
     # plot with title and x-axis and y-axis labels
     plot(df[:x],df[:y],
@@ -248,8 +249,8 @@ function plot(ht::pwr.htest)
                 ((n_lower+xlim_lower),0.94,text(legend_string2,9,:blue,:left,:top)),
                 ((n_lower+xlim_lower),0.89,text(legend_string3,9,:blue,:left,:top)),
                 ((n_lower+xlim_lower),0.84,text(legend_string4,9,:blue,:left,:top)),
-            (sample_sizes[15],0.06,text(optimal_string1,9,:red,:left,:bottom)),
-            (sample_sizes[15],0.01,text(string(optimal_string2,"  ", optimal_string3),9,:red,:left,:bottom))]))
+            (sample_sizes[len-5],0.06,text(optimal_string1,9,:red,:left,:bottom)),
+            (sample_sizes[len-5],0.01,text(string(optimal_string2,"  ", optimal_string3),9,:red,:left,:bottom))]))
     vline!([n],line=(1,:dot,.8,:orange))
 
 end
