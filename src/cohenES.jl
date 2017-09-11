@@ -1,6 +1,6 @@
 function cohenES(;test::String = "",size::String = "")
 
-    if in(test,("p","t","r","anova","chisq","f2")) == false
+    if test in ("p","t","r","anova","chisq","f2") == false
         error("`test` must be one of `p`, `t`, `r`, `anova`, `chisq`,or `f2`")
     end
 
@@ -19,10 +19,13 @@ function cohenES(;test::String = "",size::String = "")
         [.1 .3 .5],
         [.02 .15 .35]]
 
-    println("\nConventional effect size from Cohen (1982)\n")
-    @printf("%13s = %s\n","test",test)
-    @printf("%13s = %s\n","size",size)
-    @printf("%13s = %.2f\n","effect size",effsize[testd[test]][sized[size]])
+    return htest(
+        "Conventional effect size from Cohen (1982)",
+        OrderedDict(
+            "test" => test,
+            "size" => size,
+            "effectsize" => effsize[testd[test]][sized[size]]
+            )
 end
 
-cohenES("anova", "small")
+#cohenES("anova", "small")

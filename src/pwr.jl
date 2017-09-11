@@ -2,7 +2,7 @@ module pwr
 
 using Distributions, Roots, DataStructures
 
-export ESh, ESw1, ESw2
+export cohenES, ESh, ESw1, ESw2
 export powerAnovaTest, samplesizeAnovaTest, effectsizeAnovaTest, alphaAnovaTest
 export powerChisqTest, samplesizeChisqTest, effectsizeChisqTest, alphaChisqTest
 export powerF2Test, samplesizeF2Test, effectsizeF2Test, alphaF2Test
@@ -17,6 +17,7 @@ export power2pTest, samplesize2pTest, effectsize2pTest, alpha2pTest
 export plot
 
 include("utils.jl")
+include("cohenES.jl")
 include("ESh.jl")
 include("ESw1.jl")
 include("ESw2.jl")
