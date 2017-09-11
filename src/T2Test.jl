@@ -88,7 +88,7 @@ function T2Test(;
     elseif alpha == 0.0
         alpha = alphaT2Test(n1 = n1, n2 = n2, d = d, power = power, sided = sided)
     elseif d == 0.0
-        d = effectsizeT2Test(n1 = n1, n2 = n2, d = d, alpha = alpha, power = power, sided = sided)
+        d = effectsizeT2Test(n1 = n1, n2 = n2, alpha = alpha, power = power, sided = sided)
     elseif n2 == 0
         n2 = samplesizeT2Test(n1 = n1, d = d, alpha = alpha, power = power, sided = sided)
     end

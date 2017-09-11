@@ -53,7 +53,13 @@ function effectsizeTwopTest(;
 
     check_args(n=n,alpha=alpha,power=power)
 
-    return fzero(x->powerTwopTest(h = x, n = n, alpha = alpha, sided = sided) - power, 1e-10, 1 - 1e-10)
+    if sided == "less"
+        return fzero(x->powerTwopTest(h = x, n = n, alpha = alpha, sided = sided) - power, -10.0, 5.0)
+    elseif sided == "two"
+        return fzero(x->powerTwopTest(h = x, n = n, alpha = alpha, sided = sided) - power, 1e-10, 10.0)
+    elseif side == "greater"
+        return fzero(x->powerTwopTest(h = x, n = n, alpha = alpha, sided = sided) - power, -5.0, 10.0)
+    end
 end
 
 # effectsizeTwopTest(n=175) # .3
