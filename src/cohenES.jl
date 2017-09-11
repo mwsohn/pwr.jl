@@ -26,6 +26,7 @@ function cohenES(;test::String = "",size::String = "")
             "size" => size,
             "effectsize" => effsize[testd[test]][sized[size]]
             )
+        )
 end
 
 #cohenES("anova", "small")

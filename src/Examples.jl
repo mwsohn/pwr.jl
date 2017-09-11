@@ -57,3 +57,8 @@ ESw2(prob)
 
 #pwr.chisq.test(w=ES.w2(prob),df=(2-1)*(4-1),N=200)
 pwr.ChisqTest(w=ESw2(prob),df=(2-1)*(4-1),N=200,power=0.0)
+
+
+## Exercise 6.1 p. 198 from Cohen (1988)
+#pwr.2p.test(h=0.3,n=80,sig.level=0.05,alternative="greater")
+pwr.TwopTest(h=0.3,n=80,alpha=0.05,alternative="greater",power=0.0)
