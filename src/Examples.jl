@@ -24,7 +24,7 @@ cohenES(test="r", size="medium")
 ## sample size for a medium size effect in the two-sided correlation test
 ## using the conventional power of 0.80
 #pwr.r.test(r=cohen.ES(test="r",size="medium")$effect.size,power=0.80, sig.level=0.05, alternative="two.sided")
-pwr.RTest(r=cohenES(test="r",size="medium").effectsize,power=0.80, alpha=0.05, alternative="two.sided")
+pwr.RTest(n=0,r=cohenES(test="r",size="medium").d["effectsize"],power=0.80, alpha=0.05, alternative="two.sided")
 
 ## Exercise 6.5 p. 203 from Cohen
 #h<-ES.h(0.5,0.4)
