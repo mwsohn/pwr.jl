@@ -44,8 +44,6 @@ function samplesize2p2nTest(;
     return ceil(Int64,fzero(x->power2p2nTest(h = h, n1 = n1, n2 = x, alpha = alpha, alternative = alternative) - power, 2 + 1e-10, 1e+09))
 end
 
-#samplesize2p2nTest(h=.3,n1=100)
-
 function effectsize2p2nTest(;
     n1::Real = 0,
     n2::Real = 0,
@@ -58,8 +56,6 @@ function effectsize2p2nTest(;
 
     return fzero(x->power2p2nTest(h = x, n1 = n1, n2 = n2, alpha = alpha, alternative = alternative) - power, 1e-10, 1 - 1e-10)
 end
-
-# effectsizeTwopTest(n=175) # .3
 
 function alpha2p2nTest(;
     h::Real = 0,
@@ -74,8 +70,6 @@ function alpha2p2nTest(;
     return fzero(x->power2p2nTest(h = h, n1 = n1, n2 = n2, alpha = x, alternative = alternative) - power, 1e-10, 1 - 1e-10)
 end
 
-# alphaTwopTest(h=.3,n=175) # 0.0495
-
 function Twop2nTest(;
     h::Real = 0,
     n1::Real = 0,
@@ -85,13 +79,12 @@ function Twop2nTest(;
     alternative::String = "two"
     )
     if sum([x == 0 for x in (h,n1,n2,alpha,power)]) != 1
-        error("exactly one of `h`, `n1`, `n2`, `power`, and `alpha` must be zero")
+        error("exactly one of `h`, `n2`, `power`, and `alpha` must be zero")
     end
 
     if n1 == 0
-        n1 = n2
-        n2 = 0
-    end
+        error("`n1` cannot be zero")
+    end 
 
     if power == 0.0
         power = power2p2nTest(h = h, n1 = n1, n2 = n2, alpha = alpha, alternative = alternative)
@@ -100,7 +93,7 @@ function Twop2nTest(;
     elseif h == 0
         h = effectsize2p2nTest(n1 = n1, n2 = n2, alpha = alpha, power = power, alternative = alternative)
     elseif n2 == 0
-        n = samplesize2p2nTest(h = h, n1 = n1, alpha = alpha, power = power, alternative = alternative)
+        n2 = samplesize2p2nTest(h = h, n1 = n1, alpha = alpha, power = power, alternative = alternative)
     end
 
     alt = Dict("two" => "two-sided", "two.sided" => "two-sided", "less" => "less", "greater" => "greater")
