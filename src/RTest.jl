@@ -18,18 +18,25 @@ function powerRTest(;
         tside = 3
     end
 
-    ttt = cquantile(TDist(n-2),alpha)
-    rc = sqrt(ttt^2 / (ttt^2 + n - 2))
-    zr = atanh(r) + r / (2 * (n - 1))
-    zrc = atanh(rc)
-
-    if tside == 1
+    if tside in (1,3)
+        ttt = cquantile(TDist(n-2),alpha)
+        rc = sqrt(ttt^2 / (ttt^2 + n - 2))
+        zr = atanh(r) + r / (2 * (n - 1))
+        zrc = atanh(rc)
         return cdf(Normal(),(zr - zrc) * sqrt(n-3))
     elseif tside == 2
+        ttt = cquantile(TDist(n-2),alpha/2)
+        rc = sqrt(ttt^2 / (ttt^2 + n - 2))
+        zr = atanh(r) + r / (2 * (n - 1))
+        zrc = atanh(rc)
         return cdf(Normal(),(zr - zrc) * sqrt(n-3))
             + cdf(Normal(),(-zr - zrc) * sqrt(n-3))
-    elseif tside == 3
-        return cdf(Normal(),(zr - zrc) * sqrt(n-3))
+    # elseif tside == 3
+    #     ttt = cquantile(TDist(n-2),alpha)
+    #     rc = sqrt(ttt^2 / (ttt^2 + n - 2))
+    #     zr = atanh(r) + r / (2 * (n - 1))
+    #     zrc = atanh(rc)
+    #     return cdf(Normal(),(zr - zrc) * sqrt(n-3))
     end
 end
 
