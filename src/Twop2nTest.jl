@@ -119,5 +119,3 @@ function Twop2nTest(;
             "note" => note)
         )
 end
-
-#Twop2nTest(h=.3,n1=100,n2=100,power = 0.0)
