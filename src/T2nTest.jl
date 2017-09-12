@@ -5,16 +5,16 @@ function powerT2nTest(;
     n1::Real = 0,
     n2::Real = 0,
     alpha = 0.05,
-    sided::String = "two")
+    alternative::String = "two")
 
     check_args(d=d,n1=n1,n2=n2,alpha=alpha)
 
-    if sided == "less"
+    if alternative == "less"
         tside = ttside = 1
-    elseif sided in ("two","two-sided")
+    elseif alternative in ("two","two.sided","two-sided")
         tside = ttside = 2
         d = abs(d)
-    elseif sided == "greater"
+    elseif alternative == "greater"
         ttside = 3
         tside = 1
     end
@@ -33,27 +33,27 @@ end
 
 function samplesizeT2nTest(;
     n1::Real = 0,
-    d::Float64 = 0.0,
-    alpha = 0.05,
-    power = 0.8,
-    sided::String = "two")
+    d::Real = 0.0,
+    alpha::Real = 0.05,
+    power::Real = 0.0,
+    alternative::String = "two")
 
     check_args(d=d,n1=n1,alpha=alpha,power=power)
 
-    return ceil(Int64,fzero(x->powerT2nTest(n1 = n1, n2 = x, d = d, alpha = alpha, sided = sided) - power, 2+1e-09, 1e+10))
+    return ceil(Int64,fzero(x->powerT2nTest(n1 = n1, n2 = x, d = d, alpha = alpha, alternative = alternative) - power, 2+1e-09, 1e+10))
 end
 
 function effectsizeT2nTest(;
     n1::Real = 0,
     n2::Real = 0,
-    alpha = 0.05,
-    power = 0.8,
-    sided::String = "two"
+    alpha::Real = 0.05,
+    power::Real = 0.0,
+    alternative::String = "two"
     )
 
     check_args(n1=n1,alpha=alpha,power=power)
 
-    return fzero(x -> powerT2nTest(n1 = n1, n2 = n2, d = x, alpha = alpha, sided = sided) - power,.001,100)
+    return fzero(x -> powerT2nTest(n1 = n1, n2 = n2, d = x, alpha = alpha, alternative = alternative) - power,.001,100)
 end
 
 #effectsizeT2nTest(n1=1500,n2=50)
@@ -61,40 +61,42 @@ end
 function alphaT2nTest(;
     n1::Real = 0,
     n2::Real = 0,
-    d = 0.0,
-    power = 0.8,
-    sided::String = "two"
+    d::Real = 0.0,
+    power::Real = 0.0,
+    alternative::String = "two"
     )
 
     check_args(d=d,n1=n1,n2=n2,power=power)
 
-    return fzero(x->powerT2nTest(n1 = n1, n2 = n2, d = d, alpha = x, sided = sided) - power, 1e-10, 1 - 1e-10)
+    return fzero(x->powerT2nTest(n1 = n1, n2 = n2, d = d, alpha = x, alternative = alternative) - power, 1e-10, 1 - 1e-10)
 end
 
 function T2nTest(;
     n1::Real = 0,
     n2::Real = 0,
-    d::Float64 = 0.0,
-    alpha = 0.05,
-    power = 0.8,
-    sided::String = "two")
+    d::Real = 0.0,
+    alpha::Real = 0.05,
+    power::Real = 0.0,
+    alternative::String = "two")
 
     if sum([x == 0 for x in (n1,n2,d,alpha,power)]) != 1
         error("exactly one of `n2`, `d`, `power`, and `alpha` must be zero")
     end
 
     if power == 0.0
-        power = powerT2nTest(n1 = n1, n2 = n2, d = d, alpha = alpha, sided = sided)
+        power = powerT2nTest(n1 = n1, n2 = n2, d = d, alpha = alpha, alternative = alternative)
     elseif alpha == 0.0
-        alpha = alphaT2nTest(n1 = n1, n2 = n2, d = d, power = power, sided = sided)
+        alpha = alphaT2nTest(n1 = n1, n2 = n2, d = d, power = power, alternative = alternative)
     elseif d == 0.0
-        d = effectsizeT2nTest(n1 = n1, n2 = n2, d = d, alpha = alpha, power = power, sided = sided)
+        d = effectsizeT2nTest(n1 = n1, n2 = n2, d = d, alpha = alpha, power = power, alternative = alternative)
     elseif n2 == 0
-        n2 = samplesizeT2nTest(n1 = n1, d = d, alpha = alpha, power = power, sided = sided)
+        n2 = samplesizeT2nTest(n1 = n1, d = d, alpha = alpha, power = power, alternative = alternative)
     end
 
-    stype = Dict("onesample" => "One-sample", "twosample" => "Two-sample", "paired" => "Paired")
-    alt = Dict("two" => "two-sided", "less" => "less", "greater" => "greater")
+    stype = Dict("onesample" => "One-sample", "one.sample" => "One-sample", "one sample" => "One-sample",
+        "twosample" => "Two-sample", "two.sample" => "Two-sample", "two sample" => "Two-sample",
+        "paired" => "Paired")
+    alt = Dict("two" => "two-sided", "two.sided" => "two-sided", "less" => "less", "greater" => "greater")
     note = ""
 
     return htest(
@@ -105,8 +107,8 @@ function T2nTest(;
             "d" => d,
             "alpha" => alpha,
             "power" => power,
-            "alternative" => alt[sided],
-            "note" => note)
+            "alternative" => alt[alternative]
+            )
         )
 end
 

@@ -1,9 +1,9 @@
 # power analysis functions for t-test
 
 function powerTTest(;
-    d::Float64 = 0.0,
+    d::Real = 0.0,
     n::Real = 0,
-    alpha = 0.05,
+    alpha::Real = 0.05,
     sampletype::String = "onesample",
     alternative::String = "two")
 
@@ -38,9 +38,9 @@ function powerTTest(;
 end
 
 function samplesizeTTest(;
-    d::Float64 = 0.0,
-    alpha = 0.05,
-    power = 0.8,
+    d::Real = 0.0,
+    alpha::Real = 0.05,
+    power::Real = 0.0,
     sampletype::String = "onesample",
     alternative::String = "two")
 
@@ -50,9 +50,9 @@ function samplesizeTTest(;
 end
 
 function effectsizeTTest(;
-    n::Int64 = 0,
-    alpha = 0.05,
-    power = 0.8,
+    n::Real = 0,
+    alpha::Real = 0.05,
+    power::Real = 0.0,
     sampletype::String = "onesample",
     alternative::String = "two"
     )
@@ -63,9 +63,9 @@ function effectsizeTTest(;
 end
 
 function alphaTTest(;
-    n = 0,
-    d = 0.0,
-    power = 0.8,
+    n::Real = 0,
+    d::Real = 0.0,
+    power::Real = 0.0,
     sampletype::String = "onesample",
     alternative::String = "two"
     )
@@ -77,9 +77,9 @@ end
 
 function TTest(;
     n::Real = 0,
-    d::Float64 = 0.0,
-    alpha = 0.05,
-    power = 0.8,
+    d::Real = 0.0,
+    alpha::Real = 0.05,
+    power::Real = 0.0,
     sampletype::String = "onesample",
     alternative::String = "two")
 
@@ -105,7 +105,7 @@ function TTest(;
     note = ""
     if alternative == "paired"
         note = "`n` is number of pairs"
-    elseif alternative == "two"
+    elseif alternative in ("two","two.sided","two-sided","two sided")
         note = "`n` is number in each group"
     end
 
