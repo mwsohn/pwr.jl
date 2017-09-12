@@ -1,9 +1,9 @@
 # power analysis functions for mean for normal distribution with known variance
 
 function powerRTest(;
-    r::Float64 = 0.0,
+    r::Real = 0.0,
     n::Real = 0,
-    alpha = 0.05,
+    alpha::Real = 0.05,
     alternative::String = "two")
 
     check_args(r=r,n=n,alpha=alpha)
@@ -41,9 +41,9 @@ function powerRTest(;
 end
 
 function samplesizeRTest(;
-    r::Float64 = 0.0,
-    alpha = 0.05,
-    power = 0.8,
+    r::Real = 0.0,
+    alpha::Real = 0.05,
+    power::Real = 0.0,
     alternative::String = "two")
 
     check_args(r=r,alpha=alpha,power=power)
@@ -52,9 +52,9 @@ function samplesizeRTest(;
 end
 
 function effectsizeRTest(;
-    n::Int64 = 0,
-    alpha = 0.05,
-    power = 0.8,
+    n::Real = 0,
+    alpha::Real = 0.05,
+    power::Real = 0.0,
     alternative::String = "two"
     )
 
@@ -64,9 +64,9 @@ function effectsizeRTest(;
 end
 
 function alphaRTest(;
-    n = 0,
-    r = 0.0,
-    power = 0.8,
+    n::Real = 0,
+    r::Real = 0.0,
+    power::Real = 0.0,
     alternative::String = "two"
     )
 
@@ -77,9 +77,9 @@ end
 
 function RTest(;
     n::Real = 0,
-    r::Float64 = 0.0,
-    alpha = 0.05,
-    power = 0.8,
+    r::Real = 0.0,
+    alpha::Real = 0.05,
+    power::Real = 0.0,
     alternative::String = "two")
 
     if sum([x == 0 for x in (n,r,alpha,power)]) != 1
@@ -110,7 +110,3 @@ function RTest(;
             "note" => note)
         )
 end
-#
-# @time print(RTest(n=193,r=.2,power=0.0))
-# @time print(RTest(n=193,r=.2,power=0.0,alternative="less"))
-# @time print(RTest(n=193,r=.2,power=0.0,alternative="greater"))

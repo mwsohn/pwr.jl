@@ -5,7 +5,7 @@ using Distributions, Roots
 function powerPTest(;
     h::Real = 0,
     n::Real = 0,
-    alpha::Float64 = 0.05,
+    alpha::Real = 0.05,
     alternative::String = "two.sided"
     )
 
@@ -36,8 +36,8 @@ end
 
 function samplesizePTest(;
     h::Real = 0,
-    alpha::Float64 = 0.05,
-    power::Float64 = 0.8,
+    alpha::Real = 0.05,
+    power::Real = 0.0,
     alternative::String = "two"
     )
 
@@ -50,8 +50,8 @@ end
 
 function effectsizePTest(;
     n::Real = 0,
-    alpha::Float64 = 0.05,
-    power::Float64 = 0.8,
+    alpha::Real = 0.05,
+    power::Real = 0.0,
     alternative::String = "two"
     )
 
@@ -65,7 +65,7 @@ end
 function alphaPTest(;
     h::Real = 0,
     n::Real = 0,
-    power::Float64 = 0.8,
+    power::Real = 0.0,
     alternative::String = "two"
     )
 
@@ -79,8 +79,8 @@ end
 function PTest(;
     h::Real = 0,
     n::Real = 0,
-    alpha::Float64 = 0.05,
-    power::Float64 = 0.8,
+    alpha::Real = 0.05,
+    power::Real = 0.0,
     alternative::String = "two.sided"
     )
     if sum([x == 0 for x in (h,n,alpha,power)]) != 1
@@ -110,5 +110,3 @@ function PTest(;
             )
         )
 end
-
-#PTest(h=.0,n=100,power = 0.8)

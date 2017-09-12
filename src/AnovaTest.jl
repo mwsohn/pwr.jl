@@ -8,8 +8,8 @@
 function powerAnovaTest(;
     k::Real = 0,
     n::Real = 0,
-    f::Float64 = 0.0,
-    alpha = 0.05)
+    f::Real = 0.0,
+    alpha::Real = 0.05)
 
     check_args(k=k,n=n,f=f,alpha=alpha)
 
@@ -21,9 +21,9 @@ end
 
 function samplesizeAnovaTest(;
     k::Real = 0,
-    f::Float64 = 0.0,
-    alpha = 0.05,
-    power = 0.8)
+    f::Real = 0.0,
+    alpha::Real = 0.05,
+    power::Real = 0.0)
 
     check_args(k=k,f=f,alpha=alpha,power=power)
 
@@ -32,9 +32,9 @@ end
 
 function groupsizeAnovaTest(;
     n::Real = 0,
-    f::Float64 = 0.0,
-    alpha = 0.05,
-    power = 0.8)
+    f::Real = 0.0,
+    alpha::Real = 0.05,
+    power::Real = 0.0)
 
     check_args(n=n,f=f,alpha=alpha,power=power)
 
@@ -44,8 +44,8 @@ end
 function effectsizeAnovaTest(;
     k::Real = 0,
     n::Real = 0,
-    alpha = 0.05,
-    power = 0.8)
+    alpha::Real = 0.05,
+    power::Real = 0.0)
 
     check_args(k=k,n=n,alpha=alpha,power=power)
 
@@ -55,8 +55,8 @@ end
 function alphaAnovaTest(;
     k::Real = 0,
     n::Real = 0,
-    f = 0.0,
-    power = 0.8)
+    f::Real = 0.0,
+    power::Real = 0.0)
 
     check_args(k=k,f=f,n=n,power=power)
 
@@ -66,9 +66,9 @@ end
 function AnovaTest(;
     k::Real = 0,
     n::Real = 0,
-    f::Float64 = 0.0,
-    alpha = 0.05,
-    power = 0.8)
+    f::Real = 0.0,
+    alpha::Real = 0.05,
+    power::Real = 0.0)
 
     if sum([x == 0 for x in (k,n,f,alpha,power)]) != 1
         error("exactly one of k, n, f, power, and alpha must be zero")
@@ -86,7 +86,7 @@ function AnovaTest(;
         k = groupsizeAnovaTest(n = n, f = f, alpha = alpha, power = power)
     end
 
-    alt = Dict("two" => "two-sided", "less" => "less", "greater" => "greater")
+    alt = Dict("two" => "two-sided", "two.sided" => "two-sided", "less" => "less", "greater" => "greater")
 
     note = "`n` is the number in each group"
 
@@ -101,6 +101,3 @@ function AnovaTest(;
             "note" => note)
         )
 end
-
-
-#print(AnovaTest(k=2,n=100,f=.3,power=0.0))

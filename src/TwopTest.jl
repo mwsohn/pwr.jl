@@ -3,7 +3,7 @@
 function powerTwopTest(;
     h::Real = 0,
     n::Real = 0,
-    alpha::Float64 = 0.05,
+    alpha::Real = 0.05,
     alternative::String = "two"
     )
 
@@ -32,8 +32,8 @@ end
 
 function samplesizeTwopTest(;
     h::Real = 0,
-    alpha::Float64 = 0.05,
-    power::Float64 = 0.8,
+    alpha::Real = 0.05,
+    power::Real = 0.0,
     alternative::String = "two"
     )
 
@@ -46,8 +46,8 @@ end
 
 function effectsizeTwopTest(;
     n::Real = 0,
-    alpha::Float64 = 0.05,
-    power::Float64 = 0.8,
+    alpha::Real = 0.05,
+    power::Real = 0.0,
     alternative::String = "two"
     )
 
@@ -67,7 +67,7 @@ end
 function alphaTwopTest(;
     h::Real = 0,
     n::Real = 0,
-    power::Float64 = 0.8,
+    power::Real = 0.0,
     alternative::String = "two"
     )
 
@@ -81,8 +81,8 @@ end
 function TwopTest(;
     h::Real = 0,
     n::Real = 0,
-    alpha::Float64 = 0.05,
-    power::Float64 = 0.8,
+    alpha::Real = 0.05,
+    power::Real = 0.0,
     alternative::String = "two"
     )
     if sum([x == 0 for x in (h,n,alpha,power)]) != 1

@@ -4,7 +4,7 @@ function powerChisqTest(;
     w::Real = 0,
     N::Real = 0,
     df::Int64 = 0,
-    alpha::Float64 = 0.05
+    alpha::Real = 0.05
     )
 
     check_args(w = w, N = N, df = df, alpha = alpha)
@@ -16,8 +16,8 @@ end
 function samplesizeChisqTest(;
     w::Real = 0,
     df::Int64 = 0,
-    alpha::Float64 = 0.05,
-    power::Float64 = 0.8
+    alpha::Real = 0.05,
+    power::Real = 0.0
     )
 
     check_args(w = w, df = df, alpha = alpha, power = power)
@@ -28,8 +28,8 @@ end
 function effectsizeChisqTest(;
     N::Real = 0,
     df::Int64 = 0,
-    alpha::Float64 = 0.05,
-    power::Float64 = 0.8
+    alpha::Real = 0.05,
+    power::Real = 0.0
     )
 
     check_args(N = N, df = df, alpha = alpha, power = power)
@@ -41,7 +41,7 @@ function alphaChisqTest(;
     w::Real = 0,
     N::Real = 0,
     df::Int64 = 0,
-    power::Float64 = 0.8
+    power::Real = 0.0
     )
 
     check_args(w = w, N = N, df = df, power = power)
@@ -53,8 +53,8 @@ function ChisqTest(;
     w::Real = 0,
     N::Real = 0,
     df::Int64 = 0,
-    alpha = 0.05,
-    power::Float64 = 0.8
+    alpha::Real = 0.05,
+    power::Real = 0.0
     )
     if sum([x == 0 for x in (w,N,alpha,power)]) != 1
         error("exactly one of `w`, `N`, `power`, and `alpha` must be zero")

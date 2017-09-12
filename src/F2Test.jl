@@ -8,8 +8,8 @@
 function powerF2Test(;
     u::Real = 0,
     v::Real = 0,
-    f2::Float64 = 0.0,
-    alpha = 0.05)
+    f2::Real = 0.0,
+    alpha::Real = 0.05)
 
     check_args(u=u, v=v, f2=f2, alpha=alpha)
 
@@ -22,9 +22,9 @@ end
 function samplesizeF2Test(;
     u::Real = 0,
     v::Real = 0,
-    f2::Float64 = 0.0,
-    alpha = 0.05,
-    power = 0.8)
+    f2::Real = 0.0,
+    alpha::Real = 0.05,
+    power::Real = 0.0)
 
     check_args(u=u, v=v, f2=f2, alpha=alpha, power=power)
 
@@ -43,8 +43,8 @@ end
 function effectsizeF2Test(;
     u::Real = 0,
     v::Real = 0,
-    alpha = 0.05,
-    power = 0.8)
+    alpha::Real = 0.05,
+    power::Real = 0.0)
 
     check_args(u=u,v=v,alpha=alpha,power=power)
 
@@ -54,8 +54,8 @@ end
 function alphaF2Test(;
     u::Real = 0,
     v::Real = 0,
-    f2 = 0.0,
-    power = 0.8)
+    f2::Real = 0.0,
+    power::Real = 0.0)
 
     check_args(u=u, v=v, f2=f2, power=power)
 
@@ -65,9 +65,9 @@ end
 function F2Test(;
     u::Real = 0,
     v::Real = 0,
-    f2::Float64 = 0.0,
-    alpha = 0.05,
-    power = 0.8)
+    f2::Real = 0.0,
+    alpha::Real = 0.05,
+    power::Real = 0.0)
 
     if sum([x == 0 for x in (u,v,f2,alpha,power)]) != 1
         error("exactly one of u, v, f2, power, and alpha must be zero")
@@ -96,5 +96,3 @@ function F2Test(;
             "note" => "")
         )
 end
-
-# print(F2Test(u=12,v=99,f2=.3,power=0.0))

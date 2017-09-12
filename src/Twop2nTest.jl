@@ -4,29 +4,29 @@ function power2p2nTest(;
     h::Real = 0,
     n1::Real = 0,
     n2::Real = 0,
-    alpha::Float64 = 0.05,
-    sided::String = "two"
+    alpha::Real = 0.05,
+    alternative::String = "two"
     )
 
     check_args(h=h,n1=n1,n2=n2,alpha=alpha)
 
-    if sided == "less"
+    if alternative == "less"
         tside = 1
-    elseif sided in ("two","two-sided")
+    elseif alternative in ("two","two.sided","two-sided")
         tside = 2
         h = abs(h)
-    elseif sided == "greater"
+    elseif alternative == "greater"
         tside = 3
     else
-        error("`sided` must be `less`, `two`, or `greater`.")
+        error("`alternative` must be `less`, `two`, or `greater`.")
     end
 
     if tside == 1
         return cdf(Normal(),quantile(Normal(),alpha) - h*sqrt(n1*n2/(n1 + n2)))
     elseif tside == 2
-        return ccdf(Normal(),cquantile(Normal(),alpha/2) - h*sqrt(n1*n2/(n1 + n2))) + cdf(Normal(),quantile(Normal(),alpha) - h*sqrt(n1*n2/(n1 + n2)))
+        return ccdf(Normal(),cquantile(Normal(),alpha/2) - h*sqrt(n1*n2/(n1 + n2))) + cdf(Normal(),quantile(Normal(),alpha/2) - h*sqrt(n1*n2/(n1 + n2)))
     elseif tside == 3
-        return ccdf(Normal(),cquantile(Normal(),alpha/2) - h*sqrt(n1*n2/(n1 + n2)))
+        return ccdf(Normal(),cquantile(Normal(),alpha) - h*sqrt(n1*n2/(n1 + n2)))
     end
     error("internal error")
 end
@@ -34,14 +34,14 @@ end
 function samplesize2p2nTest(;
     h::Real = 0,
     n1::Real = 0,
-    alpha::Float64 = 0.05,
-    power::Float64 = 0.8,
-    sided::String = "two"
+    alpha::Real = 0.05,
+    power::Real = 0.0,
+    alternative::String = "two"
     )
 
     check_args(h=h,n1=n1,alpha=alpha,power=power)
 
-    return ceil(Int64,fzero(x->power2p2nTest(h = h, n1 = n1, n2 = x, alpha = alpha, sided = sided) - power, 2 + 1e-10, 1e+09))
+    return ceil(Int64,fzero(x->power2p2nTest(h = h, n1 = n1, n2 = x, alpha = alpha, alternative = alternative) - power, 2 + 1e-10, 1e+09))
 end
 
 #samplesize2p2nTest(h=.3,n1=100)
@@ -49,14 +49,14 @@ end
 function effectsize2p2nTest(;
     n1::Real = 0,
     n2::Real = 0,
-    alpha::Float64 = 0.05,
-    power::Float64 = 0.8,
-    sided::String = "two"
+    alpha::Real = 0.05,
+    power::Real = 0.0,
+    alternative::String = "two"
     )
 
     check_args(n1=n1,n2=n2,alpha=alpha,power=power)
 
-    return fzero(x->power2p2nTest(h = x, n1 = n1, n2 = n2, alpha = alpha, sided = sided) - power, 1e-10, 1 - 1e-10)
+    return fzero(x->power2p2nTest(h = x, n1 = n1, n2 = n2, alpha = alpha, alternative = alternative) - power, 1e-10, 1 - 1e-10)
 end
 
 # effectsizeTwopTest(n=175) # .3
@@ -65,13 +65,13 @@ function alpha2p2nTest(;
     h::Real = 0,
     n1::Real = 0,
     n2::Real = 0,
-    power::Float64 = 0.8,
-    sided::String = "two"
+    power::Real = 0.0,
+    alternative::String = "two"
     )
 
     check_args(h=h,n1=n1,n2=n2,power=power)
 
-    return fzero(x->power2p2nTest(h = h, n1 = n1, n2 = n2, alpha = x, sided = sided) - power, 1e-10, 1 - 1e-10)
+    return fzero(x->power2p2nTest(h = h, n1 = n1, n2 = n2, alpha = x, alternative = alternative) - power, 1e-10, 1 - 1e-10)
 end
 
 # alphaTwopTest(h=.3,n=175) # 0.0495
@@ -80,9 +80,9 @@ function Twop2nTest(;
     h::Real = 0,
     n1::Real = 0,
     n2::Real = 0,
-    alpha::Float64 = 0.05,
-    power::Float64 = 0.8,
-    sided::String = "two"
+    alpha::Real = 0.05,
+    power::Real = 0.0,
+    alternative::String = "two"
     )
     if sum([x == 0 for x in (h,n1,n2,alpha,power)]) != 1
         error("exactly one of `h`, `n1`, `n2`, `power`, and `alpha` must be zero")
@@ -94,16 +94,16 @@ function Twop2nTest(;
     end
 
     if power == 0.0
-        power = power2p2nTest(h = h, n1 = n1, n2 = n2, alpha = alpha, sided = sided)
+        power = power2p2nTest(h = h, n1 = n1, n2 = n2, alpha = alpha, alternative = alternative)
     elseif alpha == 0.0
-        alpha = alpha2p2nTest(h = h, n1 = n1, n2 = n2, power = power, sided = sided)
+        alpha = alpha2p2nTest(h = h, n1 = n1, n2 = n2, power = power, alternative = alternative)
     elseif h == 0
-        h = effectsize2p2nTest(n1 = n1, n2 = n2, alpha = alpha, power = power, sided = sided)
+        h = effectsize2p2nTest(n1 = n1, n2 = n2, alpha = alpha, power = power, alternative = alternative)
     elseif n2 == 0
-        n = samplesize2p2nTest(h = h, n1 = n1, alpha = alpha, power = power, sided = sided)
+        n = samplesize2p2nTest(h = h, n1 = n1, alpha = alpha, power = power, alternative = alternative)
     end
 
-    alt = Dict("two" => "two-sided", "less" => "less", "greater" => "greater")
+    alt = Dict("two" => "two-sided", "two.sided" => "two-sided", "less" => "less", "greater" => "greater")
 
     note = "different sample sizes"
 
@@ -115,7 +115,7 @@ function Twop2nTest(;
             "n2" => n2,
             "alpha" => alpha,
             "power" => power,
-            "alternative" => alt[sided],
+            "alternative" => alt[alternative],
             "note" => note)
         )
 end

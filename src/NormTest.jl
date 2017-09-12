@@ -1,16 +1,16 @@
 # power analysis functions for mean for normal distribution with known variance
 
 function powerNormTest(;
-    d::Float64 = 0.0,
+    d::Real = 0.0,
     n::Real = 0,
-    alpha = 0.05,
+    alpha::Real = 0.05,
     sided::String = "two")
 
     check_args(d=d,n=n,alpha=alpha)
 
     if sided == "less"
         tside = 1
-    elseif sided in ("two","two-sided")
+    elseif sided in ("two","two.sided","two-sided")
         tside = 2
         d = abs(d)
     elseif sided == "greater"
@@ -28,9 +28,9 @@ function powerNormTest(;
 end
 
 function samplesizeNormTest(;
-    d::Float64 = 0.0,
-    alpha = 0.05,
-    power = 0.8,
+    d::Real = 0.0,
+    alpha::Real = 0.05,
+    power::Real = 0.0,
     sided::String = "two")
 
     check_args(d=d,alpha=alpha,power=power)
@@ -39,9 +39,9 @@ function samplesizeNormTest(;
 end
 
 function effectsizeNormTest(;
-    n::Int64 = 0,
-    alpha = 0.05,
-    power = 0.8,
+    n::Real = 0,
+    alpha::Real = 0.05,
+    power::Real = 0.0,
     sided::String = "two"
     )
 
@@ -51,9 +51,9 @@ function effectsizeNormTest(;
 end
 
 function alphaNormTest(;
-    n = 0,
-    d = 0.0,
-    power = 0.8,
+    n::Real = 0,
+    d::Real = 0.0,
+    power::Real = 0.0,
     sided::String = "two"
     )
 
@@ -64,9 +64,9 @@ end
 
 function NormTest(;
     n::Real = 0,
-    d::Float64 = 0.0,
-    alpha = 0.05,
-    power = 0.8,
+    d::Real = 0.0,
+    alpha::Real = 0.05,
+    power::Real = 0.0,
     sided::String = "two")
 
     if sum([x == 0 for x in (n,d,alpha,power)]) != 1
@@ -83,7 +83,7 @@ function NormTest(;
         n = samplesizeNormTest(d = d, alpha = alpha, power = power, sided = sided)
     end
 
-    alt = Dict("two" => "two-sided", "less" => "less", "greater" => "greater")
+    alt = Dict("two" => "two-sided", "two.sided" => "two-sided", "less" => "less", "greater" => "greater")
 
     return htest(
         string("Mean power calculation for normal distribution with known variance"),
@@ -92,9 +92,7 @@ function NormTest(;
             "d" => d,
             "alpha" => alpha,
             "power" => power,
-            "alternative" => alt[sided],
+            "alternative" => alt[alternative],
             "note" => "")
         )
 end
-
-#@time print(NormTest(n=0,d=.2))
