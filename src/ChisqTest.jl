@@ -22,7 +22,7 @@ function samplesizeChisqTest(;
 
     check_args(w = w, df = df, alpha = alpha, power = power)
 
-    return fzero(x->powerChisqTest(w = w, N = x, df = df, alpha = alpha) - power, 2.0, 10.0^7)
+    return ceil(Int64,fzero(x->powerChisqTest(w = w, N = x, df = df, alpha = alpha) - power, 2.0, 10.0^7))
 end
 
 function effectsizeChisqTest(;

@@ -4,16 +4,16 @@ function powerNormTest(;
     d::Real = 0.0,
     n::Real = 0,
     alpha::Real = 0.05,
-    sided::String = "two")
+    alternative::String = "two")
 
     check_args(d=d,n=n,alpha=alpha)
 
-    if sided == "less"
+    if alternative == "less"
         tside = 1
-    elseif sided in ("two","two.sided","two-sided")
+    elseif alternative in ("two","two.sided","two-sided")
         tside = 2
         d = abs(d)
-    elseif sided == "greater"
+    elseif alternative == "greater"
         tside = 3
     end
 
@@ -31,35 +31,35 @@ function samplesizeNormTest(;
     d::Real = 0.0,
     alpha::Real = 0.05,
     power::Real = 0.0,
-    sided::String = "two")
+    alternative::String = "two")
 
     check_args(d=d,alpha=alpha,power=power)
 
-    return ceil(Int64,fzero(x->powerNormTest(n = x, d = d, alpha = alpha, sided = sided) - power, 2.0, 10.0^7))
+    return ceil(Int64,fzero(x->powerNormTest(n = x, d = d, alpha = alpha, alternative = alternative) - power, 2.0, 10.0^7))
 end
 
 function effectsizeNormTest(;
     n::Real = 0,
     alpha::Real = 0.05,
     power::Real = 0.0,
-    sided::String = "two"
+    alternative::String = "two"
     )
 
     check_args(n=n,alpha=alpha,power=power)
 
-    return fzero(x -> powerNormTest(n = n, d = x, alpha = alpha, sided = sided) - power,.001,100)
+    return fzero(x -> powerNormTest(n = n, d = x, alpha = alpha, alternative = alternative) - power,.001,100)
 end
 
 function alphaNormTest(;
     n::Real = 0,
     d::Real = 0.0,
     power::Real = 0.0,
-    sided::String = "two"
+    alternative::String = "two"
     )
 
     check_args(d=d,n=n,power=power)
 
-    return fzero(x->powerNormTest(n = n, d = d, alpha = x, sided = sided) - power, 1e-10, 1 - 1e-10)
+    return fzero(x->powerNormTest(n = n, d = d, alpha = x, alternative = alternative) - power, 1e-10, 1 - 1e-10)
 end
 
 function NormTest(;
@@ -67,20 +67,20 @@ function NormTest(;
     d::Real = 0.0,
     alpha::Real = 0.05,
     power::Real = 0.0,
-    sided::String = "two")
+    alternative::String = "two")
 
     if sum([x == 0 for x in (n,d,alpha,power)]) != 1
         error("exactly one of n, d, power, and alpha must be zero")
     end
 
     if power == 0.0
-        power = powerNormTest(n = n, d = d, alpha = alpha, sided = sided)
+        power = powerNormTest(n = n, d = d, alpha = alpha, alternative = alternative)
     elseif alpha == 0.0
-        alpha = alphaNormTest(n = n, d = d, power = power, sided = sided)
+        alpha = alphaNormTest(n = n, d = d, power = power, alternative = alternative)
     elseif d == 0.0
-        d = effectsizeNormTest(n = n, alpha = alpha, power = power, sided = sided)
+        d = effectsizeNormTest(n = n, alpha = alpha, power = power, alternative = alternative)
     elseif n == 0
-        n = samplesizeNormTest(d = d, alpha = alpha, power = power, sided = sided)
+        n = samplesizeNormTest(d = d, alpha = alpha, power = power, alternative = alternative)
     end
 
     alt = Dict("two" => "two-sided", "two.sided" => "two-sided", "less" => "less", "greater" => "greater")
