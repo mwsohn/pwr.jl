@@ -231,6 +231,7 @@ function plot(ht::pwr.htest)
     # select the backend
     plotly()
 
+    n_lower = ceil(Int64,fzero(x->(x*n_rel) - 2.1,2,n_upper))
     xlim_lower = df[len,:x] / 100
 
     # plot with title and x-axis and y-axis labels
