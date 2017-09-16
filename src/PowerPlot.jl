@@ -229,13 +229,14 @@ function plot(ht::pwr.htest)
     plotly()
 
     n_lower = df[1,:x]
-    xlim_lower = df[len,:x] / 50
+    xlim_lower = df[len,:x] / 150
 
     # plot with title and x-axis and y-axis labels
     plot(df[:x],df[:y],
         marker=(2,.5,:circle,:blue),
         left_margin = 8mm,
         top_margin = 8mm,
+        right_margin = 4mm,
         title = ht.title,
         ylabel = string("Test power = 1 - β"),
         xlabel = "Sample Size",
@@ -248,8 +249,8 @@ function plot(ht::pwr.htest)
                 ((n_lower+xlim_lower),0.94,text(legend_string2,9,:blue,:left,:top)),
                 ((n_lower+xlim_lower),0.89,text(legend_string3,9,:blue,:left,:top)),
                 ((n_lower+xlim_lower),0.84,text(legend_string4,9,:blue,:left,:top)),
-            (sample_sizes[len-8],0.06,text(optimal_string1,9,:red,:left,:bottom)),
-            (sample_sizes[len-8],0.01,text(string(optimal_string2,"  ", optimal_string3),9,:red,:left,:bottom))]))
+            (sample_sizes[floor(Int64,len/2)],0.06,text(optimal_string1,9,:red,:left,:bottom)),
+            (sample_sizes[floor(Int64,len/2)],0.01,text(string(optimal_string2,"  ", optimal_string3),9,:red,:left,:bottom))]))
     vline!([n],line=(1,:dot,.8,:orange))
 
 end
