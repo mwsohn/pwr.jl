@@ -9,15 +9,15 @@ function powerTTest(;
 
     check_args(d=d,n=n,alpha=alpha)
 
-    if sampletype in ("onesample","one.sample","one sample","paired")
+    if lowercase(sampletype) in ("onesample","one.sample","one-sample","one sample","paired")
         tsample = 1
-    elseif sampletype in ("twosample","two.sample","two sample")
+    elseif lowercase(sampletype) in ("twosample","two.sample","two-sample","two sample")
         tsample = 2
     end
 
     if alternative == "less"
         tside = ttside = 1
-    elseif alternative in ("two","two.sided","two-sided")
+    elseif alternative in ("two","two.sided","two-sided","two sided")
         tside = ttside = 2
         d = abs(d)
     elseif alternative == "greater"
@@ -97,9 +97,9 @@ function TTest(;
         n = samplesizeTTest(d = d, alpha = alpha, power = power, sampletype = sampletype, alternative = alternative)
     end
 
-    stype = Dict("onesample" => "One-sample","one.sample" => "One-sample","one sample" => "One-sample",
-        "twosample" => "Two-sample","two.sample" => "Two-sample","two sample" => "Two-sample",
-        "paired" => "Paired")
+    stype = Dict("onesample" => "one-sample","one.sample" => "one-sample","one sample" => "one-sample",
+        "twosample" => "two-sample","two.sample" => "two-sample","two sample" => "two-sample",
+        "paired" => "paired")
     alt = Dict("two" => "two-sided", "two.sided" => "two-sided", "less" => "less", "greater" => "greater")
 
     note = ""
