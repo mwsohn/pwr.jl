@@ -27,9 +27,6 @@ function plot(ht::pwr.htest)
 
     breaks = 20
 
-    title_string = ht.title
-    xlab_string = "Sample Size"
-    ylab_string = string("Test power = 1 - β")
     legend_string4 = ""
     optimal_string3 = ""
 
@@ -232,15 +229,16 @@ function plot(ht::pwr.htest)
     plotly()
 
     n_lower = df[1,:x]
-    xlim_lower = df[len,:x] / 100
+    xlim_lower = df[len,:x] / 50
 
     # plot with title and x-axis and y-axis labels
     plot(df[:x],df[:y],
         marker=(2,.5,:circle,:blue),
         left_margin = 8mm,
-        title = title_string,
-        ylabel = ylab_string,
-        xlabel = xlab_string,
+        top_margin = 8mm,
+        title = ht.title,
+        ylabel = string("Test power = 1 - β"),
+        xlabel = "Sample Size",
         yticks=[0.0 0.2 0.4 0.6 0.8 1.0],
         ylims=(-0.03,1.0),
         xlims=(-(n_lower+xlim_lower),n_upper),
@@ -250,8 +248,8 @@ function plot(ht::pwr.htest)
                 ((n_lower+xlim_lower),0.94,text(legend_string2,9,:blue,:left,:top)),
                 ((n_lower+xlim_lower),0.89,text(legend_string3,9,:blue,:left,:top)),
                 ((n_lower+xlim_lower),0.84,text(legend_string4,9,:blue,:left,:top)),
-            (sample_sizes[len-5],0.06,text(optimal_string1,9,:red,:left,:bottom)),
-            (sample_sizes[len-5],0.01,text(string(optimal_string2,"  ", optimal_string3),9,:red,:left,:bottom))]))
+            (sample_sizes[len-8],0.06,text(optimal_string1,9,:red,:left,:bottom)),
+            (sample_sizes[len-8],0.01,text(string(optimal_string2,"  ", optimal_string3),9,:red,:left,:bottom))]))
     vline!([n],line=(1,:dot,.8,:orange))
 
 end
