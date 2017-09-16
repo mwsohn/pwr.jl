@@ -45,7 +45,7 @@ function plot(ht::pwr.htest)
         sample_sizes = collect(10:n_increment:n_upper)
 
         # obtain power at each sample size
-        power = [ss->powerTTest(n=ss,d=d["d"],alpha = d["alpha"],sampletype=d["sampletype"],sided=d["alternative"]) for ss in sample_sizes]
+        power = [ss->powerTTest(n=ss,d=d["d"],alpha = d["alpha"],sampletype=d["sampletype"],alternative=d["alternative"]) for ss in sample_sizes]
 
         # create labels
         legend_string1 = string("tails = ", d["alternative"])
@@ -72,7 +72,7 @@ function plot(ht::pwr.htest)
             if (na < 2 || nb < 2)
                 return(NA)
             end
-            return powerT2nTest(n1=na, n2=nb, d=d["d"], alpha = d["alpha"], sided = d["alternative"])
+            return powerT2nTest(n1=na, n2=nb, d=d["d"], alpha = d["alpha"], alternative = d["alternative"])
         end
 
         power = [pwrt2test(ss) for ss in sample_sizes]
@@ -93,7 +93,7 @@ function plot(ht::pwr.htest)
 
         # generate data
         sample_sizes = collect(10:n_increment:n_upper)
-        power = [ ss-> powerTwopTest(n=ss, h=d["h"], alpha = d["alpha"], sided = d["alternative"]) for ss in sample_sizes]
+        power = [ ss-> powerTwopTest(n=ss, h=d["h"], alpha = d["alpha"], alternative = d["alternative"]) for ss in sample_sizes]
 
         # create labels
         legend_string1 = string("tails = ", d["alternative"])
@@ -120,7 +120,7 @@ function plot(ht::pwr.htest)
             if (na < 2 || nb < 2)
                 return(NA)
             end
-            return power2p2nTest(n1=na, n2=nb, h=d["h"], alpha = d["alpha"], sided = d["alternative"])
+            return power2p2nTest(n1=na, n2=nb, h=d["h"], alpha = d["alpha"], alternative = d["alternative"])
         end
 
         power = [ss->pwr2p2ntest(ss) for ss in sample_sizes]
@@ -177,7 +177,7 @@ function plot(ht::pwr.htest)
 
         # generate data
         sample_sizes = collect(10:n_increment:n_upper)
-        power = [ss->powerNormTest(n=ss, d=d["d"], alpha = d["alpha"], sided = d["alternative"]) for ss in sample_sizes]
+        power = [ss->powerNormTest(n=ss, d=d["d"], alpha = d["alpha"], alternative = d["alternative"]) for ss in sample_sizes]
 
         # create labels
         legend_string1 = string("tails = ", d["alternative"])
@@ -195,7 +195,7 @@ function plot(ht::pwr.htest)
 
         # generate data
         sample_sizes = collect(10:n_increment:n_upper)
-        power = [ss->powerPTest(n=ss, h=d["h"], alpha = d["alpha"], sided = d["alternative"]) for ss in sample_sizes]
+        power = [ss->powerPTest(n=ss, h=d["h"], alpha = d["alpha"], alternative = d["alternative"]) for ss in sample_sizes]
 
         # create labels
         legend_string1 = string("tails = ", d["alternative"])
@@ -213,7 +213,7 @@ function plot(ht::pwr.htest)
 
         # generate data
         sample_sizes = collect(10:n_increment:n_upper)
-        power = [ss->powerRTest(n=ss, r=d["r"], alpha = d["alpha"], sided = d["alternative"]) for ss in sample_sizes]
+        power = [ss->powerRTest(n=ss, r=d["r"], alpha = d["alpha"], alternative = d["alternative"]) for ss in sample_sizes]
 
         # create labels
         legend_string1 = string("tails = ", d["alternative"])
