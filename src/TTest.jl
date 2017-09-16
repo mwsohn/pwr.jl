@@ -97,9 +97,9 @@ function TTest(;
         n = samplesizeTTest(d = d, alpha = alpha, power = power, sampletype = sampletype, alternative = alternative)
     end
 
-    stype = Dict("onesample" => "one-sample","one.sample" => "one-sample","one sample" => "one-sample",
-        "twosample" => "two-sample","two.sample" => "two-sample","two sample" => "two-sample",
-        "paired" => "paired")
+    stype = Dict("onesample" => "One-sample","one.sample" => "One-sample","one sample" => "One-sample",
+        "twosample" => "Two-sample","two.sample" => "Two-sample","two sample" => "Two-sample",
+        "paired" => "Paired")
     alt = Dict("two" => "two-sided", "two.sided" => "two-sided", "less" => "less", "greater" => "greater")
 
     note = ""
