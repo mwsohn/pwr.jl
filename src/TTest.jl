@@ -98,8 +98,8 @@ function TTest(;
     end
 
     stype = Dict("onesample" => "One-sample","one.sample" => "One-sample","one sample" => "One-sample",
-        "twosample" => "Two-sample","two.sample" => "Two-sample","two sample" => "Two-sample",
-        "paired" => "Paired")
+        "one-sample" => "One-sample","twosample" => "Two-sample","two.sample" => "Two-sample",
+        "two sample" => "Two-sample","two-sample" => "Two-sample","paired" => "Paired")
     alt = Dict("two" => "two-sided", "two.sided" => "two-sided", "less" => "less", "greater" => "greater")
 
     note = ""
