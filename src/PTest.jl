@@ -13,7 +13,7 @@ function powerPTest(;
 
     if alternative == "less"
         tside = 1
-    elseif alternative in ("two","two.sided","two-sided")
+    elseif alternative in ("two","two.sided","two-sided","two sided")
         tside = 2
         h = abs(h)
     elseif alternative == "greater"
@@ -97,7 +97,7 @@ function PTest(;
         n = samplesizePTest(h = h, alpha = alpha, power = power, alternative = alternative)
     end
 
-    alt = Dict("two" => "two-sided", "two.sided" => "two-sided","less" => "less", "greater" => "greater")
+    alt = Dict("two" => "two-sided", "two.sided" => "two-sided","two sided" => "two-sided", "less" => "less", "greater" => "greater")
 
     return htest(
         string("Proportion power calculation for binomial distribution (arcsine transformation)"),

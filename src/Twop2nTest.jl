@@ -41,7 +41,7 @@ function samplesizeTwop2nTest(;
 
     check_args(h=h,n1=n1,alpha=alpha,power=power)
 
-    return ceil(Int64,fzero(x->power2p2nTest(h = h, n1 = n1, n2 = x, alpha = alpha, alternative = alternative) - power, 2 + 1e-10, 1e+09))
+    return ceil(Int64,fzero(x->powerTwop2nTest(h = h, n1 = n1, n2 = x, alpha = alpha, alternative = alternative) - power, 2 + 1e-10, 1e+09))
 end
 
 function effectsizeTwop2nTest(;
@@ -54,7 +54,7 @@ function effectsizeTwop2nTest(;
 
     check_args(n1=n1,n2=n2,alpha=alpha,power=power)
 
-    return fzero(x->power2p2nTest(h = x, n1 = n1, n2 = n2, alpha = alpha, alternative = alternative) - power, 1e-10, 1 - 1e-10)
+    return fzero(x->powerTwop2nTest(h = x, n1 = n1, n2 = n2, alpha = alpha, alternative = alternative) - power, 1e-10, 1 - 1e-10)
 end
 
 function alphaTwop2nTest(;
@@ -67,7 +67,7 @@ function alphaTwop2nTest(;
 
     check_args(h=h,n1=n1,n2=n2,power=power)
 
-    return fzero(x->power2p2nTest(h = h, n1 = n1, n2 = n2, alpha = x, alternative = alternative) - power, 1e-10, 1 - 1e-10)
+    return fzero(x->powerTwop2nTest(h = h, n1 = n1, n2 = n2, alpha = x, alternative = alternative) - power, 1e-10, 1 - 1e-10)
 end
 
 function Twop2nTest(;
