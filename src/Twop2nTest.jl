@@ -1,6 +1,6 @@
 # power analysis functions for difference in two proportions in two different sample sizes
 
-function power2p2nTest(;
+function powerTwop2nTest(;
     h::Real = 0,
     n1::Real = 0,
     n2::Real = 0,
@@ -31,7 +31,7 @@ function power2p2nTest(;
     error("internal error")
 end
 
-function samplesize2p2nTest(;
+function samplesizeTwop2nTest(;
     h::Real = 0,
     n1::Real = 0,
     alpha::Real = 0.05,
@@ -44,7 +44,7 @@ function samplesize2p2nTest(;
     return ceil(Int64,fzero(x->power2p2nTest(h = h, n1 = n1, n2 = x, alpha = alpha, alternative = alternative) - power, 2 + 1e-10, 1e+09))
 end
 
-function effectsize2p2nTest(;
+function effectsizeTwop2nTest(;
     n1::Real = 0,
     n2::Real = 0,
     alpha::Real = 0.05,
@@ -57,7 +57,7 @@ function effectsize2p2nTest(;
     return fzero(x->power2p2nTest(h = x, n1 = n1, n2 = n2, alpha = alpha, alternative = alternative) - power, 1e-10, 1 - 1e-10)
 end
 
-function alpha2p2nTest(;
+function alphaTwop2nTest(;
     h::Real = 0,
     n1::Real = 0,
     n2::Real = 0,
@@ -84,16 +84,16 @@ function Twop2nTest(;
 
     if n1 == 0
         error("`n1` cannot be zero")
-    end 
+    end
 
     if power == 0.0
-        power = power2p2nTest(h = h, n1 = n1, n2 = n2, alpha = alpha, alternative = alternative)
+        power = powerTwop2nTest(h = h, n1 = n1, n2 = n2, alpha = alpha, alternative = alternative)
     elseif alpha == 0.0
-        alpha = alpha2p2nTest(h = h, n1 = n1, n2 = n2, power = power, alternative = alternative)
+        alpha = alphaTwop2nTest(h = h, n1 = n1, n2 = n2, power = power, alternative = alternative)
     elseif h == 0
-        h = effectsize2p2nTest(n1 = n1, n2 = n2, alpha = alpha, power = power, alternative = alternative)
+        h = effectsizeTwop2nTest(n1 = n1, n2 = n2, alpha = alpha, power = power, alternative = alternative)
     elseif n2 == 0
-        n2 = samplesize2p2nTest(h = h, n1 = n1, alpha = alpha, power = power, alternative = alternative)
+        n2 = samplesizeTwop2nTest(h = h, n1 = n1, alpha = alpha, power = power, alternative = alternative)
     end
 
     alt = Dict("two" => "two-sided", "two.sided" => "two-sided", "less" => "less", "greater" => "greater")
@@ -101,7 +101,7 @@ function Twop2nTest(;
     note = "different sample sizes"
 
     return htest(
-        "Difference of proportion power calculation for binomial distribution (arcsine transformation)",
+        "Difference of proportion power calculation for binomial distribution (different sample)",
         OrderedDict(
             "h" => h,
             "n1" => n1,

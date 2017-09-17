@@ -12,8 +12,8 @@ export powerRTest, samplesizeRTest, effectsizeRTest, alphaRTest
 export powerT2nTest, samplesizeT2nTest, effectsizeT2nTest, alphaT2nTest
 export powerT2Test, samplesizeT2Test, effectsizeT2Test, alphaT2Test
 export powerTTest, samplesizeTTest, effectsizeTTest, alphaTTest
-export power2p2nTest, samplesize2p2nTest, effectsize2p2nTest, alpha2p2nTest
-export power2pTest, samplesize2pTest, effectsize2pTest, alpha2pTest
+export powerTwop2nTest, samplesizeTwop2nTest, effectsizeTwop2nTest, alphaTwop2nTest
+export powerTwopTest, samplesizeTwopTest, effectsizeTwopTest, alphaTwopTest
 export plot
 
 include("utils.jl")

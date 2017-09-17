@@ -11,7 +11,7 @@ function powerT2nTest(;
 
     if alternative == "less"
         tside = ttside = 1
-    elseif alternative in ("two","two.sided","two-sided")
+    elseif alternative in ("two","twosided","two.sided","two-sided","two sided")
         tside = ttside = 2
         d = abs(d)
     elseif alternative == "greater"

@@ -103,7 +103,7 @@ function TwopTest(;
     note = ""
 
     return htest(
-        "Difference of proportion power calculation for binomial distribution (arcsine transformation)",
+        "Difference of proportion power calculation for binomial distribution (same sample)",
         OrderedDict(
             "h" => h,
             "n" => n,
