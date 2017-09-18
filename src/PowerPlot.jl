@@ -1,4 +1,4 @@
-using Plots
+using Plots, DataFrames
 
 import RecipesBase.plot
 
