@@ -12,9 +12,9 @@ function plot(ht::pwr.htest)
         "Difference of proportion power calculation for binomial distribution (same sample)",
         "Difference of proportion power calculation for binomial distribution (different sample)",
         "Balanced one-way analysis of variance power calculation",
-        "Chi squared power calculation",
+        "Chi-square test power calculation",
         "Mean power calculation for normal distribution with known variance",
-        "proportion power calculation for binomial distribution (arcsine transformation)",
+        "Proportion power calculation for binomial distribution (arcsine transformation)",
         "Approximate correlation power calculation (arctangh transformation)"
     )
 
