@@ -54,7 +54,7 @@ function plot(ht::pwr.htest)
         optimal_string3 = d["note"]
 
     # case: Two-sample t test with n1 and n2
-    elseif(ht.title == "T-test power calculation")
+    elseif ht.title == "T-test power calculation"
         n = d["n1"] + d["n2"]
         n_upper = ceil(Int64,max(n*1.5, n+30)) # upper at least 30 above n
         n_rel = d["n1"] / n # relative sample size; will be kept constant in claculations
@@ -85,7 +85,7 @@ function plot(ht::pwr.htest)
         optimal_string2 = string("n = ",  d["n1"], " + ", d["n2"], " = ", n)
 
     # case: Difference of proportion (same sample size)
-elseif ht.title == "Difference of proportion power calculation for binomial distribution (same sample)"
+    elseif ht.title == "Difference of proportion power calculation for binomial distribution (same sample)"
         n = d["n"]
         n_upper = ceil(Int64, max(n*1.5, n+30)) # upper at least 30 above n
         n_increment = ceil(Int64,(n_upper - 10)/breaks)
@@ -104,7 +104,7 @@ elseif ht.title == "Difference of proportion power calculation for binomial dist
         optimal_string3 = d["note"]
 
     # case: difference of proportion (different sample size)
-elseif ht.title == "Difference of proportion power calculation for binomial distribution (different sample)"
+    elseif ht.title == "Difference of proportion power calculation for binomial distribution (different sample)"
         n = d["n1"] + d["n2"]
         n_upper = ceil(Int64, max(n*1.5, n+30)) # upper at least 30 above n
         n_rel = d["n1"] / n # relative sample size; will be kept constant in claculations
@@ -154,7 +154,7 @@ elseif ht.title == "Difference of proportion power calculation for binomial dist
         optimal_string3 = d["note"]
 
     # case: Chi Squared
-elseif ht.title == "Chi-square test power calculation"
+    elseif ht.title == "Chi-square test power calculation"
         n = d["N"]
         n_upper = ceil(Int64, max(n*1.5, n+30)) # upper at least 30 above n
         n_increment = ceil(Int64,(n_upper - 10)/breaks)
