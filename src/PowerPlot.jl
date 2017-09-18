@@ -154,7 +154,7 @@ elseif ht.title == "Difference of proportion power calculation for binomial dist
         optimal_string3 = d["note"]
 
     # case: Chi Squared
-    elseif ht.title == "Chi squared power calculation"
+elseif ht.title == "Chi-square test power calculation"
         n = d["N"]
         n_upper = ceil(Int64, max(n*1.5, n+30)) # upper at least 30 above n
         n_increment = ceil(Int64,(n_upper - 10)/breaks)
