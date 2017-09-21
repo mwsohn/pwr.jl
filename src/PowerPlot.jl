@@ -266,10 +266,10 @@ function plot(ht::pwr.htest; backend::Function = gr)
         right_margin = 4mm,
         title = title,
         yaxis = (ytitle,(-0.03,1.03),0.0:0.2:1.0),
-        xaxis = ("Sample Size",(n_lower - xlim_lower,n_upper)),
+        xaxis = ("Sample Size",(n_lower - xlim_lower,n_upper + xlim_lower)),
         legend=false,
         annotations=([((n_lower+xlim_lower),0.99,text(legend_string,9,:blue,:left,:top)),
-            (sample_sizes[floor(Int64,len/2)],0.06,text(optimal_string,9,:red,:left,:bottom))]))
+            (sample_sizes[floor(Int64,len/2)],0.05,text(optimal_string,9,:red,:left,:bottom))]))
     vline!([n],line=(1,:dot,.8,:red))
 
 end
