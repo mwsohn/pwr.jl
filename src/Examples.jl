@@ -1,14 +1,9 @@
-# update the package if changes were made to pwr.jl
-Pkg.update()
-
-using pwr
-using Plots
+using pwr, Plots
 
 ## Exercise 8.1 P. 357 from Cohen (1988)
 #pwr.anova.test(f=0.28,k=4,n=20,sig.level=0.05)
 t = pwr.AnovaTest(f=0.28,k=4,n=20,power=0.0)
 plot(t)
-
 
 ## Exercise 6.1 p. 198 from Cohen (1988)
 #pwr.2p.test(h=0.3,n=80,sig.level=0.05,alternative="greater")
@@ -57,7 +52,8 @@ P1 = vcat(0.375,fill((1-0.375)/3,3))
 w = ESw1(P0,P1)
 
 #pwr.chisq.test(w=ES.w1(P0,P1),N=100,df=(4-1))
-pwr.ChisqTest(w=ESw1(P0,P1),N=100,df=(4-1),power=0.0)
+t7 = pwr.ChisqTest(w=ESw1(P0,P1),N=100,df=(4-1),power=0.0)
+plot(t7)
 
 # ES.w2
 #prob<-matrix(c(0.225,0.125,0.125,0.125,0.16,0.16,0.04,0.04),nrow=2,byrow=TRUE)
@@ -67,17 +63,19 @@ prob = reshape([0.225,0.125,0.125,0.125,0.16,0.16,0.04,0.04],4,2)'
 ESw2(prob)
 
 #pwr.chisq.test(w=ES.w2(prob),df=(2-1)*(4-1),N=200)
-pwr.ChisqTest(w=ESw2(prob),df=(2-1)*(4-1),N=200,power=0.0)
+t8 = pwr.ChisqTest(w=ESw2(prob),df=(2-1)*(4-1),N=200,power=0.0)
+plot(t8)
 
 
 ## Exercise 6.1 p. 198 from Cohen (1988)
 #pwr.2p.test(h=0.3,n=80,sig.level=0.05,alternative="greater")
-pwr.TwopTest(h=0.3,n=80,alpha=0.05,alternative="greater",power=0.0)
-
+t9 = pwr.TwopTest(h=0.3,n=80,alpha=0.05,alternative="greater",power=0.0)
+plot(t9)
 
 ## Exercise 6.3 P. 200 from Cohen (1988)
 #pwr.2p2n.test(h=0.30,n1=80,n2=245,sig.level=0.05,alternative="greater")
-pwr.Twop2nTest(h=0.30,n1=80,n2=245,alpha=0.05,power=0.0,alternative="greater")
+t10 = pwr.Twop2nTest(h=0.30,n1=80,n2=245,alpha=0.05,power=0.0,alternative="greater")
+plot(t10)
 
 ## Exercise 6.7 p. 207 from Cohen (1988)
 #pwr.2p2n.test(h=0.20,n1=1600,power=0.9,sig.level=0.01,alternative="two.sided")

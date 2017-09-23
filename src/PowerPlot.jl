@@ -63,7 +63,7 @@ function plot(ht::pwr.htest; backend::Function = gr)
                     "alpha = ", d["alpha"])
         optimal_string = string(
                     "optimal sample size",sepstr,
-                    "n = ", ceil(Int64,n), " ",d["note"])
+                    "n = ", ceil(Int64,n),sepstr,d["note"])
 
     # case: Two-sample t test with n1 and n2
     elseif ht.title == "T-test power calculation"
@@ -114,7 +114,7 @@ function plot(ht::pwr.htest; backend::Function = gr)
                     "effect size h = ", d["h"], sepstr,
                     "alpha = ", d["alpha"])
         optimal_string = string("optimal sample size", sepstr,
-                    "n = ", ceil(Int64,n), " ",d["note"])
+                    "n = ", ceil(Int64,n), sepstr,d["note"])
 
     # case: difference of proportion (different sample size)
     elseif ht.title == "Difference of proportion power calculation for binomial distribution (different sample)"
@@ -165,7 +165,7 @@ function plot(ht::pwr.htest; backend::Function = gr)
                     "effect size f = ", d["f"], sepstr,
                     "alpha = ", d["alpha"])
         optimal_string = string("optimal sample size",sepstr,
-                    "n = ", ceil(Int64,n)," ",d["note"])
+                    "n = ", ceil(Int64,n),sepstr,d["note"])
 
     # case: Chi Squared
     elseif ht.title == "Chi-square test power calculation"
@@ -184,7 +184,7 @@ function plot(ht::pwr.htest; backend::Function = gr)
                     "effect size w = ", d["w"], sepstr,
                     "alpha = ", d["alpha"])
         optimal_string = string("optimal sample size", sepstr,
-                    "N = ", ceil(Int64,n)," ",d["note"])
+                    "N = ", ceil(Int64,n),sepstr,d["note"])
 
     # case: Normal distribution
     elseif ht.title == "Mean power calculation for normal distribution with known variance"
@@ -203,7 +203,7 @@ function plot(ht::pwr.htest; backend::Function = gr)
                     "effect size d = ", d["d"],sepstr,
                     "alpha = ", d["alpha"])
         optimal_string = string("optimal sample size", sepstr,
-                    "n = ", ceil(Int64,n)," ",d["note"])
+                    "n = ", ceil(Int64,n),sepstr,d["note"])
 
     # case: proportion
     elseif ht.title == "Proportion power calculation for binomial distribution (arcsine transformation)"

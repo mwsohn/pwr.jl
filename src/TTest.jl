@@ -15,12 +15,12 @@ function powerTTest(;
         tsample = 2
     end
 
-    if alternative == "less"
+    if lowercase(alternative) == "less"
         tside = ttside = 1
-    elseif alternative in ("two","two.sided","two-sided","two sided")
+    elseif lowercase(alternative) in ("two","two.sided","two-sided","two sided")
         tside = ttside = 2
         d = abs(d)
-    elseif alternative == "greater"
+    elseif lowercase(alternative) == "greater"
         ttside = 3
         tside = 1
     end
