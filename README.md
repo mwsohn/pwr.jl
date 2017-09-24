@@ -126,7 +126,7 @@ This function provides power calculations for the general linear model.
 #### Functions:
 
 All options listed above need to be specified as keyword argments except for the parameter to be estimated.
-For `pwr.F2Test()`, exactly one of the options `u`, `v`, `f2`, `alpha`, and `power` needs to be set to zero.
+For `pwr.F2Test()`, exactly one of the options `u`, `v`, `f2`, `alpha`, and `power` needs to be set to zero. Plot for F2Test is not supported.
 
 - `powerF2Test()`
 - `samplesizeF2Test()`
@@ -196,7 +196,91 @@ Mean power calculation for normal distribution with known variance
         alpha = 0.05
         power = 0.4387490275410111
   alternative = greater
+
+julia> samplesizeNormTest(d=d,power=0.8,alpha=0.05,alternative="greater")
+56
+
+julia> μ = collect(linspace(95,125,100))
+100-element Array{Float64,1}:
+  95.0   
+  95.303
+  95.6061
+  95.9091
+  96.2121
+  96.5152
+  96.8182
+  97.1212
+  97.4242
+  97.7273
+   ⋮     
+ 122.576
+ 122.879
+ 123.182
+ 123.485
+ 123.788
+ 124.091
+ 124.394
+ 124.697
+ 125.0   
+
+julia> d = (μ-c)/σ
+100-element Array{Float64,1}:
+ -0.333333
+ -0.313131
+ -0.292929
+ -0.272727
+ -0.252525
+ -0.232323
+ -0.212121
+ -0.191919
+ -0.171717
+ -0.151515
+  ⋮       
+  1.50505
+  1.52525
+  1.54545
+  1.56566
+  1.58586
+  1.60606
+  1.62626
+  1.64646
+  1.66667
+
+julia> power = [powerNormTest(d=x,n=20,alternative="greater") for x in d]
+100-element Array{Float64,1}:
+ 0.000857615
+ 0.00116255
+ 0.00156399
+ 0.00208816
+ 0.00276704
+ 0.00363915
+ 0.00475039
+ 0.0061548  
+ 0.00791534
+ 0.0101044  
+ ⋮          
+ 1.0        
+ 1.0        
+ 1.0        
+ 1.0        
+ 1.0        
+ 1.0        
+ 1.0        
+ 1.0        
+ 1.0        
+julia> plot(power,d,ylim=[0.,1.],legend=false,ylabel="Test Power = 1 - \\beta", xlabel = "Effect Size")
+
+julia> hline!([0.05,0.80])
 ```
+![Image](plots/f2_1.png?raw=true)
+
+```jldoctest
+julia> plot(d,[powerNormTest(d=x,n=20,alpha=0.05,alternative="two.sided") for x in d],ylim=[0,1],legend=false)
+
+julia> hline!([0.05,0.8])
+```
+![Image](plots/f2_2.png?raw=true)
+
 
 ### pwr.TTest
 
