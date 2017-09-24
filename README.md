@@ -108,7 +108,7 @@ NOTE: `N` is the number of observations
 
 julia> plot(tst)
 ```
-https://github.com/mwsohn/pwr.jl/blob/master/plots/chisq.png
+(https://github.com/mwsohn/pwr.jl/blob/master/plots/chisq.png)
 
 ### pwr.F2Test
 
