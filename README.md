@@ -107,8 +107,8 @@ Chi-square test power calculation
 NOTE: `N` is the number of observations
 
 julia> plot(tst)
-![alt text](https://github.com/mwsohn/pwr.jl/plots/chisq.png)
 ```
+![alt text](https://github.com/mwsohn/pwr.jl/plots/chisq.png)
 
 ### pwr.F2Test
 
