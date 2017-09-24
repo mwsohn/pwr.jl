@@ -203,7 +203,7 @@ function plot(ht::pwr.htest; backend::Function = gr)
                     "effect size d = ", d["d"],sepstr,
                     "alpha = ", d["alpha"])
         optimal_string = string("optimal sample size", sepstr,
-                    "n = ", ceil(Int64,n),sepstr,d["note"])
+                    "n = ", ceil(Int64,n))
 
     # case: proportion
     elseif ht.title == "Proportion power calculation for binomial distribution (arcsine transformation)"

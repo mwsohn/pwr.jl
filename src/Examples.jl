@@ -79,31 +79,37 @@ plot(t10)
 
 ## Exercise 6.7 p. 207 from Cohen (1988)
 #pwr.2p2n.test(h=0.20,n1=1600,power=0.9,sig.level=0.01,alternative="two.sided")
-pwr.Twop2nTest(h=0.20,n1=1600,power=0.9,alpha=0.01,alternative="two.sided")
+t11 =pwr.Twop2nTest(h=0.20,n1=1600,power=0.9,alpha=0.01,alternative="two.sided")
+plot(t11)
 
 ## Exercise 8.1 P. 357 from Cohen (1988)
 #pwr.anova.test(f=0.28,k=4,n=20,sig.level=0.05)
-pwr.AnovaTest(f=0.28,k=4,n=20,alpha=0.05)
+t12 = pwr.AnovaTest(f=0.28,k=4,n=20,alpha=0.05)
+plot(t12)
 
 ## Exercise 8.10 p. 391
 #pwr.anova.test(f=0.28,k=4,power=0.80,sig.level=0.05)
-pwr.AnovaTest(f=0.28,k=4,power=0.80,alpha=0.05)
+t13 = pwr.AnovaTest(f=0.28,k=4,power=0.80,alpha=0.05)
+plot(t13)
 
 ## Exercise 7.1 P. 249 from Cohen (1988)
 #pwr.chisq.test(w=0.289,df=(4-1),N=100,sig.level=0.05)
-pwr.ChisqTest(w=0.289,df=(4-1),N=100,alpha=0.05)
+t14 = pwr.ChisqTest(w=0.289,df=(4-1),N=100,alpha=0.05)
+plot(t14)
 
 ## Exercise 7.3 p. 251
 #pwr.chisq.test(w=0.346,df=(2-1)*(3-1),N=140,sig.level=0.01)
-pwr.ChisqTest(w=0.346,df=(2-1)*(3-1),N=140,alpha=0.01)
+t15 = pwr.ChisqTest(w=0.346,df=(2-1)*(3-1),N=140,alpha=0.01)
+plot(t15)
 
 ## Exercise 7.8 p. 270
 #pwr.chisq.test(w=0.1,df=(5-1)*(6-1),power=0.80,sig.level=0.05)
-pwr.ChisqTest(w=0.1,df=(5-1)*(6-1),power=0.80,alpha=0.05)
+t16 = pwr.ChisqTest(w=0.1,df=(5-1)*(6-1),power=0.80,alpha=0.05)
+plot(t16)
 
 ## Exercise 9.1 P. 424 from Cohen (1988)
 #pwr.f2.test(u=5,v=89,f2=0.1/(1-0.1),sig.level=0.05)
-pwr.F2Test(u=5,v=89,f2=0.1/(1-0.1),alpha=0.05)
+t17 = pwr.F2Test(u=5,v=89,f2=0.1/(1-0.1),alpha=0.05)
 
 ## Power at mu=105 for H0:mu=100 vs. H1:mu>100 (sigma=15) 20 obs. (alpha=0.05)
 # sigma<-15
