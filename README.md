@@ -13,11 +13,13 @@ To use the package, start by `using pwr` in your session.
 ## Tests for power calculation
 
 All functions in the original R package was ported. For each family of tests,
-four functions are additionally available that start with `power`, `samplesize`, `effectsize`, and `alpha` (Type I error). These functions were all exported, but the main tests were not and should be used with `pwr.` in front.
+four functions are additionally available that start with `power`, `samplesize`, `effectsize`, and `alpha` (Type I error) to specifically compute power, sample size, effect size, and alpha, respectively. These functions were all exported, but the main tests were not and should be used with `pwr.` in front.
+
+`fzero` function in the `Roots.jl` module is used to solve power equations for unknown values, so you may see errors from it. These errors may arise because the unknown value could not be computed with the given values.
 
 ### pwr.AnovaTest
 
-Power calculations for balanced one-way analysis of variance tests
+Compute power for balanced one-way analysis of variance tests
 
 #### Options:
 
@@ -49,7 +51,6 @@ julia> p = powerAnovaTest(n=100,k=2,f=.2)
 0.8036475048589252
 
 julia> tst = pwr.AnovaTest(n=100,k=2,f=.2,power=0.0)
-
 Balanced one-way analysis of variance power calculation
 
             k = 2
@@ -62,6 +63,8 @@ NOTE: `n` is the number in each group
 
 julia> plot(tst)
 ```
+![Image](plots/anova.png?raw=true)
+
 ### pwr.ChisqTest
 
 Compute power of test or determine parameters to obtain target power (same as power.anova.test)
@@ -435,7 +438,7 @@ julia> plot(tst)
 
 ### pwr.T2nTest
 
-Compute power of tests or determine parameters to obtain target power (similar to TTest)
+Compute power of two samples (different sizes) t-tests of means.
 
 #### Options
 
