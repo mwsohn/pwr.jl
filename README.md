@@ -13,7 +13,7 @@ To use the package, start by `using pwr` in your session.
 ## Tests for power calculation
 
 All functions in the original R package was ported. For each family of tests,
-four functions are additionally available that start with `power`, `samplesize`, `effectsize`, and `alpha` (Type I error) to specifically compute power, sample size, effect size, and alpha, respectively. These functions were all exported, but the main tests were not and should be used with `pwr.` in front.
+four functions are additionally available that start with `power`, `samplesize`, `effectsize`, and `alpha` to specifically compute power, sample size, effect size, and alpha (Type I error), respectively. These functions were all exported, but the main tests were not and should be used with `pwr.` in front.
 
 `fzero` function in the `Roots.jl` module is used to solve power equations for unknown values, so you may see errors from it. These errors may arise because the unknown value could not be computed with the given values.
 
@@ -156,7 +156,7 @@ Compute power for the mean of a normal distribution with known variance
 
 #### Options:
 
-- `d`: effect size (μ - μ₀)
+- `d` = effect size (μ - μ₀)
 - `n` = number of observations
 - `alpha` = Type I error (default: 0.05)
 - `power` = 1 - Type II error
@@ -290,7 +290,7 @@ Compute power for proportion tests (one sample). These calculations use arcsine 
 
 #### Options:
 
-- `h`: effect size
+- `h` = effect size
 - `n` = number of observations per group
 - `alpha` = Type I error (default: 0.05)
 - `power` = 1 - Type II error
@@ -391,7 +391,7 @@ Compute power for t-test of means (one sample, two samples and paired samples)
 
 #### Options:
 
-- `d`: effect size
+- `d` = effect size
 - `n` = number of observations per group
 - `alpha` = Type I error (default: 0.05)
 - `power` = 1 - Type II error

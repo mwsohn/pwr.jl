@@ -269,7 +269,7 @@ function plot(ht::pwr.htest; backend::Function = gr)
         xaxis = ("Sample Size",(n_lower - xlim_lower,n_upper + xlim_lower)),
         legend=false,
         annotations=([((n_lower+xlim_lower),0.99,text(legend_string,9,:blue,:left,:top)),
-            (sample_sizes[floor(Int64,len/2)],0.05,text(optimal_string,9,:red,:left,:bottom))]))
+            (sample_sizes[floor(Int64,len/2)],0.03,text(optimal_string,9,:red,:left,:bottom))]))
     vline!([n],line=(1,:dot,.8,:red))
 
 end
