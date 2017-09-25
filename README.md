@@ -268,7 +268,7 @@ julia> power = [powerNormTest(d=x,n=20,alternative="greater") for x in d]
  1.0        
  1.0        
  1.0        
-julia> plot(power,d,ylim=[0.,1.],legend=false,ylabel="Test Power = 1 - \\beta", xlabel = "Effect Size")
+julia> plot(d,power,ylim=[0.,1.],legend=false,ylabel="Test Power = 1 - \\beta", xlabel = "Effect Size")
 
 julia> hline!([0.05,0.80])
 ```
