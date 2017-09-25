@@ -11,7 +11,7 @@ function powerRTest(;
     if alternative == "less"
         tside = 1
         r = -abs(r)
-    elseif alternative in ("two","two.sided","two-sided")
+    elseif alternative in ("two","two.sided","two-sided","two sided")
         tside = 2
         r = abs(r)
     elseif alternative == "greater"
@@ -29,14 +29,7 @@ function powerRTest(;
         rc = sqrt(ttt^2 / (ttt^2 + n - 2))
         zr = atanh(r) + r / (2 * (n - 1))
         zrc = atanh(rc)
-        return cdf(Normal(),(zr - zrc) * sqrt(n-3))
-            + cdf(Normal(),(-zr - zrc) * sqrt(n-3))
-    # elseif tside == 3
-    #     ttt = cquantile(TDist(n-2),alpha)
-    #     rc = sqrt(ttt^2 / (ttt^2 + n - 2))
-    #     zr = atanh(r) + r / (2 * (n - 1))
-    #     zrc = atanh(rc)
-    #     return cdf(Normal(),(zr - zrc) * sqrt(n-3))
+        return cdf(Normal(),(zr - zrc) * sqrt(n-3)) + cdf(Normal(),(-zr - zrc) * sqrt(n-3))
     end
 end
 
@@ -96,8 +89,7 @@ function RTest(;
         n = samplesizeRTest(r = r, alpha = alpha, power = power, alternative = alternative)
     end
 
-    alt = Dict("two" => "two-sided","two.sided" => "two-sided", "less" => "less", "greater" => "greater")
-    note = ""
+    alt = Dict("two" => "two-sided","two.sided" => "two-sided", "two sided" => "two-sided", "less" => "less", "greater" => "greater")
 
     return htest(
         string("Approximate correlation power calculation (arctangh transformation)"),
@@ -106,7 +98,6 @@ function RTest(;
             "r" => r,
             "alpha" => alpha,
             "power" => power,
-            "alternative" => alt[alternative],
-            "note" => note)
+            "alternative" => alt[alternative])
         )
 end

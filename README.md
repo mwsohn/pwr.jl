@@ -281,6 +281,106 @@ julia> hline!([0.05,0.8])
 ```
 ![Image](plots/f2_2.png?raw=true)
 
+### pwr.PTest
+
+Compute power for proportion tests (one sample). These calculations use arcsine transformation of the proportion (see Cohen (1988)). Use `ESh()` (see below) to compute the effect size from two proportions.
+
+#### Options:
+
+- `h`: effect size
+- `n` = number of observations per group
+- `alpha` = Type I error (default: 0.05)
+- `power` = 1 - Type II error
+- `alternative` = "less" for testing p₁ < p₂, "two-sided" for p₁ = p₂, and "greater" for p₁ > p₂ (default: "two-sided")
+
+#### Functions:
+
+All options listed above need to be specified as keyword argments except for the parameter to be estimated.
+For `pwr.PTest()`, exactly one of the options `h`, `n`, `alpha`, and `power` needs to be set to zero.
+
+- `powerPTest()`
+- `samplesizePTest()`
+- `effectsizePTest()`
+- `alphaPTest()`
+- `pwr.PTest()`
+
+#### Examples
+
+```jldoctest
+julia> h = ESh(0.5,0.4)
+0.20135792079033088
+
+julia> powerPTest(h=h,n=60,alpha=0.05,alternative="two.sided")
+0.3447014091272134
+
+julia> tst = pwr.PTest(h=0.2,power=0.95,alpha=0.05,alternative="two.sided")
+Proportion power calculation for binomial distribution (arcsine transformation)
+
+            h = 0.2
+            n = 325
+        alpha = 0.05
+        power = 0.95
+  alternative = two-sided
+
+julia> plot(tst)
+```
+![Image](plots/p.png?raw=true)
+
+
+### pwr.RTest
+
+Compute power for correlation test. These calculations use the Z’ transformation of correlation coefficient : Z’=arctanh(r)+r/(2*(n-1)) (see Cohen (1988) p.546).
+
+#### Options:
+
+- `n` = number of observations per group
+- `r`= linear correlation coefficient
+- `alpha` = Type I error (default: 0.05)
+- `power` = 1 - Type II error
+- `alternative` = "less", "two-sided", or "greater" (default: "two-sided")
+
+#### Functions:
+
+All options listed above need to be specified as keyword argments except for the parameter to be estimated.
+For `pwr.RTest()`, exactly one of the options `n`, `r`, `alpha`, and `power` needs to be set to zero.
+
+- `powerRTest()`
+- `samplesizeRTest()`
+- `effectsizeRTest()`
+- `alphaRTest()`
+- `pwr.RTest()`
+
+#### Examples
+
+```jldoctest
+julia> pwr.r.test(r=0.3,n=50,sig.level=0.05,alternative="two.sided")
+0.571535679145053
+
+julia> pwr.r.test(r=0.3,n=50,sig.level=0.05,alternative="greater")
+0.6911394853796565
+
+julia> samplesizeRTest(r=0.3,power=0.80,alpha=0.05,alternative="two.sided")
+85
+
+julia> samplesizeRTest(r=0.5,power=0.80,alpha=0.05,alternative="two.sided")
+29
+
+julia> samplesizeRTest(r=0.5,power=0.80,alpha=0.05,alternative="two.sided")
+782
+
+julia> tst = pwr.RTest(r=.3,power=0.8, alternative="two.sided")
+Approximate correlation power calculation (arctangh transformation)
+
+            n = 85
+            r = 0.3
+        alpha = 0.05
+        power = 0.8
+  alternative = two-sided
+
+julia> plot(tst)
+```
+![Image](plots/r.png?raw=true)
+
 
 ### pwr.TTest
 
@@ -317,13 +417,13 @@ julia> powerTTest(n=100,d=.3, alternative="two-sided")
 julia> samplesizeTTest(d=.3, power = 0.8, alternative="two-sided")
 90
 
-julia> tst = pwr.TTest(n=100,d=.3,power=0.0, sampletype = "onesample", alternative="two-sided")
+julia> tst = pwr.TTest(d=.3,power=0.8, sampletype = "onesample", alternative="two.sided")
 One-sample t-test power calculation
 
-            n = 100
+            n = 90
             d = 0.3
         alpha = 0.05
-        power = 0.8439471027376636
+        power = 0.8
    sampletype = One-sample
   alternative = two-sided
 
@@ -331,6 +431,7 @@ NOTE: `n` is number in each group
 
 julia> plot(tst)
 ```
+![Image](plots/t.png?raw=true)
 
 ### pwr.T2nTest
 
