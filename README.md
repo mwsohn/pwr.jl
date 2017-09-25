@@ -449,15 +449,13 @@ Compute power of tests or determine parameters to obtain target power (similar t
 #### Functions:
 
 All options listed above need to be specified as keyword argments except for the parameter to be estimated.
-For example, for `powerTTest()`, do not specify `power` option: powerTTest(k=2,n=200,d=.3) will
-compute power for a sample of 200 in each group with an effect size of .3. For `pwr.TTest()`, exactly
-one of the options `d`, `n`, `alpha`, and `power` needs to be set to zero.
+For `pwr.T2nTest()`, exactly one of the options `d`, `n2`, `alpha`, and `power` needs to be set to zero.
 
-- `powerTTest()`
-- `samplesizeTTest()`
-- `effectsizeTTest()`
-- `alphaTTest()`
-- `pwr.TTest()`
+- `powerT2nTest()`
+- `samplesizeT2nTest()`
+- `effectsizeT2nTest()`
+- `alphaT2nTest()`
+- `pwr.T2nTest()`
 
 #### Examples
 
@@ -468,7 +466,7 @@ julia> powerT2nTest(n1=100,n2=150,d=.3, alternative="two-sided")
 julia> effectsizeT2nTest(n1=100,n2=150,power = 0.8,alternative="two-sided")
 0.3630907608326113
 
-julia> pwr.T2nTest(n1=100,n2 = 0,d=.3,power=0.0, alternative="two-sided")
+julia> tst = pwr.T2nTest(n1=100,n2 = 0,d=.3,power=0.8, alternative="two.sided")
 T-test power calculation
 
            n1 = 100
@@ -477,4 +475,7 @@ T-test power calculation
         alpha = 0.05
         power = 0.8
   alternative = two-sided
+
+julia> plot(tst)
 ```
+![Image](plots/t2n.png?raw=true)
