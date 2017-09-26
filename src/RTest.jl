@@ -40,7 +40,7 @@ function samplesizeRTest(;
 
     check_args(r=r,alpha=alpha,power=power)
 
-    return ceil(Int64,fzero(x->powerRTest(n = x, r = r, alpha = alpha, alternative = alternative) - power, 3.0, 10.0^7))
+    return ceil(Int64,fzero(x->powerRTest(n = x, r = r, alpha = alpha, alternative = alternative) - power, 4.0+1e-10, 1e+09))
 end
 
 function effectsizeRTest(;
