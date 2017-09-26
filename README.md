@@ -520,7 +520,18 @@ Compute effect sizes for all the previous tests corresponding to conventional ef
 julia> cohenES(test="r",size="medium")
 0.3
 
-julia> effectsizeRTest(r=cohenES(test="r",size="medium"),power=0.8,alpha=0.05,alternative="two.sided")
+julia> samplesizeRTest(r=cohenES(test="r",size="medium"),power=0.8,alpha=0.05,alternative="two.sided")
+85
+
+julia> pwr.RTest(r=cohenES(test="r",size="medium"),n=0,power=0.8,alpha=0.05,alternative="two.sided")
+
+Approximate correlation power calculation (arctangh transformation)
+
+            n = 85
+            r = 0.3
+        alpha = 0.05
+        power = 0.8
+  alternative = two-sided
 
 ```
 
