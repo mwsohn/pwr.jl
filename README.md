@@ -666,7 +666,7 @@ Power calculations for the following tests are supported: t-test (pwr.TTest(), p
 squared test (pwr.ChisqTest()), one-way ANOVA (pwr.AnovaTest(), standard normal distribution
 (pwr.NormTest()), pearson correlation (pwr.RTest()), proportions (pwr.PTest(), pwr.TwopTest(), pwr.Twop2nTest())).
 
-`plot` is implemented using Plots.jl package. The default backend is `gr()`. When you want to modify the plot, first include `using Plots`.
+`plot` is implemented using Plots.jl package. The default backend is `gr()`. When you want to modify the plot or save the plot into a graphics file, first include `using Plots`.
 
 #### Examples
 

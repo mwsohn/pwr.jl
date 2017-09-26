@@ -15,10 +15,10 @@ function powerRTest(;
         tside = 2
         r = abs(r)
     elseif alternative == "greater"
-        tside = 3
+        tside = 1
     end
 
-    if tside in (1,3)
+    if tside == 1
         ttt = cquantile(TDist(n-2),alpha)
         rc = sqrt(ttt^2 / (ttt^2 + n - 2))
         zr = atanh(r) + r / (2 * (n - 1))
