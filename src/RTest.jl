@@ -10,7 +10,7 @@ function powerRTest(;
 
     if alternative == "less"
         tside = 1
-        r = -abs(r)
+        r = -r
     elseif alternative in ("two","two.sided","two-sided","two sided")
         tside = 2
         r = abs(r)
@@ -24,13 +24,12 @@ function powerRTest(;
         zr = atanh(r) + r / (2 * (n - 1))
         zrc = atanh(rc)
         return cdf(Normal(),(zr - zrc) * sqrt(n-3))
-    elseif tside == 2
-        ttt = cquantile(TDist(n-2),alpha/2)
-        rc = sqrt(ttt^2 / (ttt^2 + n - 2))
-        zr = atanh(r) + r / (2 * (n - 1))
-        zrc = atanh(rc)
-        return cdf(Normal(),(zr - zrc) * sqrt(n-3)) + cdf(Normal(),(-zr - zrc) * sqrt(n-3))
     end
+    ttt = cquantile(TDist(n-2),alpha/2)
+    rc = sqrt(ttt^2 / (ttt^2 + n - 2))
+    zr = atanh(r) + r / (2 * (n - 1))
+    zrc = atanh(rc)
+    return cdf(Normal(),(zr - zrc) * sqrt(n-3)) + cdf(Normal(),(-zr - zrc) * sqrt(n-3))
 end
 
 function samplesizeRTest(;

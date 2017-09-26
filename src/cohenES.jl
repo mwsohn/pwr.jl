@@ -19,14 +19,5 @@ function cohenES(;test::String = "",size::String = "")
         [.1 .3 .5],
         [.02 .15 .35]]
 
-    return htest(
-        "Conventional effect size from Cohen (1982)",
-        OrderedDict(
-            "test" => test,
-            "size" => size,
-            "effectsize" => effsize[testd[test]][sized[size]]
-            )
-        )
+    return effsize[testd[test]][sized[size]]
 end
-
-#cohenES("anova", "small")

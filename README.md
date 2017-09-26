@@ -1,5 +1,6 @@
 # pwr
-Julia port of `pwr` package in R. This package was originally created by Stephane Champely, from the University of Lyon.
+Julia port of `pwr` package in R. This package was originally created by Stephane Champely, from the University of Lyon. This package implemented power calculations along the lines of Cohen (1988) using in particular the same notations for effect
+sizes. Examples from the book are given.
 
 ## Installation
 To install `pwr`, use the following:
@@ -12,7 +13,27 @@ To use the package, start by `using pwr` in your session.
 
 ## Tests for power calculation
 
-All functions in the original R package was ported. For each family of tests,
+This package contains functions for basic power calculations using effect sizes and notations from Cohen (1988):
+
+- [pwr.AnovaTest](#pwr.AnovaTest): test for one-way balanced anova (ES=f)
+- [pwr.ChisqTest](#pwr.ChisqTest): chi-squared test (ES=w)
+- [pwr.F2Test](#pwr.F2Test): test for the general linear model (ES=f2)
+- [pwr.PTest](#pwr.PTest): test for one proportion (ES=h)
+- [pwr.RTest](#pwr.RTest): correlation test (ES=r)
+- [pwr.TwopTest](#pwr.TwopTest): test for two proportions (ES=h)
+- [pwr.Twop2nTest](#pwr.Two2nTest): test for two proportions (ES=h, unequal sample sizes)
+- [pwr.TTest](#pwr.TTest): one sample and two samples (equal sizes) t tests for means (ES=d)
+- [pwr.T2nTest](#pwr.T2nTest): two samples (different sizes) t test for means (ES=d)
+
+The following utility functions are also available:
+
+- [cohenES](#cohenES): computing effect sizes for all the previous tests corresponding to conventional effect sizes (small, medium, large)
+- [ESh](#ESh): computing effect size h for proportions tests
+- [ESw1](#ESw1): computing effect size w for the goodness of fit chi-squared test
+- [ESw2](#ESw2): computing effect size w for the association chi-squared test
+- [plot](#plot): plot sample sizes and their estimated power
+
+All functions in the original R package were ported. For each family of tests,
 four functions are additionally available that start with `power`, `samplesize`, `effectsize`, and `alpha` to specifically compute power, sample size, effect size, and alpha (Type I error), respectively. These functions were all exported, but the main tests were not and should be used with `pwr.` in front.
 
 `fzero` function in the `Roots.jl` module is used to solve power equations for unknown values, so you may see errors from it. These errors may arise because the unknown value could not be computed with the given values.
@@ -482,3 +503,192 @@ T-test power calculation
 julia> plot(tst)
 ```
 ![Image](plots/t2n.png?raw=true)
+
+## Utility functions
+
+### cohenES
+
+Compute effect sizes for all the previous tests corresponding to conventional effect sizes (small, medium, large)
+
+#### Options
+- `test` = `p`, `t`, `r`, `anova`, `chisq`, and `f2`
+- `size` = `small`, `medium`, or `large`
+
+#### Examples
+
+```jldoctest
+julia> cohenES(test="r",size="medium")
+0.3
+
+julia> effectsizeRTest(r=cohenES(test="r",size="medium"),power=0.8,alpha=0.05,alternative="two.sided")
+
+```
+
+### ESh
+
+Compute effect size `h` for two proportions
+
+#### Usage
+
+ESh(p1, p2)
+
+#### Arguments
+
+- `p1`
+            first proportion
+- `p2`
+            second proportion
+
+#### Examples
+
+```jldoctest
+julia> h = ESh(0.5,0.4)
+0.20135792079033088
+
+julia> pwr.PTest(h = h,n=60,alpha=0.05,alternative="two.sided")
+
+Proportion power calculation for binomial distribution (arcsine transformation)
+
+            h = 0.20135792079033088
+            n = 60
+        alpha = 0.05
+        power = 0.3447014091272134
+  alternative = two-sided
+```
+
+### ESw1
+
+Compute effect size w for two sets of k probabilities P0 (null hypothesis) and P1 (alternative hypothesis)
+
+#### Usage
+
+ESw1(P0, P1)
+
+#### Arguments
+
+- `P0`
+            A vector of the first set of k probabilities (null hypothesis)
+- `P1`
+            A vector of the second set of k probabilities (alternative hypothesis)
+
+#### Examples
+
+```jldoctest
+julia> P0 = fill(0.25,4)
+4-element Array{Float64,1}:
+ 0.25
+ 0.25
+ 0.25
+ 0.25
+
+julia> P1 = vcat(0.375,fill((1-0.375)/3,3))
+4-element Array{Float64,1}:
+ 0.375   
+ 0.208333
+ 0.208333
+ 0.208333
+
+julia> ESw1(P0,P1)
+0.2886751345948129
+
+julia> pwr.ChisqTest(w = ESw1(P0,P1),N=100,df=(4-1))
+
+Chi-square test power calculation
+
+            w = 0.2886751345948129
+            N = 100
+           df = 3
+        alpha = 0.05
+        power = 0.6739833924326929
+
+NOTE: `N` is the number of observations
+
+```
+
+### ESw2
+
+Compute effect size w for a two-way probability table corresponding to the alternative hypothesis
+in the chi-squared test of association in two-way contingency tables
+
+#### Usage
+
+ESw2(P)
+
+#### Arguments
+
+- `P`
+            A vector of the first set of k probabilities (null hypothesis)
+
+#### Examples
+
+```jldoctest
+julia> prob = [0.225 0.125 0.125 0.125; 0.16 0.16 0.04 0.04]
+2×4 Array{Float64,2}:
+ 0.225  0.125  0.125  0.125
+ 0.16   0.16   0.04   0.04
+
+julia> ESw2(prob)
+0.2558646068639514
+
+julia> pwr.ChisqTest(w = ESw2(prob),df=(2-1)*(4-1),N=200)
+
+Chi-square test power calculation
+
+            w = 0.2558646068639514
+            N = 200
+           df = 3
+        alpha = 0.05
+        power = 0.873322154622669
+
+NOTE: `N` is the number of observations
+
+```
+
+### plot
+
+Plot a diagram to illustrate the relationship of sample size and test power for a given set of parameters
+
+#### Usage
+
+plot(x; backend = gr)
+
+#### Arguments
+
+- `x`
+            object of a returned `struct` usually created by one of the power calculation functions,
+e.g., pwr.TTest()
+
+- `backend` = `gr`, `plotly`, `plotlyjs`, and `pyplot` (default: gr)
+
+#### Details
+
+Power calculations for the following tests are supported: t-test (pwr.TTest(), pwr.T2nTest()), chi
+squared test (pwr.ChisqTest()), one-way ANOVA (pwr.AnovaTest(), standard normal distribution
+(pwr.NormTest()), pearson correlation (pwr.RTest()), proportions (pwr.PTest(), pwr.TwopTest(), pwr.Twop2nTest())).
+
+`plot` is implemented using Plots.jl package. The default backend is `gr()`. When you want to modify the plot, first include `using Plots`.
+
+#### Examples
+
+```jldoctest
+julis> using pwr, Plots
+
+julia> tst = pwr.ChisqTest(w = .3,df=3,N=200)
+
+Chi-square test power calculation
+
+            w = 0.3
+            N = 200
+           df = 3
+        alpha = 0.05
+        power = 0.9590732637512994
+
+NOTE: `N` is the number of observations
+
+julia> plot(tst)
+
+julia> hline!([0.8])
+
+julia> png("chisq_with_hline.png")
+```
+![image](plots/chisq_with_hline.png?raw=true)
