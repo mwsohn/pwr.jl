@@ -15,22 +15,22 @@ To use the package, start by `using pwr` in your session.
 
 This package contains functions for basic power calculations using effect sizes and notations from Cohen (1988):
 
-- [pwr.AnovaTest](#pwr.AnovaTest): test for one-way balanced anova (ES=f)
-- [pwr.ChisqTest](#pwr.ChisqTest): chi-squared test (ES=w)
-- [pwr.F2Test](#pwr.F2Test): test for the general linear model (ES=f2)
-- [pwr.PTest](#pwr.PTest): test for one proportion (ES=h)
-- [pwr.RTest](#pwr.RTest): correlation test (ES=r)
-- [pwr.TwopTest](#pwr.TwopTest): test for two proportions (ES=h)
-- [pwr.Twop2nTest](#pwr.Two2nTest): test for two proportions (ES=h, unequal sample sizes)
-- [pwr.TTest](#pwr.TTest): one sample and two samples (equal sizes) t tests for means (ES=d)
-- [pwr.T2nTest](#pwr.T2nTest): two samples (different sizes) t test for means (ES=d)
+- [pwr.AnovaTest](#pwranovatest): test for one-way balanced anova (ES=f)
+- [pwr.ChisqTest](#pwrchisqtest): chi-squared test (ES=w)
+- [pwr.F2Test](#pwrf2test): test for the general linear model (ES=f2)
+- [pwr.PTest](#pwrptest): test for one proportion (ES=h)
+- [pwr.RTest](#pwrrtest): correlation test (ES=r)
+- [pwr.TwopTest](#pwrtwoptest): test for two proportions (ES=h)
+- [pwr.Twop2nTest](#pwrtwo2ntest): test for two proportions (ES=h, unequal sample sizes)
+- [pwr.TTest](#pwrttest): one sample and two samples (equal sizes) t tests for means (ES=d)
+- [pwr.T2nTest](#pwrt2ntest): two samples (different sizes) t test for means (ES=d)
 
 The following utility functions are also available:
 
-- [cohenES](#cohenES): computing effect sizes for all the previous tests corresponding to conventional effect sizes (small, medium, large)
-- [ESh](#ESh): computing effect size h for proportions tests
-- [ESw1](#ESw1): computing effect size w for the goodness of fit chi-squared test
-- [ESw2](#ESw2): computing effect size w for the association chi-squared test
+- [cohenES](#cohenes): computing effect sizes for all the previous tests corresponding to conventional effect sizes (small, medium, large)
+- [ESh](#esh): computing effect size h for proportions tests
+- [ESw1](#esw1): computing effect size w for the goodness of fit chi-squared test
+- [ESw2](#esw2): computing effect size w for the association chi-squared test
 - [plot](#plot): plot sample sizes and their estimated power
 
 All functions in the original R package were ported. For each family of tests,
@@ -677,7 +677,7 @@ Power calculations for the following tests are supported: t-test (pwr.TTest(), p
 squared test (pwr.ChisqTest()), one-way ANOVA (pwr.AnovaTest(), standard normal distribution
 (pwr.NormTest()), pearson correlation (pwr.RTest()), proportions (pwr.PTest(), pwr.TwopTest(), pwr.Twop2nTest())).
 
-`plot` is implemented using Plots.jl package. The default backend is `gr()`. When you want to modify the plot or save the plot into a graphics file, first include `using Plots`.
+`plot` is implemented using Plots.jl package. The default backend is `gr()`. When you want to modify the plot or save the plot into a graphics file, first use `Plots`.
 
 #### Examples
 
