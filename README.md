@@ -1,6 +1,6 @@
 # pwr
 Julia port of `pwr` package in R. This package was originally created by Stephane Champely, from the University of Lyon. This package implemented power calculations along the lines of Cohen (1988) using in particular the same notations for effect
-sizes. Examples from the book are given.
+sizes. Some examples from the book are used below.
 
 ## Installation
 To install `pwr`, use the following:
@@ -36,7 +36,7 @@ The following utility functions are also available:
 All functions in the original R package were ported. For each family of tests,
 four functions are additionally available that start with `power`, `samplesize`, `effectsize`, and `alpha` to specifically compute power, sample size, effect size, and alpha (Type I error), respectively. These functions were all exported, but the main tests were not and should be used with `pwr.` in front.
 
-`fzero` function in the `Roots.jl` module is used to solve power equations for unknown values, so you may see errors from it. These errors may arise because the unknown value could not be computed with the given values.
+`fzero` function in the `Roots.jl` module is used to solve power equations for unknown values, so you may see errors from it. These errors may arise because the unknown value could not be computed with the given values, notably sample sizes. If you have such an error, consider increasing the sample size or the effect size.
 
 ### pwr.AnovaTest
 

@@ -88,7 +88,7 @@ function T2nTest(;
     elseif alpha == 0.0
         alpha = alphaT2nTest(n1 = n1, n2 = n2, d = d, power = power, alternative = alternative)
     elseif d == 0.0
-        d = effectsizeT2nTest(n1 = n1, n2 = n2, d = d, alpha = alpha, power = power, alternative = alternative)
+        d = effectsizeT2nTest(n1 = n1, n2 = n2, alpha = alpha, power = power, alternative = alternative)
     elseif n2 == 0
         n2 = samplesizeT2nTest(n1 = n1, d = d, alpha = alpha, power = power, alternative = alternative)
     end
@@ -111,6 +111,3 @@ function T2nTest(;
             )
         )
 end
-
-#T2nTest(n1=200,n2=0,d=.2)
-#samplesizeT2nTest(n1=100,d=.3)
