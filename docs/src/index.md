@@ -1,7 +1,7 @@
 # pwr.jl Documentation
 
 ```@contents
-Pages = ["../intro.md"]
+Pages = ["intro.md"]
 ```
 
 ## Functions
