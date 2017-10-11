@@ -1,9 +1,17 @@
 # power analysis functions for mean for normal distribution with known variance
 
+"""
+    powerNormTest(d::Real = 0, n::Real = 0, alpha::Float64 = 0.05, alternative = "two.sided")
+
+Compute power of a sample of `n` observations to test the effect size `d`
+at type I error = `alpha` (default: 0.05). The effect size d = μ - μ₀. The option
+`alternative` is `two.sided` for H₀: μ = μ₀ vs H₁: μ ≠ μ₀, `less` for H₁: μ < μ₀, and `greater`
+for H₁: μ > μ₀.
+"""
 function powerNormTest(;
     d::Real = 0.0,
     n::Real = 0,
-    alpha::Real = 0.05,
+    alpha::Float64 = 0.05,
     alternative::String = "two")
 
     check_args(d=d,n=n,alpha=alpha)
@@ -26,6 +34,14 @@ function powerNormTest(;
     end
 end
 
+"""
+    samplesizeNormTest(d::Real = 0, alpha::Float64 = 0.05, power::Float64 = 0.8, alternative = "two.sided")
+
+Compute the sample size that can test the effect size `d` with power > `power` (default: 0.8)
+at type I error = `alpha` (default: 0.05). The effect size d = μ - μ₀. The option
+`alternative` is `two.sided` for H₀: μ = μ₀ vs H₁: μ ≠ μ₀, `less` for H₁: μ < μ₀, and `greater`
+for H₁: μ > μ₀.
+"""
 function samplesizeNormTest(;
     d::Real = 0.0,
     alpha::Real = 0.05,
@@ -37,6 +53,14 @@ function samplesizeNormTest(;
     return ceil(Int64,fzero(x->powerNormTest(n = x, d = d, alpha = alpha, alternative = alternative) - power, 2.0, 10.0^7))
 end
 
+"""
+    effectsizeNormTest(alpha::Float64 = 0.05, power::Float64 = 0.8, alternative = "two.sided")
+
+Compute the effect size that a sample size `n` can test with power > `power` (default: 0.8)
+at type I error = `alpha` (default: 0.05). The option
+`alternative` is `two.sided` for H₀: μ = μ₀ vs H₁: μ ≠ μ₀, `less` for H₁: μ < μ₀, and `greater`
+for H₁: μ > μ₀.
+"""
 function effectsizeNormTest(;
     n::Real = 0,
     alpha::Real = 0.05,
@@ -49,6 +73,14 @@ function effectsizeNormTest(;
     return fzero(x -> powerNormTest(n = n, d = x, alpha = alpha, alternative = alternative) - power,.001,100)
 end
 
+"""
+    alphaNormTest(d::Real = 0, n::Real = 0, power::Float64 = 0.8, alternative = "two.sided")
+
+Compute the probability of type I error that a sample size `n` has in testing
+the effect size `d` with power > `power` (default: 0.8) at type I error = `alpha` (default: 0.05).
+The effect size d = μ - μ₀. The option `alternative` is `two.sided` for H₀: μ = μ₀ vs H₁: μ ≠ μ₀,
+`less` for H₁: μ < μ₀, and `greater` for H₁: μ > μ₀.
+"""
 function alphaNormTest(;
     n::Real = 0,
     d::Real = 0.0,
@@ -61,6 +93,15 @@ function alphaNormTest(;
     return fzero(x->powerNormTest(n = n, d = d, alpha = x, alternative = alternative) - power, 1e-10, 1 - 1e-10)
 end
 
+"""
+    pwr.NormTest(d::Real = 0, n::Real = 0, alpha::Float64 = 0.0, power::Float64 = 0.0, alternative = "two.sided")
+
+Compute one of the test parameters such as sample size (`n`),
+effect size (`d`), type I error (`alpha`), and power (`power`).
+The parameter to be estimated must be set to zero (default).
+The effect size d = μ - μ₀. The option `alternative` is `two.sided` for H₀: μ = μ₀ vs H₁: μ ≠ μ₀,
+`less` for H₁: μ < μ₀, and `greater` for H₁: μ > μ₀.
+"""
 function NormTest(;
     n::Real = 0,
     d::Real = 0.0,

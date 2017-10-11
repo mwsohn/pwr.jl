@@ -7,7 +7,7 @@ plot(t)
 
 ## Exercise 6.1 p. 198 from Cohen (1988)
 #pwr.2p.test(h=0.3,n=80,sig.level=0.05,alternative="greater")
-t2 = pwr.TwopTest(h=0.3,n=80,power=0.0,alternative="greater")
+t2 = pwr.TwoPTest(h=0.3,n=80,power=0.0,alternative="greater")
 plot(t2)
 
 ## Exercise 7.3 p. 251
@@ -69,17 +69,17 @@ plot(t8)
 
 ## Exercise 6.1 p. 198 from Cohen (1988)
 #pwr.2p.test(h=0.3,n=80,sig.level=0.05,alternative="greater")
-t9 = pwr.TwopTest(h=0.3,n=80,alpha=0.05,alternative="greater",power=0.0)
+t9 = pwr.TwoPTest(h=0.3,n=80,alpha=0.05,alternative="greater",power=0.0)
 plot(t9)
 
 ## Exercise 6.3 P. 200 from Cohen (1988)
 #pwr.2p2n.test(h=0.30,n1=80,n2=245,sig.level=0.05,alternative="greater")
-t10 = pwr.Twop2nTest(h=0.30,n1=80,n2=245,alpha=0.05,power=0.0,alternative="greater")
+t10 = pwr.TwoP2nTest(h=0.30,n1=80,n2=245,alpha=0.05,power=0.0,alternative="greater")
 plot(t10)
 
 ## Exercise 6.7 p. 207 from Cohen (1988)
 #pwr.2p2n.test(h=0.20,n1=1600,power=0.9,sig.level=0.01,alternative="two.sided")
-t11 =pwr.Twop2nTest(h=0.20,n1=1600,power=0.9,alpha=0.01,alternative="two.sided")
+t11 =pwr.TwoP2nTest(h=0.20,n1=1600,power=0.9,alpha=0.01,alternative="two.sided")
 plot(t11)
 
 ## Exercise 8.1 P. 357 from Cohen (1988)

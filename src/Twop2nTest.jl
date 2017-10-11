@@ -1,10 +1,19 @@
 # power analysis functions for difference in two proportions in two different sample sizes
 
-function powerTwop2nTest(;
+"""
+    powerTwoP2nTest(h::Real = 0, n1::Real = 0, n2::Real = 0, alpha::Float64 = 0.05, alternative = "two.sided")
+
+Compute power of two samples of `n1` and `n2` observations (n1 ≠ n2) to test the effect size `h`
+for a difference between two independent proportions (P) at type I error = `alpha` (default: 0.05).
+The effect size `h` = ϕ₁ - ϕ₂ where ϕ = 2*asin(sqrt(P)). The option
+`alternative` is `two.sided` for H₀: ϕ₁ = ϕ₂ vs H₁: ϕ₁ ≠ ϕ₂, `less` for H₁: ϕ₁ < ϕ₂, and `greater`
+for H₁: ϕ₁ > ϕ₂.
+"""
+function powerTwoP2nTest(;
     h::Real = 0,
     n1::Real = 0,
     n2::Real = 0,
-    alpha::Real = 0.05,
+    alpha::Float64 = 0.05,
     alternative::String = "two"
     )
 
@@ -31,51 +40,91 @@ function powerTwop2nTest(;
     error("internal error")
 end
 
-function samplesizeTwop2nTest(;
+"""
+    samplesizeTwoP2nTest(h::Real = 0, n1::Real = 0,alpha::Float64 = 0.05, power::Float64 = 0.8, alternative = "two.sided")
+
+Compute the sample size `n2` of two unequal size samples to test the effect size `h`
+for a difference between two independent proportions (P) with power > `power` (default: 0.8)
+at type I error = `alpha` (default: 0.05).
+The effect size `h` = ϕ₁ - ϕ₂ where ϕ = 2*asin(sqrt(P)). The option
+`alternative` is `two.sided` for H₀: ϕ₁ = ϕ₂ vs H₁: ϕ₁ ≠ ϕ₂, `less` for H₁: ϕ₁ < ϕ₂, and `greater`
+for H₁: ϕ₁ > ϕ₂.
+"""
+function samplesizeTwoP2nTest(;
     h::Real = 0,
     n1::Real = 0,
-    alpha::Real = 0.05,
-    power::Real = 0.0,
+    alpha::Float64 = 0.05,
+    power::Float64 = 0.8,
     alternative::String = "two"
     )
 
     check_args(h=h,n1=n1,alpha=alpha,power=power)
 
-    return ceil(Int64,fzero(x->powerTwop2nTest(h = h, n1 = n1, n2 = x, alpha = alpha, alternative = alternative) - power, 2 + 1e-10, 1e+09))
+    return ceil(Int64,fzero(x->powerTwoP2nTest(h = h, n1 = n1, n2 = x, alpha = alpha, alternative = alternative) - power, 2 + 1e-10, 1e+09))
 end
 
-function effectsizeTwop2nTest(;
+"""
+    effectsizeTwoP2nTest(n1::Real = 0, n2::Real = 0, alpha::Float64 = 0.05, power::Float64 = 0.8, alternative = "two.sided")
+
+Compute the effect size that two equal size samples of `n` observations can detect for
+a difference between two independent proportions (P) with power > `power` (default: 0.8)
+at type I error = `alpha` (default: 0.05).
+The effect size `h` = ϕ₁ - ϕ₂ where ϕ = 2*asin(sqrt(P)). The option
+`alternative` is `two.sided` for H₀: ϕ₁ = ϕ₂ vs H₁: ϕ₁ ≠ ϕ₂, `less` for H₁: ϕ₁ < ϕ₂, and `greater`
+for H₁: ϕ₁ > ϕ₂.
+"""
+function effectsizeTwoP2nTest(;
     n1::Real = 0,
     n2::Real = 0,
-    alpha::Real = 0.05,
-    power::Real = 0.0,
+    alpha::Float64 = 0.05,
+    power::Float64 = 0.8,
     alternative::String = "two"
     )
 
     check_args(n1=n1,n2=n2,alpha=alpha,power=power)
 
-    return fzero(x->powerTwop2nTest(h = x, n1 = n1, n2 = n2, alpha = alpha, alternative = alternative) - power, 1e-10, 1 - 1e-10)
+    return fzero(x->powerTwoP2nTest(h = x, n1 = n1, n2 = n2, alpha = alpha, alternative = alternative) - power, 1e-10, 1 - 1e-10)
 end
 
+"""
+    alphaTwoP2nTest(h::Real = 0, n1::Real = 0, n2::Real = 0, power::Float64 = 0.05, alternative = "two.sided")
+
+Compute the probability of type I error that two unequal size samples of `n1` and `n2` observations have in detecting
+the effect size `h` for a difference between two independent proportions (P) with power > `power` (default: 0.8)
+at type I error = `alpha` (default: 0.05).
+The effect size `h` = ϕ₁ - ϕ₂ where ϕ = 2*asin(sqrt(P)). The option
+`alternative` is `two.sided` for H₀: ϕ₁ = ϕ₂ vs H₁: ϕ₁ ≠ ϕ₂, `less` for H₁: ϕ₁ < ϕ₂, and `greater`
+for H₁: ϕ₁ > ϕ₂.
+"""
 function alphaTwop2nTest(;
     h::Real = 0,
     n1::Real = 0,
     n2::Real = 0,
-    power::Real = 0.0,
+    power::Float64 = 0.0,
     alternative::String = "two"
     )
 
     check_args(h=h,n1=n1,n2=n2,power=power)
 
-    return fzero(x->powerTwop2nTest(h = h, n1 = n1, n2 = n2, alpha = x, alternative = alternative) - power, 1e-10, 1 - 1e-10)
+    return fzero(x->powerTwoP2nTest(h = h, n1 = n1, n2 = n2, alpha = x, alternative = alternative) - power, 1e-10, 1 - 1e-10)
 end
 
-function Twop2nTest(;
+"""
+    pwr.TwoP2nTest(h::Real = 0, n1::Real = 0, n2::Real = 0, alpha::Float64 = 0.0, power::Float64 = 0.0, alternative = "two.sided")
+
+Compute one of the test parameters such as sample size (`n2`),
+effect size (`h`), type I error (`alpha`), and power (`power`).
+The parameter to be estimated must be set to zero (default).
+The effect size `h` = ϕ₁ - ϕ₂ where ϕ = 2*asin(sqrt(P)).
+The option `alternative` is `two.sided` for H₀: ϕ₁ = ϕ₂ vs H₁: ϕ₁ ≠ ϕ₂, `less` for H₁: ϕ₁ < ϕ₂, and `greater`
+for H₁: ϕ₁ > ϕ₂.
+"""
+function TwoP2nTest(;
     h::Real = 0,
     n1::Real = 0,
     n2::Real = 0,
-    alpha::Real = 0.05,
-    power::Real = 0.0,
+    alpha::Float64 = 0.05,
+    power::Float64 = 0.0,
     alternative::String = "two"
     )
     if sum([x == 0 for x in (h,n1,n2,alpha,power)]) != 1
@@ -87,13 +136,13 @@ function Twop2nTest(;
     end
 
     if power == 0.0
-        power = powerTwop2nTest(h = h, n1 = n1, n2 = n2, alpha = alpha, alternative = alternative)
+        power = powerTwoP2nTest(h = h, n1 = n1, n2 = n2, alpha = alpha, alternative = alternative)
     elseif alpha == 0.0
-        alpha = alphaTwop2nTest(h = h, n1 = n1, n2 = n2, power = power, alternative = alternative)
+        alpha = alphaTwoP2nTest(h = h, n1 = n1, n2 = n2, power = power, alternative = alternative)
     elseif h == 0
-        h = effectsizeTwop2nTest(n1 = n1, n2 = n2, alpha = alpha, power = power, alternative = alternative)
+        h = effectsizeTwoP2nTest(n1 = n1, n2 = n2, alpha = alpha, power = power, alternative = alternative)
     elseif n2 == 0
-        n2 = samplesizeTwop2nTest(h = h, n1 = n1, alpha = alpha, power = power, alternative = alternative)
+        n2 = samplesizeTwoP2nTest(h = h, n1 = n1, alpha = alpha, power = power, alternative = alternative)
     end
 
     alt = Dict("two" => "two-sided", "two.sided" => "two-sided", "less" => "less", "greater" => "greater")

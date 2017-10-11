@@ -1,9 +1,18 @@
 # power analysis functions for difference in two proportions
 
-function powerTwopTest(;
+"""
+    powerTwoPTest(h::Real = 0, n::Real = 0, alpha::Float64 = 0.05, alternative = "two.sided")
+
+Compute power of two equal size samples of `n` observations to test the effect size `h`
+for a difference between two independent proportions (P) at type I error = `alpha` (default: 0.05).
+The effect size `h` = ϕ₁ - ϕ₂ where ϕ = 2*asin(sqrt(P)). The option
+`alternative` is `two.sided` for H₀: ϕ₁ = ϕ₂ vs H₁: ϕ₁ ≠ ϕ₂, `less` for H₁: ϕ₁ < ϕ₂, and `greater`
+for H₁: ϕ₁ > ϕ₂.
+"""
+function powerTwoPTest(;
     h::Real = 0,
     n::Real = 0,
-    alpha::Real = 0.05,
+    alpha::Float64 = 0.05,
     alternative::String = "two"
     )
 
@@ -30,59 +39,93 @@ function powerTwopTest(;
     error("internal error")
 end
 
-function samplesizeTwopTest(;
+"""
+    samplesizeTwoPTest(h::Real = 0, alpha::Float64 = 0.05, power::Float64 = 0.8, alternative = "two.sided")
+
+Compute the sample size `n` of two equal size samples to test the effect size `h`
+for a difference between two independent proportions (P) with power > `power` (default: 0.8)
+at type I error = `alpha` (default: 0.05).
+The effect size `h` = ϕ₁ - ϕ₂ where ϕ = 2*asin(sqrt(P)). The option
+`alternative` is `two.sided` for H₀: ϕ₁ = ϕ₂ vs H₁: ϕ₁ ≠ ϕ₂, `less` for H₁: ϕ₁ < ϕ₂, and `greater`
+for H₁: ϕ₁ > ϕ₂.
+"""
+function samplesizeTwoPTest(;
     h::Real = 0,
-    alpha::Real = 0.05,
-    power::Real = 0.0,
+    alpha::Float64 = 0.05,
+    power::Float64 = 0.8,
     alternative::String = "two"
     )
 
     check_args(h=h,alpha=alpha,power=power)
 
-    return ceil(Int64,fzero(x->powerTwopTest(h = h, n = x, alpha = alpha, alternative = alternative) - power, 2 + 1e-10, 1e+09))
+    return ceil(Int64,fzero(x->powerTwoPTest(h = h, n = x, alpha = alpha, alternative = alternative) - power, 2 + 1e-10, 1e+09))
 end
 
-# samplesizeTwopTest(h = .3) # 175
+"""
+    effectsizeTwoPTest(n::Real = 0, alpha::Float64 = 0.05, power::Float64 = 0.8, alternative = "two.sided")
 
-function effectsizeTwopTest(;
+Compute the effect size that two equal size samples of `n` observations can detect for
+a difference between two independent proportions (P) with power > `power` (default: 0.8)
+at type I error = `alpha` (default: 0.05).
+The effect size `h` = ϕ₁ - ϕ₂ where ϕ = 2*asin(sqrt(P)). The option
+`alternative` is `two.sided` for H₀: ϕ₁ = ϕ₂ vs H₁: ϕ₁ ≠ ϕ₂, `less` for H₁: ϕ₁ < ϕ₂, and `greater`
+for H₁: ϕ₁ > ϕ₂.
+"""
+function effectsizeTwoPTest(;
     n::Real = 0,
-    alpha::Real = 0.05,
-    power::Real = 0.0,
+    alpha::Float64 = 0.05,
+    power::Float64 = 0.8,
     alternative::String = "two"
     )
 
     check_args(n=n,alpha=alpha,power=power)
 
     if alternative == "less"
-        return fzero(x->powerTwopTest(h = x, n = n, alpha = alpha, alternative = alternative) - power, -10.0, 5.0)
+        return fzero(x->powerTwoPTest(h = x, n = n, alpha = alpha, alternative = alternative) - power, -10.0, 5.0)
     elseif alternative == "two"
-        return fzero(x->powerTwopTest(h = x, n = n, alpha = alpha, alternative = alternative) - power, 1e-10, 10.0)
+        return fzero(x->powerTwoPTest(h = x, n = n, alpha = alpha, alternative = alternative) - power, 1e-10, 10.0)
     elseif side == "greater"
-        return fzero(x->powerTwopTest(h = x, n = n, alpha = alpha, alternative = alternative) - power, -5.0, 10.0)
+        return fzero(x->powerTwoPTest(h = x, n = n, alpha = alpha, alternative = alternative) - power, -5.0, 10.0)
     end
 end
 
-# effectsizeTwopTest(n=175) # .3
+"""
+    alphaTwoPTest(h::Real = 0, n::Real = 0, power::Float64 = 0.8, alternative = "two.sided")
 
-function alphaTwopTest(;
+Compute the probability of type I error that two equal size samples of `n` observations have in detecting
+the effect size `h` for a difference between two independent proportions (P) with power > `power` (default: 0.8)
+at type I error = `alpha` (default: 0.05).
+The effect size `h` = ϕ₁ - ϕ₂ where ϕ = 2*asin(sqrt(P)). The option
+`alternative` is `two.sided` for H₀: ϕ₁ = ϕ₂ vs H₁: ϕ₁ ≠ ϕ₂, `less` for H₁: ϕ₁ < ϕ₂, and `greater`
+for H₁: ϕ₁ > ϕ₂.
+"""
+function alphaTwoPTest(;
     h::Real = 0,
     n::Real = 0,
-    power::Real = 0.0,
+    power::Float64 = 0.8,
     alternative::String = "two"
     )
 
     check_args(h=h,n=n,power=power)
 
-    return fzero(x->powerTwopTest(h = h, n = n, alpha = x, alternative = alternative) - power, 1e-10, 1 - 1e-10)
+    return fzero(x->powerTwoPTest(h = h, n = n, alpha = x, alternative = alternative) - power, 1e-10, 1 - 1e-10)
 end
 
-# alphaTwopTest(h=.3,n=175) # 0.0495
+"""
+    pwr.TwoPTest(h::Real = 0, n::Real = 0, alpha::Float64 = 0.0, power::Float64 = 0.0, alternative = "two.sided")
 
-function TwopTest(;
+Compute one of the test parameters such as sample size (`n`),
+effect size (`h`), type I error (`alpha`), and power (`power`).
+The parameter to be estimated must be set to zero (default).
+The effect size `h` = ϕ₁ - ϕ₂ where ϕ = 2*asin(sqrt(P)).
+The option `alternative` is `two.sided` for H₀: ϕ₁ = ϕ₂ vs H₁: ϕ₁ ≠ ϕ₂, `less` for H₁: ϕ₁ < ϕ₂, and `greater`
+for H₁: ϕ₁ > ϕ₂.
+"""
+function TwoPTest(;
     h::Real = 0,
     n::Real = 0,
-    alpha::Real = 0.05,
-    power::Real = 0.0,
+    alpha::Float64 = 0.0,
+    power::Float64 = 0.0,
     alternative::String = "two"
     )
     if sum([x == 0 for x in (h,n,alpha,power)]) != 1
@@ -90,17 +133,16 @@ function TwopTest(;
     end
 
     if power == 0.0
-        power = powerTwopTest(h = h, n = n, alpha = alpha, alternative = alternative)
+        power = powerTwoPTest(h = h, n = n, alpha = alpha, alternative = alternative)
     elseif alpha == 0.0
-        alpha = alphaTwopTest(h = h, n = n, power = power, alternative = alternative)
+        alpha = alphaTwoPTest(h = h, n = n, power = power, alternative = alternative)
     elseif h == 0
-        h = effectsizeTwopTest(n = n, alpha = alpha, power = power, alternative = alternative)
+        h = effectsizeTwoPTest(n = n, alpha = alpha, power = power, alternative = alternative)
     elseif n == 0
-        n = samplesizeTwopTest(h = h, alpha = alpha, power = power, alternative = alternative)
+        n = samplesizeTwoPTest(h = h, alpha = alpha, power = power, alternative = alternative)
     end
 
     alt = Dict("two" => "two-sided", "two.sided" => "two-sided","less" => "less", "greater" => "greater")
-    note = ""
 
     return htest(
         "Difference of proportion power calculation for binomial distribution (same sample)",
@@ -109,7 +151,6 @@ function TwopTest(;
             "n" => n,
             "alpha" => alpha,
             "power" => power,
-            "alternative" => alt[alternative],
-            "note" => note)
+            "alternative" => alt[alternative])
         )
 end

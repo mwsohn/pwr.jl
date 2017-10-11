@@ -1,11 +1,18 @@
 # power analysis functions for proportions
 
-using Distributions, Roots
+"""
+    powerPTest(h::Real = 0, n::Real = 0, alpha::Float64 = 0.05, alternative = "two.sided")
 
+Compute power of a sample of `n` observations to test the effect size `h`
+for one sample proportion (P) compared to a constant (c) at type I error = `alpha` (default: 0.05).
+The effect size `h` = ϕ₁ - ϕ₂ where ϕ₁ = 2*asin(sqrt(P)) and ϕ₂ = 2*asin(sqrt(c)). The option
+`alternative` is `two.sided` for H₀: ϕ₁ = ϕ₂ vs H₁: ϕ₁ ≠ ϕ₂, `less` for H₁: ϕ₁ < ϕ₂, and `greater`
+for H₁: ϕ₁ > ϕ₂.
+"""
 function powerPTest(;
     h::Real = 0,
     n::Real = 0,
-    alpha::Real = 0.05,
+    alpha::Float64 = 0.05,
     alternative::String = "two.sided"
     )
 
@@ -32,12 +39,19 @@ function powerPTest(;
     error("internal error")
 end
 
-#powerPTest(h=.3,n=100)
+"""
+    samplesizePTest(h::Real = 0, alpha::Float64 = 0.05, power::Float64 = 0.8, alternative = "two.sided")
 
+Compute the sample size to test the effect size `h` for one sample proportion (P) compared to a constant (c)
+with power > `power` (default: 0.8) and type I error = `alpha` (default: 0.05).
+The effect size `h` = ϕ₁ - ϕ₂ where ϕ₁ = 2*asin(sqrt(P)) and ϕ₂ = 2*asin(sqrt(c)). The option
+`alternative` is `two.sided` for H₀: ϕ₁ = ϕ₂ vs H₁: ϕ₁ ≠ ϕ₂, `less` for H₁: ϕ₁ < ϕ₂, and `greater`
+for H₁: ϕ₁ > ϕ₂.
+"""
 function samplesizePTest(;
     h::Real = 0,
-    alpha::Real = 0.05,
-    power::Real = 0.0,
+    alpha::Float64 = 0.05,
+    power::Float64 = 0.8,
     alternative::String = "two"
     )
 
@@ -46,8 +60,15 @@ function samplesizePTest(;
     return ceil(Int64,fzero(x->powerPTest(h = h, n = x, alpha = alpha, alternative = alternative) - power, 2 + 1e-10, 1e+09))
 end
 
-# samplesizePTest(h = .3) # 175
+"""
+    effectsizePTest(n::Real = 0, alpha::Float64 = 0.05, power::Float64 = 0.8, alternative = "two.sided")
 
+Compute the effect size that a sample size `n` can detect for one sample proportion (P) compared to a constant (c)
+with power > `power` (default: 0.8) and type I error = `alpha` (default: 0.05).
+The effect size `h` = ϕ₁ - ϕ₂ where ϕ₁ = 2*asin(sqrt(P)) and ϕ₂ = 2*asin(sqrt(c)). The option
+`alternative` is `two.sided` for H₀: ϕ₁ = ϕ₂ vs H₁: ϕ₁ ≠ ϕ₂, `less` for H₁: ϕ₁ < ϕ₂, and `greater`
+for H₁: ϕ₁ > ϕ₂.
+"""
 function effectsizePTest(;
     n::Real = 0,
     alpha::Real = 0.05,
@@ -60,12 +81,19 @@ function effectsizePTest(;
     return fzero(x->powerPTest(h = x, n = n, alpha = alpha, alternative = alternative) - power, 1e-10, 1 - 1e-10)
 end
 
-# effectsizePTest(n=175) # .3
+"""
+    alphaPTest(h::Real = 0, n::Real = 0, power::Float64 = 0.8, alternative = "two.sided")
 
+Compute the probability of type I error that a sample size `n` has in detecting the effect size `h`
+for one sample proportion (P) compared to a constant (c) with power > `power` (default: 0.8)
+and type I error = `alpha` (default: 0.05). The effect size `h` = ϕ₁ - ϕ₂ where ϕ₁ = 2*asin(sqrt(P)) and ϕ₂ = 2*asin(sqrt(c)).
+The option `alternative` is `two.sided` for H₀: ϕ₁ = ϕ₂ vs H₁: ϕ₁ ≠ ϕ₂, `less` for H₁: ϕ₁ < ϕ₂, and `greater`
+for H₁: ϕ₁ > ϕ₂.
+"""
 function alphaPTest(;
     h::Real = 0,
     n::Real = 0,
-    power::Real = 0.0,
+    power::Float64 = 0.8,
     alternative::String = "two"
     )
 
@@ -74,13 +102,21 @@ function alphaPTest(;
     return fzero(x->powerPTest(h = h, n = n, alpha = x, alternative = alternative) - power, 1e-10, 1 - 1e-10)
 end
 
-# alphaPTest(h=.3,n=175) # 0.0495
+"""
+    pwr.PTest(h::Real = 0, n::Real = 0, alpha::Float64 = 0.0, power::Float64 = 0.0, alternative = "two.sided")
 
+Compute one of the test parameters such as sample size (`n`),
+effect size (`h`), type I error (`alpha`), and power (`power`).
+The parameter to be estimated must be set to zero (default).
+The effect size `h` = ϕ₁ - ϕ₂ where ϕ₁ = 2*asin(sqrt(P)) and ϕ₂ = 2*asin(sqrt(c)).
+The option `alternative` is `two.sided` for H₀: ϕ₁ = ϕ₂ vs H₁: ϕ₁ ≠ ϕ₂, `less` for H₁: ϕ₁ < ϕ₂, and `greater`
+for H₁: ϕ₁ > ϕ₂.
+"""
 function PTest(;
     h::Real = 0,
     n::Real = 0,
-    alpha::Real = 0.05,
-    power::Real = 0.0,
+    alpha::Float64 = 0.0,
+    power::Float64 = 0.0,
     alternative::String = "two.sided"
     )
     if sum([x == 0 for x in (h,n,alpha,power)]) != 1

@@ -1,6 +1,5 @@
 # pwr
-Julia port of `pwr` package in R. This package was originally created by Stephane Champely, from the University of Lyon. This package implemented power calculations along the lines of Cohen (1988) using in particular the same notations for effect
-sizes. Some examples from the book are used below.
+Julia port of `pwr` package in R. This package was originally created by Stephane Champely, from the University of Lyon. This package implemented power calculations along the lines of Cohen (1988) using in particular the same notations for effect sizes. Some examples from the book are used below.
 
 ## Installation
 To install `pwr`, use the following:
@@ -48,7 +47,7 @@ Compute power for balanced one-way analysis of variance tests
 - `n` = number of observations per group
 - `f` = effect size
 - `alpha` = Type I error (default: 0.05)
-- `power` = 1 - Type II error
+- `power` = 1 - Type II error (default: 0.8)
 
 #### Functions:
 
@@ -96,7 +95,7 @@ Compute power of test or determine parameters to obtain target power (same as po
 - `w` = effect size
 - `df` = degree of freedom (depends of the chosen test)
 - `alpha` = Type I error (default: 0.05)
-- `power` = 1 - Type II error
+- `power` = 1 - Type II error (default: 0.8)
 
 #### Functions:
 
@@ -145,7 +144,7 @@ This function provides power calculations for the general linear model.
 - `v` = degree of freedom for denominator
 - `f2` = effect size
 - `alpha` = Type I error (default: 0.05)
-- `power` = 1 - Type II error
+- `power` = 1 - Type II error (default: 0.8)
 
 #### Functions:
 
@@ -180,7 +179,7 @@ Compute power for the mean of a normal distribution with known variance
 - `d` = effect size (μ - μ₀)
 - `n` = number of observations
 - `alpha` = Type I error (default: 0.05)
-- `power` = 1 - Type II error
+- `power` = 1 - Type II error (default: 0.8)
 - `alternative` = "less" for testing μ < μ₀, "two-sided" for μ = μ₀, and "greater" for μ > μ₀ (default: "two-sided")
 
 #### Functions:
@@ -314,7 +313,7 @@ Compute power for proportion tests (one sample). These calculations use arcsine 
 - `h` = effect size
 - `n` = number of observations per group
 - `alpha` = Type I error (default: 0.05)
-- `power` = 1 - Type II error
+- `power` = 1 - Type II error (default: 0.8)
 - `alternative` = "less" for testing p₁ < p₂, "two-sided" for p₁ = p₂, and "greater" for p₁ > p₂ (default: "two-sided")
 
 #### Functions:
@@ -360,7 +359,7 @@ Compute power for correlation test. These calculations use the Z’ transformati
 - `n` = number of observations per group
 - `r`= linear correlation coefficient
 - `alpha` = Type I error (default: 0.05)
-- `power` = 1 - Type II error
+- `power` = 1 - Type II error (default: 0.8)
 - `alternative` = "less", "two-sided", or "greater" (default: "two-sided")
 
 #### Functions:
@@ -415,7 +414,7 @@ Compute power for t-test of means (one sample, two samples and paired samples)
 - `d` = effect size
 - `n` = number of observations per group
 - `alpha` = Type I error (default: 0.05)
-- `power` = 1 - Type II error
+- `power` = 1 - Type II error (default: 0.8)
 - `sampletype` = "onesample" for one sample t-test or "twosample" for two sample t-test (default: "onesample")
 - `alternative` = "less" for testing μ₁ < μ₂, "two-sided" for μ₁ = μ₂, and "greater" for μ₁ > μ₂ (default: "two-sided")
 
@@ -466,8 +465,8 @@ Compute power of two samples (different sizes) t-tests of means.
 - `n1` = Number of observations in the first sample
 - `n2` = Number of observations in the second sample
 - `d` = Effect size
-- `alpha` = Type I error
-- `power` = Power of test (1 minus Type II error)
+- `alpha` = Type I error (default: 0.05)
+- `power` = Power of test (1 minus Type II error) (default: 0.8)
 - `alternative` = "less" for Hₐ:μ₁ < μ₂, "two-sided" for Hₐ:μ₁ = μ₂, and "greater" for Hₐ:μ₁ > μ₂ (default: "two-sided")
 
 #### Functions:
