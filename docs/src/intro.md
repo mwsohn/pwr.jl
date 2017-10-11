@@ -85,7 +85,7 @@ NOTE: `n` is the number in each group
 
 julia> plot(tst)
 ```
-![Image](https://github.com/mwsohn/pwr.jl/plots/anova.png?raw=true)
+![Image](../plots/anova.png?raw=true)
 
 ### pwr.ChisqTest
 
@@ -136,7 +136,7 @@ NOTE: `N` is the number of observations
 
 julia> plot(tst)
 ```
-![Image](https://github.com/mwsohn/pwr.jl/plots/chisq.png?raw=true)
+![Image](../plots/chisq.png?raw=true)
 
 ### pwr.F2Test
 
@@ -310,14 +310,14 @@ julia> plot(d,power,ylim=[0.,1.],legend=false,ylabel="Test Power = 1 - \\beta", 
 
 julia> hline!([0.05,0.80])
 ```
-![Image](https://github.com/mwsohn/pwr.jl/plots/f2_1.png?raw=true)
+![Image](../plots/f2_1.png?raw=true)
 
 ```jldoctest
 julia> plot(d,[powerNormTest(d=x,n=20,alpha=0.05,alternative="two.sided") for x in d],ylim=[0,1],legend=false)
 
 julia> hline!([0.05,0.8])
 ```
-![Image](https://github.com/mwsohn/pwr.jl/plots/f2_2.png?raw=true)
+![Image](../plots/f2_2.png?raw=true)
 
 ### pwr.PTest
 
@@ -365,7 +365,7 @@ Proportion power calculation for binomial distribution (arcsine transformation)
 
 julia> plot(tst)
 ```
-![Image](https://github.com/mwsohn/pwr.jl/plots/p.png?raw=true)
+![Image](../plots/p.png?raw=true)
 
 
 ### pwr.RTest
@@ -426,7 +426,7 @@ Approximate correlation power calculation (arctangh transformation)
 
 julia> plot(tst)
 ```
-![Image](https://github.com/mwsohn/pwr.jl/plots/r.png?raw=true)
+![Image](../plots/r.png?raw=true)
 
 
 ### pwr.TTest
@@ -481,7 +481,7 @@ NOTE: `n` is number in each group
 
 julia> plot(tst)
 ```
-![Image](https://github.com/mwsohn/pwr.jl/plots/t.png?raw=true)
+![Image](../plots/t.png?raw=true)
 
 ### pwr.T2nTest
 
@@ -531,7 +531,7 @@ T-test power calculation
 
 julia> plot(tst)
 ```
-![Image](https://github.com/mwsohn/pwr.jl/plots/t2n.png?raw=true)
+![Image](../plots/t2n.png?raw=true)
 
 ## Utility functions
 
@@ -744,4 +744,4 @@ julia> hline!([0.8])
 
 julia> png("chisq_with_hline.png")
 ```
-![image](https://github.com/mwsohn/pwr.jl/plots/chisq_with_hline.png?raw=true)
+![image](../plots/chisq_with_hline.png?raw=true)

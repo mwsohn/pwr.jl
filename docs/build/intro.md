@@ -119,7 +119,7 @@ julia> plot(tst)
 ```
 
 
-![Image](https://github.com/mwsohn/pwr.jl/plots/anova.png?raw=true)
+![Image](../plots/anova.png?raw=true)
 
 
 <a id='pwr.ChisqTest-1'></a>
@@ -187,7 +187,7 @@ julia> plot(tst)
 ```
 
 
-![Image](https://github.com/mwsohn/pwr.jl/plots/chisq.png?raw=true)
+![Image](../plots/chisq.png?raw=true)
 
 
 <a id='pwr.F2Test-1'></a>
@@ -394,7 +394,7 @@ julia> hline!([0.05,0.80])
 ```
 
 
-![Image](https://github.com/mwsohn/pwr.jl/plots/f2_1.png?raw=true)
+![Image](../plots/f2_1.png?raw=true)
 
 
 ```julia-repl
@@ -404,7 +404,7 @@ julia> hline!([0.05,0.8])
 ```
 
 
-![Image](https://github.com/mwsohn/pwr.jl/plots/f2_2.png?raw=true)
+![Image](../plots/f2_2.png?raw=true)
 
 
 <a id='pwr.PTest-1'></a>
@@ -470,7 +470,7 @@ julia> plot(tst)
 ```
 
 
-![Image](https://github.com/mwsohn/pwr.jl/plots/p.png?raw=true)
+![Image](../plots/p.png?raw=true)
 
 
 <a id='pwr.RTest-1'></a>
@@ -548,7 +548,7 @@ julia> plot(tst)
 ```
 
 
-![Image](https://github.com/mwsohn/pwr.jl/plots/r.png?raw=true)
+![Image](../plots/r.png?raw=true)
 
 
 <a id='pwr.TTest-1'></a>
@@ -618,7 +618,7 @@ julia> plot(tst)
 ```
 
 
-![Image](https://github.com/mwsohn/pwr.jl/plots/t.png?raw=true)
+![Image](../plots/t.png?raw=true)
 
 
 <a id='pwr.T2nTest-1'></a>
@@ -686,7 +686,7 @@ julia> plot(tst)
 ```
 
 
-![Image](https://github.com/mwsohn/pwr.jl/plots/t2n.png?raw=true)
+![Image](../plots/t2n.png?raw=true)
 
 
 <a id='Utility-functions-1'></a>
@@ -980,5 +980,5 @@ julia> png("chisq_with_hline.png")
 ```
 
 
-![image](https://github.com/mwsohn/pwr.jl/plots/chisq_with_hline.png?raw=true)
+![image](../plots/chisq_with_hline.png?raw=true)
 
