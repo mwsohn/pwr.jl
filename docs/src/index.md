@@ -1,6 +1,7 @@
 # pwr.jl Documentation
 
 ```@contents
+Pages = [..\\README.md]
 ```
 
 ## Functions

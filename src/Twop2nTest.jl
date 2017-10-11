@@ -96,7 +96,7 @@ The effect size `h` = ϕ₁ - ϕ₂ where ϕ = 2*asin(sqrt(P)). The option
 `alternative` is `two.sided` for H₀: ϕ₁ = ϕ₂ vs H₁: ϕ₁ ≠ ϕ₂, `less` for H₁: ϕ₁ < ϕ₂, and `greater`
 for H₁: ϕ₁ > ϕ₂.
 """
-function alphaTwop2nTest(;
+function alphaTwoP2nTest(;
     h::Real = 0,
     n1::Real = 0,
     n2::Real = 0,
