@@ -3,10 +3,6 @@
 
 # pwr.jl Documentation
 
-- [pwr](intro.md#pwr-1)
-    - [Installation](intro.md#Installation-1)
-    - [Tests for power calculation](intro.md#Tests-for-power-calculation-1)
-    - [Utility functions](intro.md#Utility-functions-1)
 
 
 <a id='Functions-1'></a>
