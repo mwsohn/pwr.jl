@@ -69,6 +69,7 @@ powerTTest()
 samplesizeTTest()
 effectsizeTTest()
 alphaTTest()
+plot()
 ```
 
 
@@ -76,6 +77,7 @@ alphaTTest()
 
 ## Index
 
+- [`RecipesBase.plot`](index.md#RecipesBase.plot-Tuple{})
 - [`pwr.alphaAnovaTest`](index.md#pwr.alphaAnovaTest-Tuple{})
 - [`pwr.alphaChisqTest`](index.md#pwr.alphaChisqTest-Tuple{})
 - [`pwr.alphaF2Test`](index.md#pwr.alphaF2Test-Tuple{})

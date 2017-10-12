@@ -61,6 +61,7 @@ powerTTest()
 samplesizeTTest()
 effectsizeTTest()
 alphaTTest()
+plot()
 ```
 
 ## Index
