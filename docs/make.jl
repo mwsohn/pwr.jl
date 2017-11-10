@@ -2,7 +2,9 @@ using Documenter, pwr
 
 push!(LOAD_PATH,"../src/")
 
-makedocs()
+makedocs(
+    doctest = false
+)
 
 deploydocs(
     deps = Deps.pip("mkdocs", "python-markdown-math"),

@@ -28,8 +28,8 @@ include("PTest.jl")
 include("RTest.jl")
 include("T2nTest.jl")
 include("TTest.jl")
-include("TwoP2nTest.jl")
-include("TwoPTest.jl")
+include("Twop2nTest.jl")
+include("TwopTest.jl")
 include("PowerPlot.jl")
 
 end
